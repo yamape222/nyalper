@@ -1,0 +1,10 @@
+yfinance
+pandas
+numpy
+ta
+requests
+pyyaml
+jpholiday
+feedparser
+colorama
+google-generativeai

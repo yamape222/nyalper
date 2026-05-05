@@ -1,0 +1,101 @@
+ticker,name,sector
+AAPL,Apple,テクノロジー
+MSFT,Microsoft,テクノロジー
+NVDA,NVIDIA,半導体
+AMZN,Amazon,テクノロジー
+META,Meta Platforms,テクノロジー
+GOOGL,Alphabet A,テクノロジー
+GOOG,Alphabet C,テクノロジー
+TSLA,Tesla,自動車
+AVGO,Broadcom,半導体
+COST,Costco,小売
+NFLX,Netflix,テクノロジー
+ASML,ASML Holding,半導体
+AMD,Advanced Micro Devices,半導体
+AZN,AstraZeneca,ヘルスケア
+QCOM,Qualcomm,半導体
+LIN,Linde,素材
+ISRG,Intuitive Surgical,ヘルスケア
+INTU,Intuit,テクノロジー
+TXN,Texas Instruments,半導体
+BKNG,Booking Holdings,サービス
+AMGN,Amgen,ヘルスケア
+PDD,PDD Holdings,小売
+CMCSA,Comcast,テクノロジー
+HON,Honeywell,機械
+PANW,Palo Alto Networks,テクノロジー
+VRTX,Vertex Pharmaceuticals,ヘルスケア
+ADP,ADP,サービス
+GILD,Gilead Sciences,ヘルスケア
+SBUX,Starbucks,食品
+MELI,MercadoLibre,テクノロジー
+INTC,Intel,半導体
+ADI,Analog Devices,半導体
+MDLZ,Mondelez International,食品
+PYPL,PayPal,金融
+REGN,Regeneron Pharmaceuticals,ヘルスケア
+LRCX,Lam Research,半導体
+KLAC,KLA Corporation,半導体
+CTAS,Cintas,サービス
+SNPS,Synopsys,テクノロジー
+CDNS,Cadence Design Systems,テクノロジー
+MRVL,Marvell Technology,半導体
+CSX,CSX,運輸
+ORLY,O'Reilly Automotive,小売
+MAR,Marriott International,サービス
+PCAR,PACCAR,機械
+ADSK,Autodesk,テクノロジー
+FTNT,Fortinet,テクノロジー
+MNST,Monster Beverage,食品
+WDAY,Workday,テクノロジー
+CSGP,CoStar Group,テクノロジー
+ABNB,Airbnb,サービス
+CPRT,Copart,サービス
+DXCM,DexCom,ヘルスケア
+FANG,Diamondback Energy,エネルギー
+FAST,Fastenal,小売
+IDXX,IDEXX Laboratories,ヘルスケア
+ODFL,Old Dominion Freight Line,運輸
+KDP,Keurig Dr Pepper,食品
+EA,Electronic Arts,テクノロジー
+MRNA,Moderna,ヘルスケア
+GEHC,GE HealthCare,ヘルスケア
+XEL,Xcel Energy,エネルギー
+EXC,Exelon,エネルギー
+CTSH,Cognizant Technology,テクノロジー
+CCEP,Coca-Cola Europacific,食品
+ON,ON Semiconductor,半導体
+ROST,Ross Stores,小売
+KHC,Kraft Heinz,食品
+VRSK,Verisk Analytics,サービス
+TTWO,Take-Two Interactive,テクノロジー
+BKR,Baker Hughes,エネルギー
+BIIB,Biogen,ヘルスケア
+PAYX,Paychex,サービス
+DLTR,Dollar Tree,小売
+ANSS,ANSYS,テクノロジー
+ZS,Zscaler,テクノロジー
+GFS,GlobalFoundries,半導体
+TEAM,Atlassian,テクノロジー
+ALGN,Align Technology,ヘルスケア
+ILMN,Illumina,ヘルスケア
+WBD,Warner Bros. Discovery,テクノロジー
+CDW,CDW,テクノロジー
+ENPH,Enphase Energy,エネルギー
+ZM,Zoom Video,テクノロジー
+LCID,Lucid Group,自動車
+RIVN,Rivian Automotive,自動車
+SIRI,Sirius XM,テクノロジー
+SMCI,Super Micro Computer,テクノロジー
+ARM,Arm Holdings,半導体
+CRWD,CrowdStrike,テクノロジー
+MSTR,MicroStrategy,テクノロジー
+PLTR,Palantir Technologies,テクノロジー
+AMAT,Applied Materials,半導体
+MU,Micron Technology,半導体
+NXPI,NXP Semiconductors,半導体
+MCHP,Microchip Technology,半導体
+MPWR,Monolithic Power Systems,半導体
+OKTA,Okta,テクノロジー
+SNOW,Snowflake,テクノロジー
+TTD,The Trade Desk,テクノロジー
