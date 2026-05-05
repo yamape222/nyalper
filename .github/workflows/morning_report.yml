@@ -1,0 +1,69 @@
+name: にゃるぱー秘書 朝のレポート
+
+on:
+  schedule:
+    # 毎朝8:30 JST = UTC 23:30（前日）
+    - cron: '30 23 * * 0-4'  # 日〜木（月〜金の朝に対応）
+  workflow_dispatch:  # 手動実行も可能
+
+jobs:
+  morning-report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: Pythonをセットアップ
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: 依存ライブラリをインストール
+        run: pip install -r requirements.txt
+
+      - name: config.yamlを生成（シークレットから）
+        run: |
+          cat > config.yaml << EOF
+          gemini_api_key: "${{ secrets.GEMINI_API_KEY }}"
+          gemini_model: "gemini-2.5-flash"
+
+          news_enabled: true
+          news_max_articles: 5
+          news_days: 3
+
+          score_threshold: 65
+          rr_threshold: 1.5
+          technical_top_n: 10
+
+          atr_multiplier_jp: 2.0
+          atr_multiplier_us: 2.5
+          macro_vix_warning: 25
+
+          dry_run_mode: false
+          backtest_years: 2
+          backtest_max_hold_days: 10
+          fee_rate: 0.001
+
+          api_wait_sec: 0.5
+          gemini_wait_sec: 6.0
+          http_timeout_sec: 15.0
+
+          portfolio: []
+          watchlist: []
+          EOF
+
+      - name: にゃるぱー秘書を実行
+        run: python main.py
+
+      - name: ダッシュボードをGitHub Pagesにデプロイ
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./outputs
+          publish_branch: gh-pages
+          destination_dir: .
+          keep_files: false
