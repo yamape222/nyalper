@@ -97,19 +97,14 @@ def main() -> None:
             sector_focus=macro_result.get("sector_focus", []),
         )
 
-        # 米国株スクリーニング（常に最新データ）
-        logger.info("米国株スクリーニングは今日（%s）の最新データで実行。", today)
-        screener_result["us"] = run_screening(
-            config=config_us,
-            universe_path=base_dir / "universe_us.csv",
-            market="us",
-            sector_focus=macro_result.get("sector_focus", []),
-        )
+        # 米国株スクリーニングは一旦保留（マクロ分析のみ）
+        # screener_result["us"] = run_screening(...)
 
-        screened_for_rr["jp"] = [x for x in screener_result["jp"] if int(x.get("score", 0)) >= score_threshold]
-        screened_for_rr["us"] = [x for x in screener_result["us"] if int(x.get("score", 0)) >= score_threshold]
-        rr_result["jp"]       = select_by_risk_reward(config_jp, screened_for_rr["jp"], market="jp")
-        rr_result["us"]       = select_by_risk_reward(config_us, screened_for_rr["us"], market="us")
+        # RR計算はscreener内で完了済み。rr>=rr_threshold かつ score>=score_threshold の銘柄をBUY候補とする
+        rr_th = float(config.get("rr_threshold", 1.2))
+        rr_result["jp"] = [x for x in screener_result["jp"]
+                           if x.get("rr", 0) >= rr_th and int(x.get("score", 0)) >= score_threshold]
+        screened_for_rr["jp"] = rr_result["jp"]
 
     # ポートフォリオ監視（祝日でも実行・直前営業日データ）
     portfolio_result = run_portfolio_monitor(config_jp)

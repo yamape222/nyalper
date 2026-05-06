@@ -237,6 +237,7 @@ def _get_sector_flow_ai(config: Dict, inflow_sectors: List[Dict], outflow_sector
 def run_macro_analysis(config: Dict) -> Dict:
     asof_date = config.get("analysis_asof_date")
 
+    # 主要11セクター + SOXX
     sector_etfs = {
         "SOXX": ["半導体", "テクノロジー"],
         "XLK":  ["テクノロジー"],
@@ -247,7 +248,26 @@ def run_macro_analysis(config: Dict) -> Dict:
         "XLY":  ["小売", "サービス"],
         "XLB":  ["素材"],
         "XLRE": ["不動産"],
+        "XLP":  ["生活必需品"],
+        "XLU":  ["公益事業"],
+        "XLC":  ["通信サービス"],
     }
+
+    # コモディティ・債券・為替データ取得
+    commodity_symbols = {
+        "crude_oil": "CL=F",    # WTI原油
+        "gold":      "GC=F",    # 金
+        "bond_10y":  "^TNX",    # 米10年債利回り
+        "usdjpy":    "JPY=X",   # USD/JPY
+    }
+    commodity_data = {}
+    for name, ticker in commodity_symbols.items():
+        df = download_ohlcv(ticker, period="1mo", interval="1d", asof_date=None)
+        if len(df) >= 2:
+            last  = float(df["Close"].iloc[-1])
+            prev  = float(df["Close"].iloc[-2])
+            chg_p = round((last - prev) / prev * 100, 2)
+            commodity_data[name] = {"last": round(last, 2), "change_pct": chg_p}
 
     # NYSE休場判定（常に今日）
     today = dt.date.today()
@@ -309,16 +329,16 @@ def run_macro_analysis(config: Dict) -> Dict:
     macro_data = {
         "macro_warning":    macro_warning,
         "vix":              round(vix_last, 2),
-        "indices":          index_stats,       # 主要指数（現在値・前日比含む）
-        "nikkei_range":     nikkei_range,      # 日経予想レンジ
+        "indices":          index_stats,
+        "nikkei_range":     nikkei_range,
+        "commodities":      commodity_data,    # 原油・金・米10年債・為替
         "top_sector_etf":   top_sector_etf,
         "top_sector_perf":  round(top_perf, 2) if top_sector_etf else 0.0,
         "sector_focus":     sector_focus,
         "etf_performances": etf_performances,
-        "inflow_sectors":   inflow_sectors,    # 資金流入TOP3
-        "outflow_sectors":  outflow_sectors,   # 資金流出TOP3
+        "inflow_sectors":   inflow_sectors,
+        "outflow_sectors":  outflow_sectors,
         "us_market_closed": us_market_closed,
-        # 後方互換性のため残す
         "nikkei":           nikkei_stats,
         "sp500":            sp500_stats,
     }

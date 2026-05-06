@@ -1,4 +1,7 @@
+import logging
 from typing import Dict, List
+
+logger = logging.getLogger(__name__)
 
 
 def select_by_risk_reward(config: Dict, items: List[Dict], market: str) -> List[Dict]:
@@ -20,6 +23,8 @@ def select_by_risk_reward(config: Dict, items: List[Dict], market: str) -> List[
         if risk <= 0:
             continue
         rr = reward / risk
+        logger.info("RR計算 %s: score=%d rr=%.2f (上値=%.1f 現在=%.1f 下値=%.1f) threshold=%.1f",
+            x.get("ticker","?"), int(x.get("score",0)), rr, upper, current, lower, rr_threshold)
         if rr >= rr_threshold and int(x["score"]) >= score_threshold:
             y = dict(x)
             y["upper_target"] = upper

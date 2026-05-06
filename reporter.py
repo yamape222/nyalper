@@ -63,6 +63,27 @@ def _render_macro(macro: Dict, macro_warning: bool, prev_biz_date: str = "") -> 
     lines.append(f"  {'VIX':<10} {_red(str(vix)) if vix >= 25 else _green(str(vix))}")
     lines.append("")
 
+    # ===== コモディティ・債券・為替 =====
+    comm = macro.get("commodities", {})
+    if comm:
+        lines.append(_bold("【コモディティ・債券・為替】"))
+        comm_map = [
+            ("crude_oil", "WTI原油",   "$", ""),
+            ("gold",      "金",        "$", ""),
+            ("bond_10y",  "米10年債",  "",  "%"),
+            ("usdjpy",    "USD/JPY",   "",  "円"),
+        ]
+        for key, name, prefix, suffix in comm_map:
+            d = comm.get(key, {})
+            if not d:
+                continue
+            last  = d.get("last", 0)
+            chg_p = d.get("change_pct", 0)
+            arrow = "▲" if chg_p >= 0 else "▼"
+            color = _green if chg_p >= 0 else _red
+            lines.append(f"  {name:<10} {_white(f'{prefix}{last:,.2f}{suffix}'):<20} {color(f'{arrow}{abs(chg_p):.2f}%')}")
+        lines.append("")
+
     # ===== 日経平均 予想レンジ =====
     nr = macro.get("nikkei_range", {})
     if nr:
@@ -137,6 +158,133 @@ def _render_macro(macro: Dict, macro_warning: bool, prev_biz_date: str = "") -> 
     return lines
 
 
+def _render_item(item: Dict, i: int, label: str = "") -> List[str]:
+    """BUY候補・テクニカル上位共通の銘柄描画"""
+    lines = []
+    is_jp  = item.get("market", item.get("_market", "jp")) == "jp"
+    cur    = f"¥{item['current_price']:,.1f}" if is_jp else f"${item['current_price']:,.2f}"
+    parts  = item.get("score_parts", {})
+    sent_score  = item.get("sentiment_score", 0)
+    sent_reason = item.get("sentiment_reason", "")
+    flag   = "🇯🇵" if is_jp else "🇺🇸"
+
+    # RR・利確・損切（あれば）
+    upper    = item.get("upper_target", 0)
+    lower    = item.get("lower_target", 0)
+    rr       = item.get("rr", 0)
+    has_rr   = upper > 0 and lower > 0
+
+    # RRがない場合はATRで計算して表示
+    if not has_rr:
+        current = item.get("current_price", 0)
+        atr14   = item.get("atr14", 0)
+        high20  = item.get("high20", 0)
+        low20   = item.get("low20", 0)
+        bb_upper = item.get("bb2_upper", 0)
+        if current > 0 and atr14 > 0:
+            upper = min(high20, bb_upper) if bb_upper > 0 else high20
+            lower = max(current - atr14 * 2.0, low20)
+            risk   = current - lower
+            reward = upper - current
+            rr     = reward / risk if risk > 0 else 0
+            has_rr = upper > 0 and lower > 0
+
+    tp_pct = (upper - item['current_price']) / item['current_price'] * 100 if item['current_price'] > 0 and upper > 0 else 0
+    sl_pct = (item['current_price'] - lower) / item['current_price'] * 100 if item['current_price'] > 0 and lower > 0 else 0
+    upper_str = f"¥{upper:,.1f}" if is_jp else f"${upper:,.2f}"
+    lower_str = f"¥{lower:,.1f}" if is_jp else f"${lower:,.2f}"
+
+    num = NUMS[i-1] if i <= len(NUMS) else f"{i}."
+    header = f"{num} {item['ticker']}　{item['name']}　{flag}"
+    if label:
+        header += f"  {_dim(label)}"
+    lines.append("")
+    lines.append(_bold(header))
+
+    if item.get("earnings_label"):
+        lines.append(_yellow(f"  {item['earnings_label']}（決算跨ぎに注意）"))
+
+    # AI判定
+    verdict_data = item.get("ai_verdict", {})
+    if verdict_data:
+        verdict    = verdict_data.get("verdict", "様子見")
+        confidence = verdict_data.get("confidence", "低")
+        reasons    = verdict_data.get("reasons", [])
+        risk       = verdict_data.get("risk", "")
+        fund_reason = verdict_data.get("fundamental_reason", "")
+        lines.append(f"  🤖 AI判定: {_verdict_style(verdict)}　確信度: {_cyan(confidence)}")
+        for r in reasons:
+            lines.append(f"  　・{r}")
+        if fund_reason:
+            lines.append(f"  　📊 ファンダ評価根拠: {_dim(fund_reason)}")
+        if risk:
+            lines.append(f"  　⚠️  リスク: {_yellow(risk)}")
+        lines.append("")
+
+    # エントリー・利確・損切
+    if has_rr:
+        lines.append(f"  📍 現在値: {_white(cur)}")
+        lines.append(f"  💰 エントリー目安: {_white(cur)}")
+        lines.append(f"  🎯 利確: {_green(upper_str)} (+{tp_pct:.1f}%)")
+        lines.append(f"  🛡️  損切: {_red(lower_str)} (-{sl_pct:.1f}%)")
+
+    # ファンダメンタル
+    fund = item.get("fundamentals", {})
+    if fund:
+        lines.append(f"  {_bold('📋 ファンダメンタル')}")
+        fa = []
+        if fund.get("per") is not None and fund["per"] != 0:   fa.append(f"PER:{fund['per']}倍")
+        if fund.get("pbr") is not None and fund["pbr"] != 0:   fa.append(f"PBR:{fund['pbr']}倍")
+        if fund.get("roe") is not None and fund["roe"] != 0:   fa.append(f"ROE:{fund['roe']}%")
+        if fund.get("eps") is not None and fund["eps"] != 0:   fa.append(f"EPS:{fund['eps']}")
+        if fa:
+            lines.append(f"  {_dim('  ' + ' / '.join(fa))}")
+        else:
+            lines.append(f"  {_dim('  （取得データなし）')}")
+        fb = []
+        if fund.get("revenue_growth") is not None and fund["revenue_growth"] != 0:
+            fb.append(f"売上YoY:{fund['revenue_growth']:+.1f}%")
+        if fund.get("earnings_growth") is not None and fund["earnings_growth"] != 0:
+            fb.append(f"利益YoY:{fund['earnings_growth']:+.1f}%")
+        if fund.get("operating_margin") is not None and fund["operating_margin"] != 0:
+            fb.append(f"営業利益率:{fund['operating_margin']:.1f}%")
+        if fb:
+            lines.append(f"  {_dim('  ' + ' / '.join(fb))}")
+        fc = []
+        if fund.get("dividend_yield") is not None and fund["dividend_yield"] != 0:
+            fc.append(f"配当:{fund['dividend_yield']:.1f}%")
+        if fund.get("target_upside") is not None and fund["target_upside"] != 0:
+            upside = fund["target_upside"]
+            fc.append(f"目標株価かい離:{_green(f'+{upside:.1f}%') if upside > 0 else _red(f'{upside:.1f}%')}")
+        val = item.get("ai_verdict", {}).get("valuation", "")
+        if val:
+            val_color = _green(val) if val == "割安" else _red(val) if val == "割高" else _yellow(val)
+            fc.append(f"バリュエーション:{val_color}")
+        if fc:
+            lines.append(f"  {'  '}{' / '.join(fc)}")
+
+    # スコア内訳（わかりやすく）
+    t = parts.get("trend", 0)
+    m = parts.get("momentum", 0)
+    h = parts.get("heat", 0)
+    f_score = parts.get("fundamental", 0)
+    score_color = _green(str(item["score"])) if item["score"] >= 80 else _yellow(str(item["score"]))
+    rr_str = f"{rr:.2f}" if rr > 0 else "-"
+
+    trend_bar    = "█" * (t  // 10) + "░" * ((50 - t)  // 10)
+    momentum_bar = "█" * (m  // 10) + "░" * ((20 - max(m, 0))  // 10)
+    heat_bar     = "█" * (max(h, 0) // 10) + "░" * ((20 - max(h, 0)) // 10)
+
+    lines.append(f"  📊 スコア: {score_color}点　RR: {_cyan(rr_str)}")
+    lines.append(f"  {_dim('  トレンド  ')} {_green(trend_bar)} {t}/50点")
+    lines.append(f"  {_dim('  モメンタム')} {_cyan(momentum_bar)} {m}/20点")
+    lines.append(f"  {_dim('  過熱感   ')} {'█' * (max(h,0)//10)}{'░' * ((20-max(h,0))//10)} {h}/20点")
+    lines.append(f"  {_dim('  ファンダ ')} F={f_score}点　N={sent_score:+d}点")
+    if sent_reason and sent_reason not in ("no news", "news disabled", "gemini api key not configured"):
+        lines.append(f"  {_dim(f'  ニュース: {sent_reason[:60]}')}")
+    return lines
+
+
 def _render_screening(rr_result: Dict, screening: Dict, config: Dict) -> List[str]:
     lines = []
     lines.append(_section("📈 BUY候補"))
@@ -149,85 +297,26 @@ def _render_screening(rr_result: Dict, screening: Dict, config: Dict) -> List[st
 
     if not all_picks:
         lines.append(_dim("  条件一致なし（スコア/RR未達）"))
-        lines.append("")
-        lines.append(_dim("  📋 参考：テクニカル上位銘柄"))
-        for market in ("jp", "us"):
-            for item in screening.get(market, [])[:3]:
-                parts = item.get("score_parts", {})
-                flag = "🇯🇵" if market == "jp" else "🇺🇸"
-                lines.append(f"  {flag} {item['ticker']} {item['name']} score={_yellow(str(item['score']))} T/M/H/F={parts.get('trend',0)}/{parts.get('momentum',0)}/{parts.get('heat',0)}/{parts.get('fundamental',0)}")
-        return lines
+    else:
+        for i, item in enumerate(all_picks[:10], 1):
+            lines.extend(_render_item(item, i))
 
-    for i, item in enumerate(all_picks[:10], 1):
-        is_jp = item["_market"] == "jp"
-        cur    = f"¥{item['current_price']:,.1f}" if is_jp else f"${item['current_price']:,.2f}"
-        upper  = f"¥{item.get('upper_target',0):,.1f}" if is_jp else f"${item.get('upper_target',0):,.2f}"
-        lower  = f"¥{item.get('lower_target',0):,.1f}" if is_jp else f"${item.get('lower_target',0):,.2f}"
-        tp_pct = (item.get('upper_target',0) - item['current_price']) / item['current_price'] * 100 if item['current_price'] > 0 else 0
-        sl_pct = (item['current_price'] - item.get('lower_target',0)) / item['current_price'] * 100 if item['current_price'] > 0 else 0
-        parts      = item.get("score_parts", {})
-        sent_score = item.get("sentiment_score", 0)
-        sent_reason= item.get("sentiment_reason", "")
-        flag       = "🇯🇵" if is_jp else "🇺🇸"
-
-        lines.append("")
-        lines.append(_bold(f"{NUMS[i-1]} {item['ticker']}　{item['name']}　{flag}"))
-
-        verdict_data = item.get("ai_verdict", {})
-        if verdict_data:
-            verdict    = verdict_data.get("verdict", "様子見")
-            confidence = verdict_data.get("confidence", "低")
-            reasons    = verdict_data.get("reasons", [])
-            risk       = verdict_data.get("risk", "")
-            lines.append(f"  🤖 AI判定: {_verdict_style(verdict)}　確信度: {_cyan(confidence)}")
-            for r in reasons:
-                lines.append(f"  　・{r}")
-            if risk:
-                lines.append(f"  　⚠️  リスク: {_yellow(risk)}")
-            lines.append("")
-
-        sent_icon = "💬 ポジティブ" if sent_score > 0 else "💬 ネガティブ" if sent_score < 0 else "💬 中立／なし"
-        lines.append(f"  {_cyan(sent_icon)}")
-        if sent_reason and sent_reason not in ("no news", "news disabled", "gemini api key not configured"):
-            lines.append(f"  {_dim(sent_reason[:60])}")
-
-        lines.append(f"  📍 現在値: {_white(cur)}")
-        lines.append(f"  💰 エントリー目安: {_white(cur)}")
-        lines.append(f"  🎯 利確: {_green(upper)} (+{tp_pct:.1f}%)")
-        lines.append(f"  🛡️  損切: {_red(lower)} (-{sl_pct:.1f}%)")
-
-        # ファンダメンタル詳細表示
-        fund = item.get("fundamentals", {})
-        if fund:
-            lines.append(f"  {_bold('📋 ファンダメンタル')}")
-            fa = []
-            if fund.get("per"):    fa.append(f"PER:{fund['per']}倍")
-            if fund.get("pbr"):    fa.append(f"PBR:{fund['pbr']}倍")
-            if fund.get("roe"):    fa.append(f"ROE:{fund['roe']}%")
-            if fund.get("eps"):    fa.append(f"EPS:{fund['eps']}")
-            if fa:
-                lines.append(f"  {_dim('  ' + ' / '.join(fa))}")
-            fb = []
-            if fund.get("revenue_growth"):   fb.append(f"売上YoY:{fund['revenue_growth']:+.1f}%")
-            if fund.get("earnings_growth"):  fb.append(f"利益YoY:{fund['earnings_growth']:+.1f}%")
-            if fund.get("operating_margin"): fb.append(f"営業利益率:{fund['operating_margin']:.1f}%")
-            if fb:
-                lines.append(f"  {_dim('  ' + ' / '.join(fb))}")
-            fc = []
-            if fund.get("dividend_yield"):  fc.append(f"配当:{fund['dividend_yield']:.1f}%")
-            if fund.get("target_upside"):
-                upside = fund['target_upside']
-                fc.append(f"目標株価かい離:{_green(f'+{upside:.1f}%') if upside > 0 else _red(f'{upside:.1f}%')}")
-            if fund.get("valuation") or item.get("ai_verdict", {}).get("valuation"):
-                val = item.get("ai_verdict", {}).get("valuation", "")
-                val_color = _green(val) if val == "割安" else _red(val) if val == "割高" else _yellow(val)
-                fc.append(f"バリュエーション:{val_color}")
-            if fc:
-                lines.append(f"  {'  '}{' / '.join(fc)}")
-
-        score_color = _green(str(item['score'])) if item['score'] >= 80 else _yellow(str(item['score']))
-        rr_str = f"{item['rr']:.2f}"
-        lines.append(f"  📊 スコア: {score_color}点　RR: {_cyan(rr_str)}　T:{parts.get('trend',0)} M:{parts.get('momentum',0)} H:{parts.get('heat',0)} F:{parts.get('fundamental',0)} N:{sent_score:+d}")
+    # ===== テクニカル上位（常に表示）=====
+    lines.append("")
+    lines.append(_section("📋 テクニカル上位銘柄（参考）"))
+    pick_tickers = {item["ticker"] for item in all_picks}
+    ref_count = 0
+    for market in ("jp", "us"):
+        for item in screening.get(market, []):
+            if ref_count >= 5:
+                break
+            # BUY候補に入っている銘柄はスキップ（重複を避ける）
+            if item["ticker"] in pick_tickers:
+                continue
+            lines.extend(_render_item(item, ref_count + 1, label="※RR未達"))
+            ref_count += 1
+    if ref_count == 0:
+        lines.append(_dim("  データなし"))
     return lines
 
 
@@ -457,11 +546,27 @@ if(!picks.length){{
     const vi=v.includes('BUY')?'🟢':v.includes('SELL')?'🔴':'🟡';
     const sw=Math.round((p.score/120)*100),sc=p.score>=80?'var(--green)':'var(--yellow)';
     const cc=vd.confidence==='高'?'tg':vd.confidence==='中'?'ty':'tr';
+    // ファンダメンタル
+    const fd=p.fundamentals||{{}};
+    const faItems=[];
+    if(fd.per&&fd.per!==0) faItems.push(`PER: <b>${{fd.per}}倍</b>`);
+    if(fd.pbr&&fd.pbr!==0) faItems.push(`PBR: <b>${{fd.pbr}}倍</b>`);
+    if(fd.roe&&fd.roe!==0) faItems.push(`ROE: <b class="${{fd.roe>=8?'green':'red'}}">${{fd.roe}}%</b>`);
+    if(fd.eps&&fd.eps!==0) faItems.push(`EPS: <b>${{fd.eps}}</b>`);
+    if(fd.revenue_growth&&fd.revenue_growth!==0) faItems.push(`売上YoY: <b class="${{fd.revenue_growth>=0?'green':'red'}}">${{fd.revenue_growth>=0?'+':''}}${{fd.revenue_growth}}%</b>`);
+    if(fd.earnings_growth&&fd.earnings_growth!==0) faItems.push(`利益YoY: <b class="${{fd.earnings_growth>=0?'green':'red'}}">${{fd.earnings_growth>=0?'+':''}}${{fd.earnings_growth}}%</b>`);
+    if(fd.operating_margin&&fd.operating_margin!==0) faItems.push(`営業利益率: <b>${{fd.operating_margin}}%</b>`);
+    if(fd.dividend_yield&&fd.dividend_yield!==0) faItems.push(`配当: <b>${{fd.dividend_yield}}%</b>`);
+    if(fd.target_upside&&fd.target_upside!==0) faItems.push(`目標株価: <b class="${{fd.target_upside>=0?'green':'red'}}">${{fd.target_upside>=0?'+':''}}${{fd.target_upside}}%</b>`);
+    const valStr=vd.valuation||'';
+    if(valStr) faItems.push(`評価: <b class="${{valStr==='割安'?'green':valStr==='割高'?'red':'yellow'}}">${{valStr}}</b>`);
+    const fundHtml=`<div style="background:var(--bg);border-radius:8px;padding:8px 10px;margin-top:8px;border:1px solid var(--border);"><div style="font-size:.58rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;margin-bottom:6px;">📋 ファンダメンタル</div>${{faItems.length?`<div style="display:flex;flex-wrap:wrap;gap:6px 14px;">${{faItems.map(f=>`<span style="font-size:.68rem;color:var(--text-dim);">${{f}}</span>`).join('')}}</div>`:'<span style="font-size:.63rem;color:var(--text-dim);">取得データなし</span>'}}</div>`;
     const d=document.createElement('div');
     d.className=`pc ${{vc}} fi`;d.style.animationDelay=`${{i*.1}}s`;
     d.innerHTML=`<div class="ph"><div><div style="font-size:.58rem;color:var(--text-dim);">${{NUMS[i]}} ${{flag}}</div><div class="pname">${{p.name}}</div><div class="pticker">${{p.ticker}}</div></div><div><div class="pprice">${{cur}}</div><div style="text-align:right;margin-top:4px;"><span class="tag t${{vcol[0]}}">${{vi}} ${{v||'様子見'}}</span></div></div></div>
 <div class="pm"><div class="met"><div class="ml">🎯 利確</div><div class="mv2 green">${{up}} <span style="font-size:.58rem;">+${{tpp}}%</span></div></div><div class="met"><div class="ml">🛡️ 損切</div><div class="mv2 red">${{lo}} <span style="font-size:.58rem;">-${{slp}}%</span></div></div><div class="met"><div class="ml">⚖️ RR</div><div class="mv2 cyan">${{(p.rr||0).toFixed(2)}}</div></div></div>
 ${{v?`<div class="aiv"><div class="aih">🤖 AI分析　<span class="tag ${{cc}}" style="font-size:.54rem;">確信度:${{vd.confidence||'-'}}</span></div><ul class="air">${{(vd.reasons||[]).map(r=>`<li>${{r}}</li>`).join('')}}</ul>${{vd.risk?`<div class="rsk">⚠️ ${{vd.risk}}</div>`:''}}</div>`:''}}
+${{fundHtml}}
 <div class="sb"><div class="sbf" style="width:${{sw}}%;background:${{sc}};"></div></div>
 <div class="sd"><span>Score:${{p.score}}/120</span><span>T:${{pt.trend||0}}</span><span>M:${{pt.momentum||0}}</span><span>H:${{pt.heat||0}}</span><span>F:${{pt.fundamental||0}}</span><span style="color:var(--${{ss>=0?'green':'red'}})">N:${{ss>=0?'+':''}}${{ss}}</span></div>`;
     pl.appendChild(d);
