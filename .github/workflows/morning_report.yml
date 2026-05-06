@@ -34,9 +34,9 @@ jobs:
           news_max_articles: 5
           news_days: 3
 
-          score_threshold: 65
-          rr_threshold: 1.5
-          technical_top_n: 10
+          score_threshold: 55
+          rr_threshold: 1.2
+          technical_top_n: 5
 
           atr_multiplier_jp: 2.0
           atr_multiplier_us: 2.5
@@ -49,7 +49,7 @@ jobs:
 
           api_wait_sec: 0.5
           gemini_wait_sec: 6.0
-          http_timeout_sec: 15.0
+          http_timeout_sec: 30.0
 
           portfolio: []
           watchlist: []
