@@ -384,11 +384,13 @@ def _build_html(report_payload: Dict) -> str:
             all_picks.append(item)
     all_picks.sort(key=lambda x: (x["score"], x["rr"]), reverse=True)
 
+    pick_tickers = {item["ticker"] for item in all_picks}
     ref_picks = []
     for market in ("jp", "us"):
-        for item in screening.get(market, [])[:3]:
-            item["_market"] = market
-            ref_picks.append(item)
+        for item in screening.get(market, []):
+            if item["ticker"] not in pick_tickers and len(ref_picks) < 5:
+                item["_market"] = market
+                ref_picks.append(item)
 
     picks_json    = json.dumps(all_picks[:10],  ensure_ascii=False, default=str)
     portfolio_json= json.dumps(portfolio,        ensure_ascii=False, default=str)
@@ -485,11 +487,16 @@ header{{display:flex;align-items:center;justify-content:space-between;padding:16
 
 <div class="sec">📊 マクロ環境</div>
 <div class="grid3" id="mg"></div>
+<div id="macro-detail"></div>
 
 <div class="grid2">
   <div>
     <div class="sec">📈 BUY候補</div>
     <div class="picks" id="pl"></div>
+    <div style="margin-top:16px;">
+      <div class="sec">📋 テクニカル上位銘柄（参考）</div>
+      <div class="picks" id="refs"></div>
+    </div>
   </div>
   <div>
     <div class="sec">🗂️ ポートフォリオ診断</div>
@@ -527,50 +534,140 @@ ${{macro.sector_ai&&macro.sector_ai.key_reason?`
 <div style="font-size:1rem;font-weight:900;color:var(--${{mw?'red':'green'}});">${{mw?'⚠️ エントリー非推奨':'✅ エントリー可'}}</div>
 <div style="font-size:.7rem;color:var(--text-dim);margin-top:6px;">決算跨ぎ銘柄は自動除外済み</div></div>`;
 
+// コモディティ・日経レンジ・資金流入流出
+const macroDetail=document.getElementById('macro-detail');
+if(macroDetail){{
+  const comm=macro.commodities||{{}};
+  const nr=macro.nikkei_range||{{}};
+  const inflow=macro.inflow_sectors||[];
+  const outflow=macro.outflow_sectors||[];
+  const flowAi=macro.sector_flow_ai||{{}};
+  let html='';
+
+  // コモディティ
+  const commMap=[['crude_oil','🛢️ WTI原油','$',''],['gold','🥇 金','$',''],['bond_10y','📊 米10年債','','%'],['usdjpy','💱 USD/JPY','','円']];
+  const commItems=commMap.filter(([k])=>comm[k]).map(([k,name,pre,suf])=>{{
+    const d=comm[k],chg=d.change_pct||0,up=chg>=0;
+    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);"><span style="font-size:.72rem;">${{name}}</span><span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;">${{pre}}${{d.last}}${{suf}} <span style="color:var(--${{up?'green':'red'}})">${{up?'▲':'▼'}}${{Math.abs(chg).toFixed(2)}}%</span></span></div>`;
+  }});
+  if(commItems.length){{
+    html+=`<div class="card" style="margin-bottom:12px;"><div class="card-title">💹 コモディティ・債券・為替</div>${{commItems.join('')}}</div>`;
+  }}
+
+  // 日経レンジ
+  if(nr.range_upper){{
+    html+=`<div class="card" style="margin-bottom:12px;"><div class="card-title">📐 日経平均 本日予想レンジ</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;">
+      <div style="background:var(--green-dim);border-radius:6px;padding:8px;text-align:center;"><div style="font-size:.58rem;color:var(--text-dim);">上値メド</div><div style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--green);">¥${{Number(nr.range_upper).toLocaleString()}}</div></div>
+      <div style="background:var(--red-dim);border-radius:6px;padding:8px;text-align:center;"><div style="font-size:.58rem;color:var(--text-dim);">下値メド</div><div style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--red);">¥${{Number(nr.range_lower).toLocaleString()}}</div></div>
+      <div style="background:var(--bg3);border-radius:6px;padding:8px;text-align:center;"><div style="font-size:.58rem;color:var(--text-dim);">レジスタンス</div><div style="font-family:'JetBrains Mono',monospace;font-size:.78rem;">¥${{Number(nr.resistance).toLocaleString()}}</div></div>
+      <div style="background:var(--bg3);border-radius:6px;padding:8px;text-align:center;"><div style="font-size:.58rem;color:var(--text-dim);">サポート</div><div style="font-family:'JetBrains Mono',monospace;font-size:.78rem;">¥${{Number(nr.support).toLocaleString()}}</div></div>
+    </div>
+    <div style="font-size:.6rem;color:var(--text-dim);margin-top:6px;">ATR(14): ¥${{Number(nr.atr).toLocaleString()}}</div></div>`;
+  }}
+
+  // 資金流入・流出
+  if(inflow.length||outflow.length){{
+    let flowHtml=`<div class="card" style="margin-bottom:12px;"><div class="card-title">💰 資金フロー</div>`;
+    if(inflow.length){{
+      flowHtml+=`<div style="font-size:.63rem;color:var(--green);font-weight:700;margin-bottom:4px;">▲ 流入TOP3</div>`;
+      inflow.forEach((s,i)=>{{
+        flowHtml+=`<div style="display:flex;justify-content:space-between;padding:3px 0;"><span style="font-size:.68rem;">${{i+1}}. ${{s.etf}} (${{(s.sectors||[]).join('/')}})</span><span style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--green);">+${{s.perf.toFixed(2)}}%</span></div>`;
+      }});
+    }}
+    if(outflow.length){{
+      flowHtml+=`<div style="font-size:.63rem;color:var(--red);font-weight:700;margin-top:6px;margin-bottom:4px;">▼ 流出TOP3</div>`;
+      outflow.forEach((s,i)=>{{
+        flowHtml+=`<div style="display:flex;justify-content:space-between;padding:3px 0;"><span style="font-size:.68rem;">${{i+1}}. ${{s.etf}} (${{(s.sectors||[]).join('/')}})</span><span style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--red);">${{s.perf.toFixed(2)}}%</span></div>`;
+      }});
+    }}
+    if(flowAi.inflow_reason){{
+      flowHtml+=`<div style="margin-top:8px;background:var(--bg);border-radius:6px;padding:8px;border:1px solid var(--border);font-size:.65rem;color:var(--text-dim);line-height:1.6;">
+        ${{flowAi.inflow_reason?`<div style="color:var(--cyan);margin-bottom:4px;">🤖 流入理由: ${{flowAi.inflow_reason}}</div>`:''}}
+        ${{flowAi.outflow_reason?`<div style="color:var(--text-dim);margin-bottom:4px;">🤖 流出理由: ${{flowAi.outflow_reason}}</div>`:''}}
+        ${{flowAi.overall?`<div style="color:var(--yellow);">💡 日本株への影響: ${{flowAi.overall}}</div>`:''}}
+      </div>`;
+    }}
+    flowHtml+='</div>';
+    html+=flowHtml;
+  }}
+
+  macroDetail.innerHTML=html;
+}}
+
+// 共通カード描画関数
+function buildCard(p, i, isRef) {{
+  const jp=p.market==='jp',fmt=v=>jp?`¥${{Number(v).toLocaleString()}}`:`$${{Number(v).toFixed(2)}}`;
+  const cur=fmt(p.current_price);
+  const upper=p.upper_target||0, lower=p.lower_target||0;
+  const up=fmt(upper),lo=fmt(lower);
+  const tpp=p.current_price>0&&upper>0?(((upper)-p.current_price)/p.current_price*100).toFixed(1):0;
+  const slp=p.current_price>0&&lower>0?((p.current_price-(lower))/p.current_price*100).toFixed(1):0;
+  const flag=jp?'🇯🇵':'🇺🇸',pt=p.score_parts||{{}},ss=p.sentiment_score||0;
+  const vd=p.ai_verdict||{{}},v=vd.verdict||'';
+  const vc=v.includes('BUY')?'buy':v.includes('SELL')?'sell':'watch';
+  const vcol=v.includes('BUY')?'green':v.includes('SELL')?'red':'yellow';
+  const vi=v.includes('BUY')?'🟢':v.includes('SELL')?'🔴':'🟡';
+  const sw=Math.round((p.score/120)*100),sc=p.score>=80?'var(--green)':'var(--yellow)';
+  const cc=vd.confidence==='高'?'tg':vd.confidence==='中'?'ty':'tr';
+  // ファンダメンタル
+  const fd=p.fundamentals||{{}};
+  const faItems=[];
+  if(fd.per&&fd.per!==0) faItems.push(`PER: <b>${{fd.per}}倍</b>`);
+  if(fd.pbr&&fd.pbr!==0) faItems.push(`PBR: <b>${{fd.pbr}}倍</b>`);
+  if(fd.roe&&fd.roe!==0) faItems.push(`ROE: <b class="${{fd.roe>=8?'green':'red'}}">${{fd.roe}}%</b>`);
+  if(fd.eps&&fd.eps!==0) faItems.push(`EPS: <b>${{fd.eps}}</b>`);
+  if(fd.revenue_growth&&fd.revenue_growth!==0) faItems.push(`売上YoY: <b class="${{fd.revenue_growth>=0?'green':'red'}}">${{fd.revenue_growth>=0?'+':''}}${{fd.revenue_growth}}%</b>`);
+  if(fd.earnings_growth&&fd.earnings_growth!==0) faItems.push(`利益YoY: <b class="${{fd.earnings_growth>=0?'green':'red'}}">${{fd.earnings_growth>=0?'+':''}}${{fd.earnings_growth}}%</b>`);
+  if(fd.operating_margin&&fd.operating_margin!==0) faItems.push(`営業利益率: <b>${{fd.operating_margin}}%</b>`);
+  if(fd.dividend_yield&&fd.dividend_yield!==0) faItems.push(`配当: <b>${{fd.dividend_yield}}%</b>`);
+  if(fd.target_upside&&fd.target_upside!==0) faItems.push(`目標株価: <b class="${{fd.target_upside>=0?'green':'red'}}">${{fd.target_upside>=0?'+':''}}${{fd.target_upside}}%</b>`);
+  const valStr=vd.valuation||'';
+  if(valStr) faItems.push(`評価: <b class="${{valStr==='割安'?'green':valStr==='割高'?'red':'yellow'}}">${{valStr}}</b>`);
+  const fundHtml=`<div style="background:var(--bg);border-radius:8px;padding:8px 10px;margin-top:8px;border:1px solid var(--border);"><div style="font-size:.58rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;margin-bottom:6px;">📋 ファンダメンタル</div>${{faItems.length?`<div style="display:flex;flex-wrap:wrap;gap:6px 14px;">${{faItems.map(f=>`<span style="font-size:.68rem;color:var(--text-dim);">${{f}}</span>`).join('')}}</div>`:'<span style="font-size:.63rem;color:var(--text-dim);">取得データなし</span>'}}</div>`;
+  // ファンダ根拠
+  const freason=vd.fundamental_reason?`<div style="font-size:.63rem;color:var(--cyan);margin-top:4px;">📊 ファンダ根拠: ${{vd.fundamental_reason}}</div>`:'';
+  // スコアバー
+  const t=pt.trend||0,m=pt.momentum||0,h=pt.heat||0,f=pt.fundamental||0;
+  const scoreBar=`<div style="margin-top:8px;background:var(--bg);border-radius:6px;padding:8px;border:1px solid var(--border);">
+    <div style="font-size:.58rem;color:var(--text-dim);margin-bottom:6px;font-family:'JetBrains Mono',monospace;">📊 スコア内訳 ${{p.score}}/120点　RR:${{(p.rr||0)>0?(p.rr||0).toFixed(2):'-'}}</div>
+    <div style="display:flex;flex-direction:column;gap:3px;">
+      <div style="display:flex;align-items:center;gap:6px;"><span style="font-size:.55rem;color:var(--text-dim);width:52px;">トレンド</span><div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:${{Math.min(t/50*100,100)}}%;height:100%;background:var(--green);border-radius:3px;"></div></div><span style="font-size:.55rem;color:var(--green);width:36px;">${{t}}/50</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><span style="font-size:.55rem;color:var(--text-dim);width:52px;">モメンタム</span><div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:${{Math.min(Math.max(m,0)/20*100,100)}}%;height:100%;background:var(--cyan);border-radius:3px;"></div></div><span style="font-size:.55rem;color:var(--cyan);width:36px;">${{m}}/20</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><span style="font-size:.55rem;color:var(--text-dim);width:52px;">過熱感</span><div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:${{Math.min(Math.max(h,0)/20*100,100)}}%;height:100%;background:var(--yellow);border-radius:3px;"></div></div><span style="font-size:.55rem;color:var(--yellow);width:36px;">${{h}}/20</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><span style="font-size:.55rem;color:var(--text-dim);width:52px;">ファンダ</span><div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:${{Math.min(Math.max(f,0)/20*100,100)}}%;height:100%;background:var(--blue);border-radius:3px;"></div></div><span style="font-size:.55rem;color:var(--blue);width:36px;">F=${{f}}</span></div>
+    </div>
+    <div style="font-size:.55rem;color:var(--text-dim);margin-top:4px;">N(ニュース): <span style="color:var(--${{ss>=0?'green':'red'}})">${{ss>=0?'+':''}}${{ss}}点</span></div>
+  </div>`;
+  const refLabel=isRef?`<span class="tag ty" style="font-size:.54rem;">※RR未達</span>`:'';
+  const earningsLabel=p.earnings_label?`<div style="font-size:.63rem;color:var(--yellow);margin-top:4px;">${{p.earnings_label}}（決算跨ぎに注意）</div>`:'';
+  const d=document.createElement('div');
+  d.className=`pc ${{isRef?'watch':vc}} fi`;d.style.animationDelay=`${{i*.1}}s`;
+  d.innerHTML=`<div class="ph"><div><div style="font-size:.58rem;color:var(--text-dim);">${{NUMS[i]}} ${{flag}} ${{refLabel}}</div><div class="pname">${{p.name}}</div><div class="pticker">${{p.ticker}}</div></div><div><div class="pprice">${{cur}}</div><div style="text-align:right;margin-top:4px;"><span class="tag t${{isRef?'y':vcol[0]}}">${{isRef?'参考':(vi+' '+(v||'様子見'))}}</span></div></div></div>
+${{earningsLabel}}
+${{upper>0&&lower>0?`<div class="pm"><div class="met"><div class="ml">🎯 利確</div><div class="mv2 green">${{up}} <span style="font-size:.58rem;">+${{tpp}}%</span></div></div><div class="met"><div class="ml">🛡️ 損切</div><div class="mv2 red">${{lo}} <span style="font-size:.58rem;">-${{slp}}%</span></div></div><div class="met"><div class="ml">⚖️ RR</div><div class="mv2 cyan">${{(p.rr||0).toFixed(2)}}</div></div></div>`:'<div style="padding:4px 0;font-size:.63rem;color:var(--text-dim);">📍 現在値: ${{cur}}</div>'}}
+${{v&&!isRef?`<div class="aiv"><div class="aih">🤖 AI分析　<span class="tag ${{cc}}" style="font-size:.54rem;">確信度:${{vd.confidence||'-'}}</span></div><ul class="air">${{(vd.reasons||[]).map(r=>`<li>${{r}}</li>`).join('')}}</ul>${{freason}}${{vd.risk?`<div class="rsk">⚠️ ${{vd.risk}}</div>`:''}}</div>`:''}}
+${{fundHtml}}
+${{scoreBar}}`;
+  return d;
+}}
+
 // BUY候補
 const pl=document.getElementById('pl');
 if(!picks.length){{
-  let h='<div class="empty">条件一致なし（スコア/RR未達）<br><br>📋 参考：テクニカル上位銘柄</div>';
-  refs.forEach(p=>{{const pt=p.score_parts||{{}};h+=`<div class="pc watch fi"><div class="ph"><div><div class="pname">${{p.name}}</div><div class="pticker">${{p.ticker}}</div></div><span class="tag ty">参考</span></div><div class="sd"><span>Score:${{p.score}}</span><span>T:${{pt.trend||0}}</span><span>M:${{pt.momentum||0}}</span><span>H:${{pt.heat||0}}</span><span>F:${{pt.fundamental||0}}</span></div></div>`;}});
-  pl.innerHTML=h;
+  pl.innerHTML='<div class="empty">条件一致なし（スコア/RR未達）</div>';
 }}else{{
-  picks.forEach((p,i)=>{{
-    const jp=p.market==='jp',fmt=v=>jp?`¥${{Number(v).toLocaleString()}}`:`$${{Number(v).toFixed(2)}}`;
-    const cur=fmt(p.current_price),up=fmt(p.upper_target||0),lo=fmt(p.lower_target||0);
-    const tpp=p.current_price>0?(((p.upper_target||0)-p.current_price)/p.current_price*100).toFixed(1):0;
-    const slp=p.current_price>0?((p.current_price-(p.lower_target||0))/p.current_price*100).toFixed(1):0;
-    const flag=jp?'🇯🇵':'🇺🇸',pt=p.score_parts||{{}},ss=p.sentiment_score||0;
-    const vd=p.ai_verdict||{{}},v=vd.verdict||'';
-    const vc=v.includes('BUY')?'buy':v.includes('SELL')?'sell':'watch';
-    const vcol=v.includes('BUY')?'green':v.includes('SELL')?'red':'yellow';
-    const vi=v.includes('BUY')?'🟢':v.includes('SELL')?'🔴':'🟡';
-    const sw=Math.round((p.score/120)*100),sc=p.score>=80?'var(--green)':'var(--yellow)';
-    const cc=vd.confidence==='高'?'tg':vd.confidence==='中'?'ty':'tr';
-    // ファンダメンタル
-    const fd=p.fundamentals||{{}};
-    const faItems=[];
-    if(fd.per&&fd.per!==0) faItems.push(`PER: <b>${{fd.per}}倍</b>`);
-    if(fd.pbr&&fd.pbr!==0) faItems.push(`PBR: <b>${{fd.pbr}}倍</b>`);
-    if(fd.roe&&fd.roe!==0) faItems.push(`ROE: <b class="${{fd.roe>=8?'green':'red'}}">${{fd.roe}}%</b>`);
-    if(fd.eps&&fd.eps!==0) faItems.push(`EPS: <b>${{fd.eps}}</b>`);
-    if(fd.revenue_growth&&fd.revenue_growth!==0) faItems.push(`売上YoY: <b class="${{fd.revenue_growth>=0?'green':'red'}}">${{fd.revenue_growth>=0?'+':''}}${{fd.revenue_growth}}%</b>`);
-    if(fd.earnings_growth&&fd.earnings_growth!==0) faItems.push(`利益YoY: <b class="${{fd.earnings_growth>=0?'green':'red'}}">${{fd.earnings_growth>=0?'+':''}}${{fd.earnings_growth}}%</b>`);
-    if(fd.operating_margin&&fd.operating_margin!==0) faItems.push(`営業利益率: <b>${{fd.operating_margin}}%</b>`);
-    if(fd.dividend_yield&&fd.dividend_yield!==0) faItems.push(`配当: <b>${{fd.dividend_yield}}%</b>`);
-    if(fd.target_upside&&fd.target_upside!==0) faItems.push(`目標株価: <b class="${{fd.target_upside>=0?'green':'red'}}">${{fd.target_upside>=0?'+':''}}${{fd.target_upside}}%</b>`);
-    const valStr=vd.valuation||'';
-    if(valStr) faItems.push(`評価: <b class="${{valStr==='割安'?'green':valStr==='割高'?'red':'yellow'}}">${{valStr}}</b>`);
-    const fundHtml=`<div style="background:var(--bg);border-radius:8px;padding:8px 10px;margin-top:8px;border:1px solid var(--border);"><div style="font-size:.58rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;margin-bottom:6px;">📋 ファンダメンタル</div>${{faItems.length?`<div style="display:flex;flex-wrap:wrap;gap:6px 14px;">${{faItems.map(f=>`<span style="font-size:.68rem;color:var(--text-dim);">${{f}}</span>`).join('')}}</div>`:'<span style="font-size:.63rem;color:var(--text-dim);">取得データなし</span>'}}</div>`;
-    const d=document.createElement('div');
-    d.className=`pc ${{vc}} fi`;d.style.animationDelay=`${{i*.1}}s`;
-    d.innerHTML=`<div class="ph"><div><div style="font-size:.58rem;color:var(--text-dim);">${{NUMS[i]}} ${{flag}}</div><div class="pname">${{p.name}}</div><div class="pticker">${{p.ticker}}</div></div><div><div class="pprice">${{cur}}</div><div style="text-align:right;margin-top:4px;"><span class="tag t${{vcol[0]}}">${{vi}} ${{v||'様子見'}}</span></div></div></div>
-<div class="pm"><div class="met"><div class="ml">🎯 利確</div><div class="mv2 green">${{up}} <span style="font-size:.58rem;">+${{tpp}}%</span></div></div><div class="met"><div class="ml">🛡️ 損切</div><div class="mv2 red">${{lo}} <span style="font-size:.58rem;">-${{slp}}%</span></div></div><div class="met"><div class="ml">⚖️ RR</div><div class="mv2 cyan">${{(p.rr||0).toFixed(2)}}</div></div></div>
-${{v?`<div class="aiv"><div class="aih">🤖 AI分析　<span class="tag ${{cc}}" style="font-size:.54rem;">確信度:${{vd.confidence||'-'}}</span></div><ul class="air">${{(vd.reasons||[]).map(r=>`<li>${{r}}</li>`).join('')}}</ul>${{vd.risk?`<div class="rsk">⚠️ ${{vd.risk}}</div>`:''}}</div>`:''}}
-${{fundHtml}}
-<div class="sb"><div class="sbf" style="width:${{sw}}%;background:${{sc}};"></div></div>
-<div class="sd"><span>Score:${{p.score}}/120</span><span>T:${{pt.trend||0}}</span><span>M:${{pt.momentum||0}}</span><span>H:${{pt.heat||0}}</span><span>F:${{pt.fundamental||0}}</span><span style="color:var(--${{ss>=0?'green':'red'}})">N:${{ss>=0?'+':''}}${{ss}}</span></div>`;
-    pl.appendChild(d);
-  }});
+  picks.forEach((p,i)=>{{ pl.appendChild(buildCard(p,i,false)); }});
+}}
+
+// テクニカル上位（参考）
+const refsEl=document.getElementById('refs');
+if(refsEl){{
+  if(!refs.length){{
+    refsEl.innerHTML='<div class="empty">データなし</div>';
+  }}else{{
+    refs.forEach((p,i)=>{{ refsEl.appendChild(buildCard(p,i,true)); }});
+  }}
 }}
 
 // ポートフォリオ
