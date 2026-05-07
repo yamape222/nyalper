@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>にゃるぱー秘書 2026-05-07</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0c10;--bg2:#0f1117;--bg3:#161b22;--border:#21262d;--green:#3fb950;--green-dim:#1a4a23;--red:#f85149;--red-dim:#4a1a1a;--yellow:#e3b341;--yellow-dim:#4a3a1a;--blue:#58a6ff;--blue-dim:#1a2f4a;--cyan:#79c0ff;--text:#e6edf3;--text-dim:#8b949e;--accent:#f0c040;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Zen Kaku Gothic New',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(63,185,80,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(63,185,80,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+.wrap{max-width:1280px;margin:0 auto;padding:16px;position:relative;z-index:1;}
+header{display:flex;align-items:center;justify-content:space-between;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:24px;flex-wrap:wrap;gap:12px;}
+.logo{display:flex;align-items:center;gap:12px;}
+.logo-icon{font-size:1.8rem;animation:float 3s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.logo-text{font-size:1.3rem;font-weight:900;color:var(--accent);}
+.logo-sub{font-size:.65rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;}
+.badge{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--text-dim);background:var(--bg3);border:1px solid var(--border);padding:5px 12px;border-radius:6px;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+.grid2{display:grid;grid-template-columns:2fr 1fr;gap:12px;}
+@media(max-width:900px){.grid2{grid-template-columns:1fr;}}
+@media(max-width:600px){.grid3{grid-template-columns:1fr 1fr;}}
+@media(max-width:400px){.grid3{grid-template-columns:1fr;}}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(63,185,80,.3),transparent);}
+.card-title{font-size:.62rem;font-family:'JetBrains Mono',monospace;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;}
+.mv{font-size:1.9rem;font-weight:900;font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:4px;}
+.tag{display:inline-flex;align-items:center;gap:3px;font-size:.62rem;padding:2px 8px;border-radius:20px;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.tg{background:var(--green-dim);color:var(--green);border:1px solid rgba(63,185,80,.3);}
+.tr{background:var(--red-dim);color:var(--red);border:1px solid rgba(248,81,73,.3);}
+.ty{background:var(--yellow-dim);color:var(--yellow);border:1px solid rgba(227,179,65,.3);}
+.tb{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(88,166,255,.3);}
+.sec{font-size:.62rem;font-family:'JetBrains Mono',monospace;color:var(--text-dim);text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.sec::after{content:'';flex:1;height:1px;background:var(--border);}
+.picks{display:flex;flex-direction:column;gap:10px;}
+.pc{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px;border-left:3px solid var(--border);transition:border-color .2s;}
+.pc.buy{border-left-color:var(--green);} .pc.sell{border-left-color:var(--red);} .pc.watch{border-left-color:var(--yellow);}
+.ph{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
+.pname{font-weight:700;font-size:.88rem;} .pticker{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--cyan);}
+.pprice{font-family:'JetBrains Mono',monospace;font-size:.95rem;font-weight:700;text-align:right;}
+.pm{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:10px 0;}
+.met{background:var(--bg);border-radius:6px;padding:6px 8px;}
+.ml{font-size:.54rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;margin-bottom:2px;}
+.mv2{font-size:.78rem;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.aiv{background:var(--bg);border-radius:8px;padding:10px;margin-top:8px;border:1px solid var(--border);}
+.aih{display:flex;align-items:center;gap:6px;font-size:.62rem;color:var(--text-dim);margin-bottom:6px;font-family:'JetBrains Mono',monospace;}
+.air{list-style:none;} .air li{font-size:.7rem;color:var(--text-dim);padding:2px 0;display:flex;gap:6px;}
+.air li::before{content:'·';color:var(--green);font-weight:900;}
+.rsk{font-size:.66rem;color:var(--yellow);margin-top:6px;}
+.sb{height:3px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:8px;}
+.sbf{height:100%;border-radius:2px;}
+.sd{display:flex;gap:8px;margin-top:4px;flex-wrap:wrap;}
+.sd span{font-size:.56rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;}
+.pi{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);}
+.pi:last-child{border-bottom:none;}
+.pn{font-weight:700;font-size:.83rem;} .pt{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--cyan);}
+.ptsl{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--text-dim);text-align:right;margin-top:2px;}
+.btg{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.bti{background:var(--bg3);border-radius:8px;padding:10px;}
+.btl{font-size:.58rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;margin-bottom:4px;}
+.btv{font-size:.95rem;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.green{color:var(--green);} .red{color:var(--red);} .yellow{color:var(--yellow);} .cyan{color:var(--cyan);}
+.fi{animation:fi .4s ease forwards;opacity:0;}
+@keyframes fi{to{opacity:1;transform:translateY(0)}from{opacity:0;transform:translateY(8px)}}
+.empty{text-align:center;padding:32px;color:var(--text-dim);font-size:.8rem;}
+::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-track{background:var(--bg);} ::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo">
+    <div class="logo-icon">🐱</div>
+    <div><div class="logo-text">にゃるぱー秘書</div><div class="logo-sub">NYARUPAR HISHO TRADING ASSISTANT v3.0</div></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div class="badge">2026-05-07</div>
+    <div class="dot"></div>
+  </div>
+</header>
+
+<div class="sec">📊 マクロ環境</div>
+<div class="grid3" id="mg"></div>
+
+<div class="grid2">
+  <div>
+    <div class="sec">📈 BUY候補</div>
+    <div class="picks" id="pl"></div>
+  </div>
+  <div>
+    <div class="sec">🗂️ ポートフォリオ診断</div>
+    <div class="card"><div id="port"></div></div>
+    
+  </div>
+</div>
+</div>
+
+<script>
+const macro={"macro_warning": false, "vix": 17.48, "indices": {"nikkei": {"last_close": 62833.83984375, "prev_close": 59513.12109375, "change": 3320.72, "change_pct": 5.58, "macd": 1603.1699056641228, "macd_signal": 1360.808763119463, "rsi14": 70.62802806845569, "bb_high": 62742.84040828093, "bb_low": 53775.43576359407, "tenkan": 60856.310546875, "kijun": 56825.025390625, "senkou_a": 58840.66796875, "senkou_b": 56825.025390625, "sma75": 55599.6853125}, "dow": {"last_close": 49910.58984375, "prev_close": 49298.25, "change": 612.34, "change_pct": 1.24, "macd": 510.389146210895, "macd_signal": 494.9752832791651, "rsi14": 63.78235936071081, "bb_high": 50079.50458600982, "bb_low": 47964.81064836518, "tenkan": 49360.05078125, "kijun": 47745.916015625, "senkou_a": 48552.9833984375, "senkou_b": 47534.40625, "sma75": 48370.160833333335}, "nasdaq": {"last_close": 25838.939453125, "prev_close": 25326.130859375, "change": 512.81, "change_pct": 2.02, "macd": 717.916806851601, "macd_signal": 640.7674104752086, "rsi14": 77.81390810907962, "bb_high": 25946.91888725118, "bb_low": 22872.69244087382, "tenkan": 25171.009765625, "kijun": 23456.78515625, "senkou_a": 24313.8974609375, "senkou_b": 23270.2197265625, "sma75": 23092.41390625}, "sp500": {"last_close": 7365.1201171875, "prev_close": 7259.22021484375, "change": 105.9, "change_pct": 1.46, "macd": 135.31650204229663, "macd_signal": 121.3019922690732, "rsi14": 75.18777771501173, "bb_high": 7374.563285532967, "bb_low": 6823.7237750139075, "tenkan": 7238.5400390625, "kijun": 6882.550048828125, "senkou_a": 7060.5450439453125, "senkou_b": 6843.065185546875, "sma75": 6864.643333333333}}, "nikkei_range": {"prev_close": 62834.0, "atr": 1312.0, "range_upper": 63752.0, "range_lower": 61916.0, "resistance": 63091.0, "support": 58928.0}, "commodities": {"crude_oil": {"last": 91.74, "change_pct": -3.51}, "gold": {"last": 4740.1, "change_pct": 1.24}, "bond_10y": {"last": 4.36, "change_pct": -1.36}, "usdjpy": {"last": 156.36, "change_pct": -0.84}}, "top_sector_etf": "SOXX", "top_sector_perf": 5.0, "sector_focus": ["半導体", "テクノロジー"], "etf_performances": {"SOXX": 5.0, "XLK": 2.66, "XLF": 0.48, "XLE": -4.12, "XLV": 0.07, "XLI": 2.59, "XLY": 1.52, "XLB": 1.71, "XLRE": 1.29, "XLP": 0.21, "XLU": -1.42, "XLC": 1.49}, "inflow_sectors": [{"etf": "SOXX", "sectors": ["半導体", "テクノロジー"], "perf": 5.0}, {"etf": "XLK", "sectors": ["テクノロジー"], "perf": 2.66}, {"etf": "XLI", "sectors": ["機械", "運輸"], "perf": 2.59}], "outflow_sectors": [{"etf": "XLU", "sectors": ["公益事業"], "perf": -1.42}, {"etf": "XLE", "sectors": ["エネルギー"], "perf": -4.12}], "us_market_closed": false, "nikkei": {"last_close": 62833.83984375, "prev_close": 59513.12109375, "change": 3320.72, "change_pct": 5.58, "macd": 1603.1699056641228, "macd_signal": 1360.808763119463, "rsi14": 70.62802806845569, "bb_high": 62742.84040828093, "bb_low": 53775.43576359407, "tenkan": 60856.310546875, "kijun": 56825.025390625, "senkou_a": 58840.66796875, "senkou_b": 56825.025390625, "sma75": 55599.6853125}, "sp500": {"last_close": 7365.1201171875, "prev_close": 7259.22021484375, "change": 105.9, "change_pct": 1.46, "macd": 135.31650204229663, "macd_signal": 121.3019922690732, "rsi14": 75.18777771501173, "bb_high": 7374.563285532967, "bb_low": 6823.7237750139075, "tenkan": 7238.5400390625, "kijun": 6882.550048828125, "senkou_a": 7060.5450439453125, "senkou_b": 6843.065185546875, "sma75": 6864.643333333333}, "sector_ai": {"summary": "昨晩の米国市場では、半導体セクター（SOXX）が+5.00%と圧倒的な上昇を見せ、テクノロジーセクター（XLK）も+2.66%と顕著な伸びを記録しました。これはAI関連の強い需要継続と、市場全体の強気トレンドの中で成長性の高いセクターへ資金が集中していることを明確に示しています。", "key_reason": "AI関連の成長期待が半導体・テクノロジー株への資金流入を加速させ、市場を牽引する最も重要な要因となっています。", "caution": "S&P500のRSIが75.2と過熱圏にあり、半導体セクターの大幅な急騰は短期的な調整リスクや高値警戒感も伴うため注意が必要です。"}, "sector_flow_ai": {"inflow_reason": "ハイテク株、特に半導体は景気回復期待やAI関連需要の拡大を背景に、高い成長性が再評価され資金が集まったと考えられます。また、XLIの機械・運輸セクターへの流入は、グローバル経済の活動再開やインフラ投資への期待感が、景気敏感株への資金シフトを促したことを示唆しています。", "outflow_reason": "公益事業（XLU）は一般的にディフェンシブな性格を持つため、市場全体のリスクオンムードが高まる中で、相対的に魅力が低下し資金が引き上げられました。エネルギーセクター（XLE）の大幅な下落は、原油価格の軟調な推移や景気後退懸念の一部、あるいは脱炭素シフトへの意識が影響した可能性があります。", "overall": "米国市場で確認されたグロース株・景気敏感株への強い資金流入は、今日の日本株市場においても、テクノロジー関連や機械セクターの押し上げ要因となるでしょう。"}},picks=[],portfolio=[],refs=[{"ticker": "5714.T", "name": "DOWAホールディングス", "market": "jp", "sector": "素材", "tech_score": 80, "tech_diag": {"rsi14": 53.24622912468285, "macd": 18.81808173671743, "macd_signal": 38.91436328660009, "sma5": 9609.2, "sma25": 9588.28, "sma75": 9609.44}, "tech_parts": {"trend": 60, "momentum": 10, "heat": 10}, "fundamentals": {"eps": 339.81, "per": 29.0, "pbr": 1.4, "roe": 5.7, "revenue_growth": 0.0, "earnings_growth": 0.0, "operating_margin": 0.5, "profit_margin": 0.0, "dividend_yield": 230.0, "target_price": 10192.9, "target_upside": 7.4, "recommendation": "none", "week52_pct": 68.0}, "near_earnings": false, "earnings_days": 5, "earnings_label": "", "is_focus_sector": false, "current_price": 9848.0, "high20": 10385.0, "low20": 9073.0, "atr14": 265.14285714285717, "bb2_upper": 10285.934172778498, "upper_target": 10285.934172778498, "lower_target": 9317.714285714286, "rr": 0.8258456922008316, "score": 80, "score_parts": {"trend": 60, "momentum": 10, "heat": 10, "fundamental": 0}, "sentiment_score": 0, "sentiment_reason": "", "ai_verdict": {}, "_market": "jp"}, {"ticker": "7012.T", "name": "川崎重工業", "market": "jp", "sector": "機械", "tech_score": 80, "tech_diag": {"rsi14": 52.78153615019171, "macd": 1.4813121243005298, "macd_signal": -0.1077395054837576, "sma5": 3191.0, "sma25": 3183.2, "sma75": 3143.9466666666667}, "tech_parts": {"trend": 50, "momentum": 20, "heat": 10}, "fundamentals": {"eps": 115.33, "per": 28.2, "pbr": 3.26, "roe": 0.0, "revenue_growth": 0.0, "earnings_growth": 0.0, "operating_margin": 7.3, "profit_margin": 0.0, "dividend_yield": 105.0, "target_price": 3675.0, "target_upside": 16.6, "recommendation": "strong_buy", "week52_pct": 71.6}, "near_earnings": true, "earnings_days": 3, "earnings_label": "⚠️ 決算3営業日以内", "is_focus_sector": false, "current_price": 3251.0, "high20": 3479.0, "low20": 2976.0, "atr14": 143.64285714285714, "bb2_upper": 3424.205814290283, "upper_target": 3424.205814290283, "lower_target": 2976.0, "rr": 0.6298393246919378, "score": 80, "score_parts": {"trend": 50, "momentum": 20, "heat": 10, "fundamental": 0}, "sentiment_score": 0, "sentiment_reason": "", "ai_verdict": {}, "_market": "jp"}, {"ticker": "8309.T", "name": "三井住友トラスト・ホールディングス", "market": "jp", "sector": "金融", "tech_score": 80, "tech_diag": {"rsi14": 63.13953333695434, "macd": 41.32167732600465, "macd_signal": 25.9348104045046, "sma5": 5300.0, "sma25": 5237.84, "sma75": 5218.68}, "tech_parts": {"trend": 60, "momentum": 20, "heat": 0}, "fundamentals": {"eps": 423.04, "per": 13.2, "pbr": 1.12, "roe": 9.3, "revenue_growth": -4.5, "earnings_growth": 4.5, "operating_margin": 32.9, "profit_margin": 19.1, "dividend_yield": 347.0, "target_price": 5515.8, "target_upside": 3.5, "recommendation": "buy", "week52_pct": 80.2}, "near_earnings": false, "earnings_days": 5, "earnings_label": "", "is_focus_sector": false, "current_price": 5571.0, "high20": 5607.0, "low20": 5018.0, "atr14": 111.07142857142857, "bb2_upper": 5542.427772491141, "upper_target": 5542.427772491141, "lower_target": 5348.857142857143, "rr": -0.12862095984695482, "score": 80, "score_parts": {"trend": 60, "momentum": 20, "heat": 0, "fundamental": 0}, "sentiment_score": 0, "sentiment_reason": "", "ai_verdict": {}, "_market": "jp"}],bt={};
+const mw=false,NUMS="①②③④⑤⑥⑦⑧⑨⑩";
+const prev_biz_date="";
+
+// マクロ
+const vix=macro.vix||0,vok=vix<25;
+document.getElementById('mg').innerHTML=`
+<div class="card fi"><div class="card-title">💹 VIX 恐怖指数</div>
+<div class="mv ${vok?'green':'red'}">${vix}</div>
+<div style="font-size:.7rem;color:var(--text-dim);margin-bottom:8px;">${vok?'安定域':'警戒域'}</div>
+<span class="tag ${vok?'tg':'tr'}">${vok?'✅ 安定':'⚠️ 警戒'}</span></div>
+<div class="card fi" style="animation-delay:.1s"><div class="card-title">🔥 注目セクター</div>
+${prev_biz_date?`<div style="font-size:.6rem;color:var(--text-dim);margin-bottom:6px;">📅 直前営業日（${prev_biz_date}）のデータ</div>`:''}
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">${(macro.sector_focus||[]).map(s=>`<span class="tag tb">${s}</span>`).join('')||'<span style="color:var(--text-dim);font-size:.8rem;">なし</span>'}</div>
+<div style="margin-top:6px;font-size:.68rem;color:var(--text-dim);">${macro.top_sector_etf||'-'}　${macro.top_sector_perf>=0?'+':''}${macro.top_sector_perf||0}%</div>
+${macro.sector_ai&&macro.sector_ai.key_reason?`
+<div style="margin-top:8px;background:var(--bg);border-radius:6px;padding:8px;border:1px solid var(--border);">
+  <div style="font-size:.6rem;color:var(--text-dim);margin-bottom:4px;font-family:'JetBrains Mono',monospace;">🤖 AI解説</div>
+  <div style="font-size:.7rem;color:var(--cyan);line-height:1.6;">${macro.sector_ai.key_reason}</div>
+  ${macro.sector_ai.summary?`<div style="font-size:.65rem;color:var(--text-dim);margin-top:4px;line-height:1.5;">${macro.sector_ai.summary}</div>`:''}
+  ${macro.sector_ai.caution?`<div style="font-size:.63rem;color:var(--yellow);margin-top:4px;">⚠️ ${macro.sector_ai.caution}</div>`:''}
+</div>`:''}
+</div>
+<div class="card fi" style="animation-delay:.2s"><div class="card-title">✅ 地合い判定</div>
+<div style="font-size:1rem;font-weight:900;color:var(--${mw?'red':'green'});">${mw?'⚠️ エントリー非推奨':'✅ エントリー可'}</div>
+<div style="font-size:.7rem;color:var(--text-dim);margin-top:6px;">決算跨ぎ銘柄は自動除外済み</div></div>`;
+
+// BUY候補
+const pl=document.getElementById('pl');
+if(!picks.length){
+  let h='<div class="empty">条件一致なし（スコア/RR未達）<br><br>📋 参考：テクニカル上位銘柄</div>';
+  refs.forEach(p=>{const pt=p.score_parts||{};h+=`<div class="pc watch fi"><div class="ph"><div><div class="pname">${p.name}</div><div class="pticker">${p.ticker}</div></div><span class="tag ty">参考</span></div><div class="sd"><span>Score:${p.score}</span><span>T:${pt.trend||0}</span><span>M:${pt.momentum||0}</span><span>H:${pt.heat||0}</span><span>F:${pt.fundamental||0}</span></div></div>`;});
+  pl.innerHTML=h;
+}else{
+  picks.forEach((p,i)=>{
+    const jp=p.market==='jp',fmt=v=>jp?`¥${Number(v).toLocaleString()}`:`$${Number(v).toFixed(2)}`;
+    const cur=fmt(p.current_price),up=fmt(p.upper_target||0),lo=fmt(p.lower_target||0);
+    const tpp=p.current_price>0?(((p.upper_target||0)-p.current_price)/p.current_price*100).toFixed(1):0;
+    const slp=p.current_price>0?((p.current_price-(p.lower_target||0))/p.current_price*100).toFixed(1):0;
+    const flag=jp?'🇯🇵':'🇺🇸',pt=p.score_parts||{},ss=p.sentiment_score||0;
+    const vd=p.ai_verdict||{},v=vd.verdict||'';
+    const vc=v.includes('BUY')?'buy':v.includes('SELL')?'sell':'watch';
+    const vcol=v.includes('BUY')?'green':v.includes('SELL')?'red':'yellow';
+    const vi=v.includes('BUY')?'🟢':v.includes('SELL')?'🔴':'🟡';
+    const sw=Math.round((p.score/120)*100),sc=p.score>=80?'var(--green)':'var(--yellow)';
+    const cc=vd.confidence==='高'?'tg':vd.confidence==='中'?'ty':'tr';
+    // ファンダメンタル
+    const fd=p.fundamentals||{};
+    const faItems=[];
+    if(fd.per&&fd.per!==0) faItems.push(`PER: <b>${fd.per}倍</b>`);
+    if(fd.pbr&&fd.pbr!==0) faItems.push(`PBR: <b>${fd.pbr}倍</b>`);
+    if(fd.roe&&fd.roe!==0) faItems.push(`ROE: <b class="${fd.roe>=8?'green':'red'}">${fd.roe}%</b>`);
+    if(fd.eps&&fd.eps!==0) faItems.push(`EPS: <b>${fd.eps}</b>`);
+    if(fd.revenue_growth&&fd.revenue_growth!==0) faItems.push(`売上YoY: <b class="${fd.revenue_growth>=0?'green':'red'}">${fd.revenue_growth>=0?'+':''}${fd.revenue_growth}%</b>`);
+    if(fd.earnings_growth&&fd.earnings_growth!==0) faItems.push(`利益YoY: <b class="${fd.earnings_growth>=0?'green':'red'}">${fd.earnings_growth>=0?'+':''}${fd.earnings_growth}%</b>`);
+    if(fd.operating_margin&&fd.operating_margin!==0) faItems.push(`営業利益率: <b>${fd.operating_margin}%</b>`);
+    if(fd.dividend_yield&&fd.dividend_yield!==0) faItems.push(`配当: <b>${fd.dividend_yield}%</b>`);
+    if(fd.target_upside&&fd.target_upside!==0) faItems.push(`目標株価: <b class="${fd.target_upside>=0?'green':'red'}">${fd.target_upside>=0?'+':''}${fd.target_upside}%</b>`);
+    const valStr=vd.valuation||'';
+    if(valStr) faItems.push(`評価: <b class="${valStr==='割安'?'green':valStr==='割高'?'red':'yellow'}">${valStr}</b>`);
+    const fundHtml=`<div style="background:var(--bg);border-radius:8px;padding:8px 10px;margin-top:8px;border:1px solid var(--border);"><div style="font-size:.58rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;margin-bottom:6px;">📋 ファンダメンタル</div>${faItems.length?`<div style="display:flex;flex-wrap:wrap;gap:6px 14px;">${faItems.map(f=>`<span style="font-size:.68rem;color:var(--text-dim);">${f}</span>`).join('')}</div>`:'<span style="font-size:.63rem;color:var(--text-dim);">取得データなし</span>'}</div>`;
+    const d=document.createElement('div');
+    d.className=`pc ${vc} fi`;d.style.animationDelay=`${i*.1}s`;
+    d.innerHTML=`<div class="ph"><div><div style="font-size:.58rem;color:var(--text-dim);">${NUMS[i]} ${flag}</div><div class="pname">${p.name}</div><div class="pticker">${p.ticker}</div></div><div><div class="pprice">${cur}</div><div style="text-align:right;margin-top:4px;"><span class="tag t${vcol[0]}">${vi} ${v||'様子見'}</span></div></div></div>
+<div class="pm"><div class="met"><div class="ml">🎯 利確</div><div class="mv2 green">${up} <span style="font-size:.58rem;">+${tpp}%</span></div></div><div class="met"><div class="ml">🛡️ 損切</div><div class="mv2 red">${lo} <span style="font-size:.58rem;">-${slp}%</span></div></div><div class="met"><div class="ml">⚖️ RR</div><div class="mv2 cyan">${(p.rr||0).toFixed(2)}</div></div></div>
+${v?`<div class="aiv"><div class="aih">🤖 AI分析　<span class="tag ${cc}" style="font-size:.54rem;">確信度:${vd.confidence||'-'}</span></div><ul class="air">${(vd.reasons||[]).map(r=>`<li>${r}</li>`).join('')}</ul>${vd.risk?`<div class="rsk">⚠️ ${vd.risk}</div>`:''}</div>`:''}
+${fundHtml}
+<div class="sb"><div class="sbf" style="width:${sw}%;background:${sc};"></div></div>
+<div class="sd"><span>Score:${p.score}/120</span><span>T:${pt.trend||0}</span><span>M:${pt.momentum||0}</span><span>H:${pt.heat||0}</span><span>F:${pt.fundamental||0}</span><span style="color:var(--${ss>=0?'green':'red'})">N:${ss>=0?'+':''}${ss}</span></div>`;
+    pl.appendChild(d);
+  });
+}
+
+// ポートフォリオ
+const port=document.getElementById('port');
+if(!portfolio.length){port.innerHTML='<div class="empty">登録なし</div>';}
+else{portfolio.forEach(p=>{
+  const jp=p.ticker.endsWith('.T'),fmt=v=>jp?`¥${Number(v).toLocaleString()}`:`$${Number(v).toFixed(2)}`;
+  const al=(p.alerts||['-']).join(' '),hd=al.includes('🔴'),hw=al.includes('🟡');
+  const col=hd?'red':hw?'yellow':'green';
+  let pnl='';if(p.buy_price>0){const pv=((p.current_price-p.buy_price)/p.buy_price*100).toFixed(1);pnl=`<span class="${pv>=0?'green':'red'}">${pv>=0?'+':''}${pv}%</span>`;}
+  const d=document.createElement('div');d.className='pi';
+  d.innerHTML=`<div><div class="pn ${col}">${p.name||p.ticker}</div><div class="pt">${p.ticker}</div></div><div><div style="text-align:right;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;">${fmt(p.current_price)} ${pnl}</div><div style="text-align:right;font-size:.72rem;margin-top:2px;">${al}</div><div class="ptsl">TP +${(p.tp_dist_pct||0).toFixed(1)}% / SL -${(p.sl_dist_pct||0).toFixed(1)}%</div></div>`;
+  port.appendChild(d);
+});}
+
+// バックテスト
+const btel=document.getElementById('bt');
+if(btel&&bt.trades>0){
+  const wc=bt.win_rate>=50?'green':'red',pc=bt.profit_factor>=1.5?'green':'yellow',fc=bt.final_performance>=0?'green':'red';
+  btel.innerHTML=`<div class="btg"><div class="bti"><div class="btl">総トレード数</div><div class="btv">${bt.trades}回</div></div><div class="bti"><div class="btl">勝率</div><div class="btv ${wc}">${bt.win_rate}%</div></div><div class="bti"><div class="btl">PF</div><div class="btv ${pc}">${bt.profit_factor}</div></div><div class="bti"><div class="btl">最終成績</div><div class="btv ${fc}">${bt.final_performance>=0?'+':''}${(bt.final_performance*100).toFixed(2)}%</div></div></div>`;
+}
+</script>
+</body>
+</html>
