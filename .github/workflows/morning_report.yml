@@ -3,8 +3,10 @@ name: にゃるぱー秘書 朝のレポート
 on:
   schedule:
     # 毎朝8:30 JST = UTC 23:30（前日）
-    - cron: '30 23 * * 0-4'  # 日〜木（月〜金の朝に対応）
-  workflow_dispatch:  # 手動実行も可能
+    # GMT+9なのでUTC = JST - 9時間
+    # 8:30 JST = 前日23:30 UTC
+    - cron: '30 23 * * 0-4'
+  workflow_dispatch:
 
 jobs:
   morning-report:
@@ -34,12 +36,14 @@ jobs:
           news_max_articles: 5
           news_days: 3
 
-          score_threshold: 55
-          rr_threshold: 1.2
+          score_threshold: 25
+          rr_threshold: 1.5
           technical_top_n: 5
 
           atr_multiplier_jp: 2.0
           atr_multiplier_us: 2.5
+          atr_multiplier_growth: 2.5
+
           macro_vix_warning: 25
 
           dry_run_mode: false
