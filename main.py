@@ -147,12 +147,8 @@ def main() -> None:
     # ポートフォリオ監視（祝日でも実行・直前営業日データ）
     portfolio_result = run_portfolio_monitor(config_jp)
 
-    # AI総合判定（RR通過銘柄のみ）
-    for market in ("jp", "us"):
-        for item in rr_result.get(market, []):
-            logger.info("AI判定: %s %s", item["ticker"], item["name"])
-            item["ai_verdict"] = get_ai_verdict(config, item, macro_result)
-            time.sleep(float(config.get("gemini_wait_sec", 4.0)))
+    # ※AI総合判定はscreener.py内のGemini統合分析で完了済み
+    # （ここで再度呼ぶ必要なし）
 
     if config.get("dry_run_mode", False):
         backtest_result = run_backtest(config_jp, base_dir / "universe_jp.csv")
