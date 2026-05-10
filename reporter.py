@@ -84,8 +84,9 @@ def _render_macro(macro: Dict, macro_warning: bool, prev_biz_date: str = "") -> 
             lines.append(f"  {name:<10} {_white(f'{prefix}{last:,.2f}{suffix}'):<20} {color(f'{arrow}{abs(chg_p):.2f}%')}")
         lines.append("")
 
-    # ===== 日経平均 予想レンジ =====
-    nr = macro.get("nikkei_range", {})
+    # ===== 日経平均 予想レンジ + CME先物 =====
+    nr  = macro.get("nikkei_range", {})
+    cme = macro.get("cme_futures", {})
     if nr:
         ru = f'¥{nr["range_upper"]:,.0f}'
         rl = f'¥{nr["range_lower"]:,.0f}'
@@ -93,6 +94,13 @@ def _render_macro(macro: Dict, macro_warning: bool, prev_biz_date: str = "") -> 
         sp = f'¥{nr["support"]:,.0f}'
         at = f'¥{nr["atr"]:,.0f}'
         lines.append(_bold("【日経平均 本日予想レンジ】"))
+        if cme:
+            cme_last = f'¥{cme["last"]:,.0f}'
+            cme_pct  = cme["change_pct"]
+            cme_vs   = cme["vs_nikkei_pct"]
+            gap_icon = "⬆️ ギャップアップ予想" if cme.get("gap_up") else "⬇️ ギャップダウン予想" if cme.get("gap_up") is False else ""
+            cme_color = _green(f'{cme_last} ({cme_pct:+.2f}%)') if cme_pct >= 0 else _red(f'{cme_last} ({cme_pct:+.2f}%)')
+            lines.append(f"  CME日経先物: {cme_color}　前日比vs日経: {cme_vs:+.2f}%　{gap_icon}")
         lines.append(f"  上値メド  : {_green(ru)}")
         lines.append(f"  下値メド  : {_red(rl)}")
         lines.append(f"  レジスタンス: {_dim(rs)}（直近5日高値）")
@@ -221,10 +229,24 @@ def _render_item(item: Dict, i: int, label: str = "") -> List[str]:
             lines.append(f"  　⚠️  リスク: {_yellow(risk)}")
         lines.append("")
 
+    # ADR表示
+    adr = item.get("adr", {})
+    if adr:
+        adr_pct  = adr.get("change_pct", 0)
+        adr_icon = "⬆️" if adr.get("gap_up") else "⬇️" if adr.get("gap_down") else "➡️"
+        adr_str  = _green(f'${adr["last"]} ({adr_pct:+.2f}%)') if adr_pct >= 0 else _red(f'${adr["last"]} ({adr_pct:+.2f}%)')
+        lines.append(f"  🌐 ADR({adr['ticker']}): {adr_str} {adr_icon}")
+
     # エントリー・利確・損切
+    entry_price = item.get("entry_price", item["current_price"])
+    is_jp_entry = item.get("market", "jp") == "jp"
+    entry_str   = f"¥{entry_price:,.1f}" if is_jp_entry else f"${entry_price:,.2f}"
+    entry_diff  = (entry_price - item["current_price"]) / item["current_price"] * 100 if item["current_price"] > 0 else 0
+    entry_note  = f"（ADR予想 {entry_diff:+.1f}%）" if abs(entry_diff) > 0.1 else "（現在値）"
+
     if has_rr:
         lines.append(f"  📍 現在値: {_white(cur)}")
-        lines.append(f"  💰 エントリー目安: {_white(cur)}")
+        lines.append(f"  💰 エントリー目安: {_cyan(entry_str)} {_dim(entry_note)}")
         lines.append(f"  🎯 利確: {_green(upper_str)} (+{tp_pct:.1f}%)")
         lines.append(f"  🛡️  損切: {_red(lower_str)} (-{sl_pct:.1f}%)")
 
@@ -263,31 +285,209 @@ def _render_item(item: Dict, i: int, label: str = "") -> List[str]:
         if fc:
             lines.append(f"  {'  '}{' / '.join(fc)}")
 
-    # スコア内訳（わかりやすく）
-    t = parts.get("trend", 0)
-    m = parts.get("momentum", 0)
-    h = parts.get("heat", 0)
-    f_score = parts.get("fundamental", 0)
-    score_color = _green(str(item["score"])) if item["score"] >= 80 else _yellow(str(item["score"]))
+    # スコア内訳（180点満点対応・パターン表示）
+    t        = parts.get("trend", 0)
+    m        = parts.get("momentum", 0)
+    h        = parts.get("heat", 0)
+    f_score  = parts.get("fundamental", 0)
+    v_score  = parts.get("volume", 0)
+    pb_score = parts.get("pullback", 0)
+    bo_score = parts.get("breakout", 0)
+    wk_score = parts.get("weekly", 0)
+
+    score_color = _green(str(item["score"])) if item["score"] >= 60 else _yellow(str(item["score"]))
     rr_str = f"{rr:.2f}" if rr > 0 else "-"
 
-    trend_bar    = "█" * (t  // 10) + "░" * ((50 - t)  // 10)
-    momentum_bar = "█" * (m  // 10) + "░" * ((20 - max(m, 0))  // 10)
-    heat_bar     = "█" * (max(h, 0) // 10) + "░" * ((20 - max(h, 0)) // 10)
+    # パターンラベル（tech_diagから取得）
+    diag          = item.get("tech_diag", {})
+    pattern       = diag.get("pattern", "ベース")
+    drop_pct      = diag.get("drop_pct", 0)
+    vol_ratio     = diag.get("vol_ratio", 0)
+    weekly_trend  = diag.get("weekly_trend", "")
+    weekly_sigs   = diag.get("weekly_signals", [])
+    pattern_map = {
+        "押し目+BO":      "🔥 押し目+ブレイクアウト",
+        "押し目":         "📉 押し目買いパターン",
+        "ブレイクアウト": "🚀 ブレイクアウトパターン",
+        "ベース":         "📊 ベーススコアのみ",
+    }
+    pattern_label = pattern_map.get(pattern, f"📊 {pattern}")
 
-    lines.append(f"  📊 スコア: {score_color}点　RR: {_cyan(rr_str)}")
+    trend_bar = "█" * (t // 10) + "░" * ((50 - t) // 10)
+    mom_bar   = "█" * (m // 10) + "░" * ((20 - max(m, 0)) // 10)
+    heat_bar  = "█" * (max(h, 0) // 10) + "░" * ((20 - max(h, 0)) // 10)
+
+    lines.append(f"  📊 スコア: {score_color}/100点　RR: {_cyan(rr_str)}　{_yellow(pattern_label)}")
     lines.append(f"  {_dim('  トレンド  ')} {_green(trend_bar)} {t}/50点")
-    lines.append(f"  {_dim('  モメンタム')} {_cyan(momentum_bar)} {m}/20点")
-    lines.append(f"  {_dim('  過熱感   ')} {'█' * (max(h,0)//10)}{'░' * ((20-max(h,0))//10)} {h}/20点")
+    lines.append(f"  {_dim('  モメンタム')} {_cyan(mom_bar)} {m}/20点")
+    lines.append(f"  {_dim('  過熱感   ')} {heat_bar} {h}/20点")
     lines.append(f"  {_dim('  ファンダ ')} F={f_score}点　N={sent_score:+d}点")
+    if v_score > 0:
+        lines.append(f"  {_dim('  出来高   ')} {_yellow('📊')} +{v_score}点 {_dim(f'（平均比 {vol_ratio:.1f}倍）')}")
+    if pb_score > 0:
+        drop_str = f"（押し幅:{drop_pct:.1f}%）" if drop_pct > 0 else ""
+        lines.append(f"  {_dim('  押し目   ')} {_yellow('▼')} +{pb_score}/50点 {_dim(drop_str)}")
+    if bo_score > 0:
+        lines.append(f"  {_dim('  BO      ')} {_green('▲')} +{bo_score}/40点")
+    # 週足トレンド
+    if weekly_trend:
+        if weekly_diag.get("weekly_warning") if isinstance(diag, dict) else "⚠️" in weekly_trend:
+            wk_color = _red
+            wk_label = f"週足: {weekly_trend} ⚠️ 逆張り注意"
+        else:
+            wk_color = _green if wk_score > 0 else _dim
+            wk_label = f"週足: {weekly_trend} ({wk_score:+d}点)"
+        if weekly_sigs:
+            wk_label += f" [{' / '.join(s for s in weekly_sigs if '⚠️' not in s)}]"
+        lines.append(f"  {_dim('  週足    ')} {wk_color(wk_label)}")
     if sent_reason and sent_reason not in ("no news", "news disabled", "gemini api key not configured"):
         lines.append(f"  {_dim(f'  ニュース: {sent_reason[:60]}')}")
     return lines
 
 
+def _render_sell_item(item: Dict, i: int) -> List[str]:
+    """SELL候補専用の描画（BUYとは上下が逆）"""
+    lines  = []
+    is_jp  = item.get("market", "jp") == "jp"
+    cur    = f"¥{item['current_price']:,.1f}" if is_jp else f"${item['current_price']:,.2f}"
+    flag   = "🇯🇵" if is_jp else "🇺🇸"
+    num    = NUMS[i-1] if i <= len(NUMS) else f"{i}."
+    diag   = item.get("tech_diag", {})
+    parts  = item.get("score_parts", {})
+    rr     = item.get("rr", 0)
+    upper  = item.get("upper_target", 0)  # 損切りライン
+    lower  = item.get("lower_target", 0)  # 利確ライン
+
+    pattern = diag.get("pattern", "ベース")
+    pattern_map = {
+        "戻り売り+DC": "🔥 戻り売り+DC",
+        "戻り売り":    "📈 戻り売りパターン",
+        "デッドクロス":"💀 DCパターン",
+        "ベース":      "📊 ベース",
+    }
+    pattern_label = pattern_map.get(pattern, pattern)
+    rally_pct  = diag.get("rally_pct", 0)
+    vol_ratio  = diag.get("vol_ratio", 0)
+    score_val  = item.get("score", 0)
+    rr_str     = f"{rr:.2f}" if rr > 0 else "-"
+    score_color = _red(str(score_val)) if score_val >= 80 else _yellow(str(score_val))
+
+    tp_pct = (item["current_price"] - lower) / item["current_price"] * 100 if item["current_price"] > 0 and lower > 0 else 0
+    sl_pct = (upper - item["current_price"]) / item["current_price"] * 100 if item["current_price"] > 0 and upper > 0 else 0
+    upper_str = f"¥{upper:,.1f}" if is_jp else f"${upper:,.2f}"
+    lower_str = f"¥{lower:,.1f}" if is_jp else f"${lower:,.2f}"
+
+    lines.append("")
+    lines.append(_bold(f"{num} {item['ticker']}　{item['name']}　{flag}  ⚠️ 貸借銘柄を確認してください"))
+    if item.get("earnings_label"):
+        lines.append(_yellow(f"  {item['earnings_label']}（空売りは特に注意）"))
+
+    lines.append(f"  📍 現在値: {_white(cur)}")
+    if upper > 0 and lower > 0:
+        lines.append(f"  💰 空売りエントリー目安: {_white(cur)}")
+        lines.append(f"  🎯 利確（下値目標）: {_green(lower_str)} (-{tp_pct:.1f}%)")
+        lines.append(f"  🛡️  損切（上値ライン）: {_red(upper_str)} (+{sl_pct:.1f}%)")
+
+    # スコア内訳
+    t  = parts.get("trend", 0)
+    m  = parts.get("momentum", 0)
+    h  = parts.get("heat", 0)
+    vs = parts.get("volume", 0)
+    pb = parts.get("pullback", 0)
+    bo = parts.get("breakout", 0)
+
+    lines.append(f"  📊 SELLスコア: {score_color}/195点　RR: {_cyan(rr_str)}　{_red(pattern_label)}")
+    lines.append(f"  {_dim('  トレンド下落')} {'█'*(t//10)}{'░'*((50-t)//10)} {t}/50点")
+    lines.append(f"  {_dim('  モメンタム  ')} {'█'*(m//10)}{'░'*((20-max(m,0))//10)} {m}/20点")
+    lines.append(f"  {_dim('  過熱感(高)  ')} {'█'*(max(h,0)//10)}{'░'*((20-max(h,0))//10)} {h}/20点")
+    if vs > 0:
+        lines.append(f"  {_dim('  出来高     ')} {_yellow('📊')} +{vs}点 {_dim(f'（平均比 {vol_ratio:.1f}倍）')}")
+    if pb > 0:
+        rally_str = f"（戻り幅:{rally_pct:.1f}%）" if rally_pct > 0 else ""
+        lines.append(f"  {_dim('  戻り売り   ')} {_red('▲')} +{pb}/50点 {_dim(rally_str)}")
+    if bo > 0:
+        lines.append(f"  {_dim('  DC        ')} {_red('▼')} +{bo}/40点")
+    return lines
+
+
+def _render_trend_follow(trend_follow: List[Dict]) -> List[str]:
+    """🚀 トレンドフォロー枠の表示"""
+    lines = []
+    lines.append(_section("🚀 トレンドフォロー候補（右肩上がり銘柄）"))
+    if not trend_follow:
+        lines.append(_dim("  条件一致なし（3ヶ月+10%以上の銘柄なし）"))
+        return lines
+
+    nums = "①②③④⑤⑥⑦⑧⑨⑩"
+    for i, item in enumerate(trend_follow[:10], 1):
+        num    = nums[i-1] if i <= len(nums) else str(i)
+        is_jp  = item.get("market", "jp") == "jp"
+        flag   = "🇯🇵" if is_jp else "🇺🇸"
+        price  = item.get("current_price", 0)
+        cur    = f"¥{price:,.1f}" if is_jp else f"${price:,.2f}"
+        po     = "✅ PO" if item.get("perfect_order") else ""
+        score  = item.get("tf_score", 0)
+        r1m    = item.get("ret_1m", 0)
+        r3m    = item.get("ret_3m", 0)
+        r6m    = item.get("ret_6m", 0)
+        sector = item.get("sector", "")
+
+        lines.append("")
+        lines.append(_bold(f"{num} {flag}  {item.get('name', '')}（{item.get('ticker', '')}）  {po}"))
+        lines.append(f"  📍 現在値: {_white(cur)}  業種: {_dim(sector)}")
+        lines.append(f"  📈 リターン: 1ヶ月 {_green(f'+{r1m:.1f}%') if r1m >= 0 else _red(f'{r1m:.1f}%')}  "
+                     f"3ヶ月 {_green(f'+{r3m:.1f}%') if r3m >= 0 else _red(f'{r3m:.1f}%')}  "
+                     f"6ヶ月 {_green(f'+{r6m:.1f}%') if r6m >= 0 else _red(f'{r6m:.1f}%')}")
+        lines.append(f"  🏆 トレンドスコア: {_yellow(str(score))}/100点")
+    return lines
+
+
+def _render_theme_stocks(theme_ai: Dict, jp_sector_strength: Dict) -> List[str]:
+    """🎯 テーマ株枠の表示"""
+    lines = []
+    lines.append(_section("🎯 今日のテーマ株"))
+
+    if not theme_ai:
+        lines.append(_dim("  テーマ判定データなし（米国市場休場または取得失敗）"))
+        return lines
+
+    theme     = theme_ai.get("theme", "")
+    sub_theme = theme_ai.get("sub_theme", "")
+    reason    = theme_ai.get("reason", "")
+    caution   = theme_ai.get("caution", "")
+    sectors   = theme_ai.get("target_sectors_jp", [])
+
+    lines.append(f"  🔥 メインテーマ: {_green(_bold(theme))}")
+    if sub_theme:
+        lines.append(f"  💡 サブテーマ: {_yellow(sub_theme)}")
+    if reason:
+        lines.append(f"  📝 {reason}")
+    if caution:
+        lines.append(f"  ⚠️  {_yellow(caution)}")
+    if sectors:
+        lines.append(f"  🎯 注目業種: {_cyan('・'.join(sectors))}")
+
+    # 東証セクター強弱
+    if jp_sector_strength:
+        top3    = jp_sector_strength.get("top3", [])
+        bottom3 = jp_sector_strength.get("bottom3", [])
+        lines.append("")
+        lines.append(_dim("  【東証セクター強弱（前日比）】"))
+        for s in top3:
+            ret = s["return"]
+            lines.append(f"  {_green('▲')} {s['sector']:12s} {_green(f'+{ret:.2f}%')}")
+        for s in bottom3:
+            ret = s["return"]
+            lines.append(f"  {_red('▼')} {s['sector']:12s} {_red(f'{ret:.2f}%')}")
+
+    return lines
+
+
 def _render_screening(rr_result: Dict, screening: Dict, config: Dict) -> List[str]:
     lines = []
-    lines.append(_section("📈 BUY候補"))
+
+    # ===== プライムBUY候補 =====
+    lines.append(_section("📈 BUY候補（プライム）"))
     all_picks = []
     for market in ("jp", "us"):
         for item in rr_result.get(market, []):
@@ -298,25 +498,20 @@ def _render_screening(rr_result: Dict, screening: Dict, config: Dict) -> List[st
     if not all_picks:
         lines.append(_dim("  条件一致なし（スコア/RR未達）"))
     else:
-        for i, item in enumerate(all_picks[:10], 1):
+        for i, item in enumerate(all_picks[:5], 1):
             lines.extend(_render_item(item, i))
 
-    # ===== テクニカル上位（常に表示）=====
-    lines.append("")
-    lines.append(_section("📋 テクニカル上位銘柄（参考）"))
-    pick_tickers = {item["ticker"] for item in all_picks}
-    ref_count = 0
-    for market in ("jp", "us"):
-        for item in screening.get(market, []):
-            if ref_count >= 5:
-                break
-            # BUY候補に入っている銘柄はスキップ（重複を避ける）
-            if item["ticker"] in pick_tickers:
-                continue
-            lines.extend(_render_item(item, ref_count + 1, label="※RR未達"))
-            ref_count += 1
-    if ref_count == 0:
-        lines.append(_dim("  データなし"))
+    # ===== グロースBUY候補 =====
+    growth_picks = rr_result.get("growth", [])
+    if growth_picks:
+        lines.append("")
+        lines.append(_section("🌱 BUY候補（グロース）⚠️ 流動性・損切り注意"))
+        growth_picks_sorted = sorted(growth_picks,
+                                     key=lambda x: (x["score"], x["rr"]), reverse=True)
+        for i, item in enumerate(growth_picks_sorted[:5], 1):
+            item["_market"] = "jp"
+            lines.extend(_render_item(item, i, label="🌱グロース"))
+
     return lines
 
 
@@ -554,9 +749,16 @@ if(macroDetail){{
     html+=`<div class="card" style="margin-bottom:12px;"><div class="card-title">💹 コモディティ・債券・為替</div>${{commItems.join('')}}</div>`;
   }}
 
-  // 日経レンジ
+  // 日経レンジ + CME先物
+  const cme=macro.cme_futures||{{}};
   if(nr.range_upper){{
+    const cmeHtml=cme.last?`<div style="background:${{cme.gap_up?'var(--green-dim)':'var(--red-dim)'}};border-radius:8px;padding:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;">
+      <div><div style="font-size:.58rem;color:var(--text-dim);">🌙 CME日経先物</div><div style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1rem;">¥${{Number(cme.last).toLocaleString()}}</div></div>
+      <div style="text-align:right;"><div style="font-size:.78rem;font-weight:700;color:var(--${{cme.change_pct>=0?'green':'red'}});">${{cme.change_pct>=0?'▲':'▼'}}${{Math.abs(cme.change_pct).toFixed(2)}}%</div>
+      <div style="font-size:.63rem;color:var(--${{cme.vs_nikkei_pct>=0?'green':'red'}});">日経比: ${{cme.vs_nikkei_pct>=0?'+':''}}${{cme.vs_nikkei_pct.toFixed(2)}}%</div>
+      <div style="font-size:.68rem;font-weight:700;">${{cme.gap_up?'⬆️ ギャップアップ予想':'⬇️ ギャップダウン予想'}}</div></div></div>`:'';
     html+=`<div class="card" style="margin-bottom:12px;"><div class="card-title">📐 日経平均 本日予想レンジ</div>
+    ${{cmeHtml}}
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;">
       <div style="background:var(--green-dim);border-radius:6px;padding:8px;text-align:center;"><div style="font-size:.58rem;color:var(--text-dim);">上値メド</div><div style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--green);">¥${{Number(nr.range_upper).toLocaleString()}}</div></div>
       <div style="background:var(--red-dim);border-radius:6px;padding:8px;text-align:center;"><div style="font-size:.58rem;color:var(--text-dim);">下値メド</div><div style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--red);">¥${{Number(nr.range_lower).toLocaleString()}}</div></div>
@@ -600,9 +802,12 @@ function buildCard(p, i, isRef) {{
   const jp=p.market==='jp',fmt=v=>jp?`¥${{Number(v).toLocaleString()}}`:`$${{Number(v).toFixed(2)}}`;
   const cur=fmt(p.current_price);
   const upper=p.upper_target||0, lower=p.lower_target||0;
-  const up=fmt(upper),lo=fmt(lower);
-  const tpp=p.current_price>0&&upper>0?(((upper)-p.current_price)/p.current_price*100).toFixed(1):0;
-  const slp=p.current_price>0&&lower>0?((p.current_price-(lower))/p.current_price*100).toFixed(1):0;
+  const entry=p.entry_price||p.current_price;
+  const up=fmt(upper),lo=fmt(lower),ent=fmt(entry);
+  const tpp=entry>0&&upper>0?(((upper)-entry)/entry*100).toFixed(1):0;
+  const slp=entry>0&&lower>0?((entry-(lower))/entry*100).toFixed(1):0;
+  const entDiff=p.current_price>0?((entry-p.current_price)/p.current_price*100).toFixed(1):0;
+  const entNote=Math.abs(entDiff)>0.1?`ADR予想 ${{entDiff>=0?'+':''}}${{entDiff}}%`:'現在値';
   const flag=jp?'🇯🇵':'🇺🇸',pt=p.score_parts||{{}},ss=p.sentiment_score||0;
   const vd=p.ai_verdict||{{}},v=vd.verdict||'';
   const vc=v.includes('BUY')?'buy':v.includes('SELL')?'sell':'watch';
@@ -627,17 +832,47 @@ function buildCard(p, i, isRef) {{
   const fundHtml=`<div style="background:var(--bg);border-radius:8px;padding:8px 10px;margin-top:8px;border:1px solid var(--border);"><div style="font-size:.58rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;margin-bottom:6px;">📋 ファンダメンタル</div>${{faItems.length?`<div style="display:flex;flex-wrap:wrap;gap:6px 14px;">${{faItems.map(f=>`<span style="font-size:.68rem;color:var(--text-dim);">${{f}}</span>`).join('')}}</div>`:'<span style="font-size:.63rem;color:var(--text-dim);">取得データなし</span>'}}</div>`;
   // ファンダ根拠
   const freason=vd.fundamental_reason?`<div style="font-size:.63rem;color:var(--cyan);margin-top:4px;">📊 ファンダ根拠: ${{vd.fundamental_reason}}</div>`:'';
+  // ADR
+  const adr=p.adr||{{}};
+  const adrHtml=adr.last?`<div style="background:${{adr.gap_up?'var(--green-dim)':adr.gap_down?'var(--red-dim)':'var(--bg3)'}};border-radius:8px;padding:8px 10px;margin-top:8px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-size:.63rem;color:var(--text-dim);">🌐 ADR(${{adr.ticker}})</div>
+    <div style="text-align:right;">
+      <span style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.78rem;">$${{adr.last}}</span>
+      <span style="font-size:.68rem;color:var(--${{adr.change_pct>=0?'green':'red'}});margin-left:6px;">${{adr.change_pct>=0?'▲':'▼'}}${{Math.abs(adr.change_pct).toFixed(2)}}%</span>
+      <span style="font-size:.72rem;margin-left:6px;">${{adr.gap_up?'⬆️ ギャップアップ示唆':adr.gap_down?'⬇️ ギャップダウン示唆':'➡️ 中立'}}</span>
+    </div>
+  </div>`:'';
   // スコアバー
   const t=pt.trend||0,m=pt.momentum||0,h=pt.heat||0,f=pt.fundamental||0;
+  const pb=pt.pullback||0,bo=pt.breakout||0,vs=pt.volume||0,wk=pt.weekly||0;
+  const patternMap={{'押し目+BO':'🔥 押し目+BO','押し目':'📉 押し目','ブレイクアウト':'🚀 BO','ベース':'📊 ベース'}};
+  const diag=p.tech_diag||{{}};
+  const pattern=diag.pattern||'ベース';
+  const dropPct=diag.drop_pct||0;
+  const volRatio=diag.vol_ratio||0;
+  const weeklyTrend=diag.weekly_trend||'';
+  const weeklyScore=diag.weekly_score||0;
+  const weeklySigs=(diag.weekly_signals||[]).join(' / ');
+  const patLabel=patternMap[pattern]||pattern;
+  const patColor={{'押し目+BO':'var(--yellow)','押し目':'var(--cyan)','ブレイクアウト':'var(--green)','ベース':'var(--text-dim)'}}[pattern]||'var(--text-dim)';
+  const wkColor=weeklyScore>0?'var(--green)':weeklyScore<0?'var(--red)':'var(--text-dim)';
   const scoreBar=`<div style="margin-top:8px;background:var(--bg);border-radius:6px;padding:8px;border:1px solid var(--border);">
-    <div style="font-size:.58rem;color:var(--text-dim);margin-bottom:6px;font-family:'JetBrains Mono',monospace;">📊 スコア内訳 ${{p.score}}/120点　RR:${{(p.rr||0)>0?(p.rr||0).toFixed(2):'-'}}</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+      <span style="font-size:.58rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;">📊 スコア内訳 ${{p.score}}/100点　RR:${{(p.rr||0)>0?(p.rr||0).toFixed(2):'-'}}</span>
+      <span style="font-size:.6rem;font-weight:700;color:${{patColor}};">${{patLabel}}</span>
+    </div>
     <div style="display:flex;flex-direction:column;gap:3px;">
       <div style="display:flex;align-items:center;gap:6px;"><span style="font-size:.55rem;color:var(--text-dim);width:52px;">トレンド</span><div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:${{Math.min(t/50*100,100)}}%;height:100%;background:var(--green);border-radius:3px;"></div></div><span style="font-size:.55rem;color:var(--green);width:36px;">${{t}}/50</span></div>
       <div style="display:flex;align-items:center;gap:6px;"><span style="font-size:.55rem;color:var(--text-dim);width:52px;">モメンタム</span><div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:${{Math.min(Math.max(m,0)/20*100,100)}}%;height:100%;background:var(--cyan);border-radius:3px;"></div></div><span style="font-size:.55rem;color:var(--cyan);width:36px;">${{m}}/20</span></div>
       <div style="display:flex;align-items:center;gap:6px;"><span style="font-size:.55rem;color:var(--text-dim);width:52px;">過熱感</span><div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:${{Math.min(Math.max(h,0)/20*100,100)}}%;height:100%;background:var(--yellow);border-radius:3px;"></div></div><span style="font-size:.55rem;color:var(--yellow);width:36px;">${{h}}/20</span></div>
       <div style="display:flex;align-items:center;gap:6px;"><span style="font-size:.55rem;color:var(--text-dim);width:52px;">ファンダ</span><div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:${{Math.min(Math.max(f,0)/20*100,100)}}%;height:100%;background:var(--blue);border-radius:3px;"></div></div><span style="font-size:.55rem;color:var(--blue);width:36px;">F=${{f}}</span></div>
+      ${{vs>0?`<div style="display:flex;align-items:center;gap:6px;"><span style="font-size:.55rem;color:var(--text-dim);width:52px;">出来高</span><div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:${{Math.min(vs/15*100,100)}}%;height:100%;background:var(--yellow);border-radius:3px;"></div></div><span style="font-size:.55rem;color:var(--yellow);width:54px;">+${{vs}} (${{volRatio.toFixed(1)}}x)</span></div>`:''}}<br>
+      ${{pb>0?`<div style="display:flex;align-items:center;gap:6px;"><span style="font-size:.55rem;color:var(--text-dim);width:52px;">押し目</span><div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:${{Math.min(pb/50*100,100)}}%;height:100%;background:var(--yellow);border-radius:3px;"></div></div><span style="font-size:.55rem;color:var(--yellow);width:36px;">+${{pb}}</span></div>`:''}}<br>
+      ${{bo>0?`<div style="display:flex;align-items:center;gap:6px;"><span style="font-size:.55rem;color:var(--text-dim);width:52px;">BO</span><div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:${{Math.min(bo/40*100,100)}}%;height:100%;background:var(--green);border-radius:3px;"></div></div><span style="font-size:.55rem;color:var(--green);width:36px;">+${{bo}}</span></div>`:''}}<br>
+      ${{weeklyTrend?`<div style="display:flex;align-items:center;gap:6px;"><span style="font-size:.55rem;color:var(--text-dim);width:52px;">週足</span><div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:${{Math.min(Math.abs(wk)/20*100,100)}}%;height:100%;background:${{wkColor}};border-radius:3px;"></div></div><span style="font-size:.55rem;color:${{wkColor}};width:90px;">${{weeklyScore>=0?'+':''}}${{weeklyScore}} ${{weeklyTrend}}</span></div>`:''}}<br>
     </div>
-    <div style="font-size:.55rem;color:var(--text-dim);margin-top:4px;">N(ニュース): <span style="color:var(--${{ss>=0?'green':'red'}})">${{ss>=0?'+':''}}${{ss}}点</span></div>
+    <div style="font-size:.55rem;color:var(--text-dim);margin-top:4px;">N(ニュース): <span style="color:var(--${{ss>=0?'green':'red'}})">${{ss>=0?'+':''}}${{ss}}点</span>${{dropPct>0?`　押し幅: <span style="color:var(--yellow);">${{dropPct.toFixed(1)}}%</span>`:''}}</div>
+    ${{weeklySigs?`<div style="font-size:.52rem;color:var(--text-dim);margin-top:2px;">週足シグナル: ${{weeklySigs}}</div>`:''}}
   </div>`;
   const refLabel=isRef?`<span class="tag ty" style="font-size:.54rem;">※RR未達</span>`:'';
   const earningsLabel=p.earnings_label?`<div style="font-size:.63rem;color:var(--yellow);margin-top:4px;">${{p.earnings_label}}（決算跨ぎに注意）</div>`:'';
@@ -645,7 +880,9 @@ function buildCard(p, i, isRef) {{
   d.className=`pc ${{isRef?'watch':vc}} fi`;d.style.animationDelay=`${{i*.1}}s`;
   d.innerHTML=`<div class="ph"><div><div style="font-size:.58rem;color:var(--text-dim);">${{NUMS[i]}} ${{flag}} ${{refLabel}}</div><div class="pname">${{p.name}}</div><div class="pticker">${{p.ticker}}</div></div><div><div class="pprice">${{cur}}</div><div style="text-align:right;margin-top:4px;"><span class="tag t${{isRef?'y':vcol[0]}}">${{isRef?'参考':(vi+' '+(v||'様子見'))}}</span></div></div></div>
 ${{earningsLabel}}
-${{upper>0&&lower>0?`<div class="pm"><div class="met"><div class="ml">🎯 利確</div><div class="mv2 green">${{up}} <span style="font-size:.58rem;">+${{tpp}}%</span></div></div><div class="met"><div class="ml">🛡️ 損切</div><div class="mv2 red">${{lo}} <span style="font-size:.58rem;">-${{slp}}%</span></div></div><div class="met"><div class="ml">⚖️ RR</div><div class="mv2 cyan">${{(p.rr||0).toFixed(2)}}</div></div></div>`:'<div style="padding:4px 0;font-size:.63rem;color:var(--text-dim);">📍 現在値: ${{cur}}</div>'}}
+${{upper>0&&lower>0?`<div class="pm"><div class="met"><div class="ml">💰 エントリー</div><div class="mv2 cyan">${{ent}} <span style="font-size:.52rem;color:var(--text-dim);">${{entNote}}</span></div></div></div>
+<div class="pm"><div class="met"><div class="ml">🎯 利確</div><div class="mv2 green">${{up}} <span style="font-size:.58rem;">+${{tpp}}%</span></div></div><div class="met"><div class="ml">🛡️ 損切</div><div class="mv2 red">${{lo}} <span style="font-size:.58rem;">-${{slp}}%</span></div></div><div class="met"><div class="ml">⚖️ RR</div><div class="mv2 cyan">${{(p.rr||0).toFixed(2)}}</div></div></div>`:'<div style="padding:4px 0;font-size:.63rem;color:var(--text-dim);">📍 現在値: ${{cur}}</div>'}}
+${{adrHtml}}
 ${{v&&!isRef?`<div class="aiv"><div class="aih">🤖 AI分析　<span class="tag ${{cc}}" style="font-size:.54rem;">確信度:${{vd.confidence||'-'}}</span></div><ul class="air">${{(vd.reasons||[]).map(r=>`<li>${{r}}</li>`).join('')}}</ul>${{freason}}${{vd.risk?`<div class="rsk">⚠️ ${{vd.risk}}</div>`:''}}</div>`:''}}
 ${{fundHtml}}
 ${{scoreBar}}`;
@@ -709,8 +946,23 @@ def render_report(config: Dict, report_payload: Dict) -> None:
 
     for line in _render_macro(report_payload["macro"], report_payload.get("macro_warning", False), report_payload.get("prev_biz_date", "")):
         print(line); lines_plain.append(line)
+
+    # テーマ株・東証セクター強弱
+    theme_ai          = report_payload.get("theme_ai", {})
+    jp_sector_strength = report_payload.get("jp_sector_strength", {})
+    if theme_ai or jp_sector_strength:
+        for line in _render_theme_stocks(theme_ai, jp_sector_strength):
+            print(line); lines_plain.append(line)
+
     for line in _render_screening(report_payload.get("risk_reward", {}), report_payload.get("screening", {}), config):
         print(line); lines_plain.append(line)
+
+    # トレンドフォロー
+    trend_follow = report_payload.get("trend_follow", [])
+    if trend_follow:
+        for line in _render_trend_follow(trend_follow):
+            print(line); lines_plain.append(line)
+
     for line in _render_portfolio(report_payload.get("portfolio", [])):
         print(line); lines_plain.append(line)
     if report_payload.get("backtest"):
@@ -727,6 +979,13 @@ def render_report(config: Dict, report_payload: Dict) -> None:
 
     clean = [ANSI_ESCAPE.sub("", l) for l in lines_plain]
     (out_dir / f"daily_report_{date_tag}.txt").write_text("\n".join(clean), encoding="utf-8")
+
+    # JSONレポート保存（アプリ内表示用）
+    json_path = out_dir / f"daily_report_{date_tag}.json"
+    json_path.write_text(
+        json.dumps(report_payload, ensure_ascii=False, default=str, indent=2),
+        encoding="utf-8"
+    )
 
     html_path = out_dir / "dashboard.html"
     html_path.write_text(_build_html(report_payload), encoding="utf-8")

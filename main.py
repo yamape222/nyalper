@@ -13,7 +13,7 @@ from macro_analysis import run_macro_analysis
 from portfolio_monitor import run_portfolio_monitor
 from reporter import render_report
 from risk_reward import select_by_risk_reward
-from screener import run_screening
+from screener import run_screening, run_trend_follow_screening
 
 
 def load_config(path: Path) -> Dict[str, Any]:
@@ -72,24 +72,27 @@ def main() -> None:
     config_us.pop("analysis_asof_date", None)  # 常に今日の最新データ
 
     # マクロ分析は今日の最新データで実行（米国株基準）
-    macro_result  = run_macro_analysis(config_us)
+    macro_result  = run_macro_analysis(
+        config_us,
+        universe_path=str(base_dir / "universe_jp.csv"),
+    )
     macro_warning = macro_result.get("macro_warning", False)
-    score_threshold = int(config.get("score_threshold", 65))
+    score_threshold = int(config.get("score_threshold", 40))  # 100点満点基準（旧70点÷2.8≒25点→余裕みて40点）
 
-    screener_result  = {"jp": [], "us": []}
-    screened_for_rr  = {"jp": [], "us": []}
-    rr_result        = {"jp": [], "us": []}
-    portfolio_result = []
-    backtest_result  = {}
+    screener_result     = {"jp": [], "growth": [], "us": []}
+    screened_for_rr     = {"jp": [], "growth": [], "us": []}
+    rr_result           = {"jp": [], "growth": [], "us": []}
+    trend_follow_result = []
+    portfolio_result    = []
+    backtest_result     = {}
 
     if macro_warning:
         logger.warning("マクロ警告発動中：新規スクリーニングをスキップします。")
     else:
-        # 日本祝日でも日本株は直前営業日のデータでスクリーニング実行
         if is_jp_holiday:
             logger.info("日本祝日のため日本株は直前営業日（%s）のデータでスクリーニング実行。", config_jp.get("analysis_asof_date"))
-        
-        # 日本株スクリーニング（常に実行・祝日時は直前営業日データ）
+
+        # プライム株スクリーニング
         screener_result["jp"] = run_screening(
             config=config_jp,
             universe_path=base_dir / "universe_jp.csv",
@@ -97,14 +100,48 @@ def main() -> None:
             sector_focus=macro_result.get("sector_focus", []),
         )
 
-        # 米国株スクリーニングは一旦保留（マクロ分析のみ）
-        # screener_result["us"] = run_screening(...)
+        # グロース株スクリーニング（universe_growth.csvがある場合のみ）
+        growth_path = base_dir / "universe_growth.csv"
+        if growth_path.exists():
+            config_growth = dict(config_jp)
+            config_growth["fund_filter_mode"] = "growth"   # ファンダフィルター緩和
+            config_growth["atr_multiplier_jp"] = float(config.get("atr_multiplier_growth", 2.5))
+            screener_result["growth"] = run_screening(
+                config=config_growth,
+                universe_path=growth_path,
+                market="jp",
+                sector_focus=macro_result.get("sector_focus", []),
+            )
+        else:
+            logger.info("universe_growth.csv が見つかりません。グロース株スクリーニングをスキップ。")
 
-        # RR計算はscreener内で完了済み。rr>=rr_threshold かつ score>=score_threshold の銘柄をBUY候補とする
         rr_th = float(config.get("rr_threshold", 1.2))
-        rr_result["jp"] = [x for x in screener_result["jp"]
-                           if x.get("rr", 0) >= rr_th and int(x.get("score", 0)) >= score_threshold]
+
+        # プライムBUY候補
+        rr_result["jp"] = [
+            x for x in screener_result["jp"]
+            if x.get("rr", 0) >= rr_th and int(x.get("score", 0)) >= score_threshold
+        ]
         screened_for_rr["jp"] = rr_result["jp"]
+
+        # グロースBUY候補
+        rr_result["growth"] = [
+            x for x in screener_result["growth"]
+            if x.get("rr", 0) >= rr_th and int(x.get("score", 0)) >= score_threshold
+        ]
+        screened_for_rr["growth"] = rr_result["growth"]
+
+        # ===== トレンドフォロースクリーニング =====
+        logger.info("トレンドフォロースクリーニング開始...")
+        trend_follow_result = run_trend_follow_screening(
+            config=config_jp,
+            universe_paths=[
+                base_dir / "universe_jp.csv",
+                base_dir / "universe_growth.csv",
+            ],
+            asof_date=config_jp.get("analysis_asof_date"),
+            top_n=10,
+        )
 
     # ポートフォリオ監視（祝日でも実行・直前営業日データ）
     portfolio_result = run_portfolio_monitor(config_jp)
@@ -130,6 +167,9 @@ def main() -> None:
             "screening":        screener_result,
             "screening_for_rr": screened_for_rr,
             "risk_reward":      rr_result,
+            "trend_follow":     trend_follow_result,
+            "theme_ai":         macro_result.get("theme_ai", {}),
+            "jp_sector_strength": macro_result.get("jp_sector_strength", {}),
             "portfolio":        portfolio_result,
             "backtest":         backtest_result,
         },

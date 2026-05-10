@@ -1,0 +1,1304 @@
+{
+  "1332.T": {
+    "upper_target": 1395.5,
+    "lower_target": 1194.0,
+    "entry_price": 1213.0,
+    "rr": 9.605263157894736
+  },
+  "1605.T": {
+    "upper_target": 4473.9,
+    "lower_target": 3785.0,
+    "entry_price": 3850.0,
+    "rr": 9.598004422501646
+  },
+  "1721.T": {
+    "upper_target": 5836.0,
+    "lower_target": 5562.2,
+    "entry_price": 5779.0,
+    "rr": 0.2629757785467128
+  },
+  "1801.T": {
+    "upper_target": 17399.1,
+    "lower_target": 16342.8,
+    "entry_price": 17205.0,
+    "rr": 0.22506617618181338
+  },
+  "1802.T": {
+    "upper_target": 3880.5,
+    "lower_target": 3579.8,
+    "entry_price": 3735.0,
+    "rr": 0.9369906627025572
+  },
+  "1803.T": {
+    "upper_target": 3089.8,
+    "lower_target": 2897.2,
+    "entry_price": 3057.0,
+    "rr": 0.2053621186724763
+  },
+  "1925.T": {
+    "upper_target": 5049.6,
+    "lower_target": 4730.0,
+    "entry_price": 4811.0,
+    "rr": 2.945541908022559
+  },
+  "1928.T": {
+    "upper_target": 3660.2,
+    "lower_target": 3366.0,
+    "entry_price": 3431.0,
+    "rr": 3.526048035804867
+  },
+  "2002.T": {
+    "upper_target": 2198.5,
+    "lower_target": 1937.0,
+    "entry_price": 1973.0,
+    "rr": 6.263888888888889
+  },
+  "2269.T": {
+    "upper_target": 4054.4,
+    "lower_target": 3630.0,
+    "entry_price": 3654.0,
+    "rr": 16.681270785177674
+  },
+  "2282.T": {
+    "upper_target": 7403.9,
+    "lower_target": 6423.0,
+    "entry_price": 6597.0,
+    "rr": 4.637278160919547
+  },
+  "2413.T": {
+    "upper_target": 1681.6,
+    "lower_target": 1346.6,
+    "entry_price": 1414.5,
+    "rr": 3.931618086225034
+  },
+  "2502.T": {
+    "upper_target": 1675.5,
+    "lower_target": 1525.0,
+    "entry_price": 1544.0,
+    "rr": 6.921052631578948
+  },
+  "2503.T": {
+    "upper_target": 2682.5,
+    "lower_target": 2479.8,
+    "entry_price": 2546.5,
+    "rr": 2.0374531835205993
+  },
+  "2768.T": {
+    "upper_target": 6596.3,
+    "lower_target": 5746.0,
+    "entry_price": 5909.0,
+    "rr": 4.216417595250104
+  },
+  "2801.T": {
+    "upper_target": 1579.8,
+    "lower_target": 1373.0,
+    "entry_price": 1392.0,
+    "rr": 9.883674017536135
+  },
+  "2914.T": {
+    "upper_target": 6122.1,
+    "lower_target": 5923.5,
+    "entry_price": 6045.6,
+    "rr": 0.6265069482909892
+  },
+  "3086.T": {
+    "upper_target": 2621.3,
+    "lower_target": 2200.0,
+    "entry_price": 2285.0,
+    "rr": 3.9565576470588253
+  },
+  "3092.T": {
+    "upper_target": 1153.5,
+    "lower_target": 983.6,
+    "entry_price": 1012.5,
+    "rr": 4.879833474951985
+  },
+  "3289.T": {
+    "upper_target": 1423.5,
+    "lower_target": 1286.6,
+    "entry_price": 1320.0,
+    "rr": 3.101123595505618
+  },
+  "3382.T": {
+    "upper_target": 2181.4,
+    "lower_target": 1848.0,
+    "entry_price": 1893.0,
+    "rr": 6.409564444444449
+  },
+  "3407.T": {
+    "upper_target": 1648.8,
+    "lower_target": 1488.0,
+    "entry_price": 1545.5,
+    "rr": 1.7964983557848229
+  },
+  "3659.T": {
+    "upper_target": 2828.6,
+    "lower_target": 2585.0,
+    "entry_price": 2660.5,
+    "rr": 2.2258477599028366
+  },
+  "4005.T": {
+    "upper_target": 548.1,
+    "lower_target": 495.0,
+    "entry_price": 513.3,
+    "rr": 1.9028910301220887
+  },
+  "4021.T": {
+    "upper_target": 6906.8,
+    "lower_target": 6708.0,
+    "entry_price": 6906.0,
+    "rr": 0.0038606060606107715
+  },
+  "4042.T": {
+    "upper_target": 2843.5,
+    "lower_target": 2641.3,
+    "entry_price": 2713.0,
+    "rr": 1.8206278026905796
+  },
+  "4062.T": {
+    "upper_target": 16375.0,
+    "lower_target": 15327.8,
+    "entry_price": 16375.0,
+    "rr": 0.0
+  },
+  "4063.T": {
+    "upper_target": 7883.0,
+    "lower_target": 7410.7,
+    "entry_price": 8016.4,
+    "rr": -0.2202332519663679
+  },
+  "4208.T": {
+    "upper_target": 2496.5,
+    "lower_target": 2348.6,
+    "entry_price": 2398.0,
+    "rr": 1.9936993735155355
+  },
+  "4452.T": {
+    "upper_target": 6202.0,
+    "lower_target": 5858.7,
+    "entry_price": 5991.0,
+    "rr": 1.5948768715228885
+  },
+  "4503.T": {
+    "upper_target": 2686.6,
+    "lower_target": 2202.5,
+    "entry_price": 2302.0,
+    "rr": 3.8660084006462134
+  },
+  "4519.T": {
+    "upper_target": 9080.0,
+    "lower_target": 7586.6,
+    "entry_price": 7738.0,
+    "rr": 8.864354800660548
+  },
+  "4543.T": {
+    "upper_target": 2266.0,
+    "lower_target": 1928.5,
+    "entry_price": 1957.0,
+    "rr": 10.842105263157896
+  },
+  "4568.T": {
+    "upper_target": 2978.7,
+    "lower_target": 2443.0,
+    "entry_price": 2537.1,
+    "rr": 4.692518597236989
+  },
+  "4578.T": {
+    "upper_target": 11438.9,
+    "lower_target": 10937.4,
+    "entry_price": 11260.0,
+    "rr": 0.5546536497803427
+  },
+  "4661.T": {
+    "upper_target": 2730.0,
+    "lower_target": 2144.0,
+    "entry_price": 2218.0,
+    "rr": 6.918918918918919
+  },
+  "4689.T": {
+    "upper_target": 440.1,
+    "lower_target": 426.2,
+    "entry_price": 439.7,
+    "rr": 0.03125596614143573
+  },
+  "4704.T": {
+    "upper_target": 5880.2,
+    "lower_target": 5495.5,
+    "entry_price": 5535.0,
+    "rr": 8.733896761133503
+  },
+  "4751.T": {
+    "upper_target": 1373.5,
+    "lower_target": 1230.5,
+    "entry_price": 1241.5,
+    "rr": 12.0
+  },
+  "4901.T": {
+    "upper_target": 3230.0,
+    "lower_target": 2855.0,
+    "entry_price": 2912.0,
+    "rr": 5.578947368421052
+  },
+  "5016.T": {
+    "upper_target": 5456.7,
+    "lower_target": 4877.2,
+    "entry_price": 5276.0,
+    "rr": 0.45318287071376767
+  },
+  "5019.T": {
+    "upper_target": 1586.0,
+    "lower_target": 1315.3,
+    "entry_price": 1370.0,
+    "rr": 3.9494022853411614
+  },
+  "5101.T": {
+    "upper_target": 6717.2,
+    "lower_target": 6277.7,
+    "entry_price": 6400.0,
+    "rr": 2.5937226038600043
+  },
+  "5108.T": {
+    "upper_target": 3484.0,
+    "lower_target": 3234.5,
+    "entry_price": 3299.7,
+    "rr": 2.82823632577004
+  },
+  "5214.T": {
+    "upper_target": 7714.1,
+    "lower_target": 6739.4,
+    "entry_price": 7190.0,
+    "rr": 1.1629120304327158
+  },
+  "5301.T": {
+    "upper_target": 1179.0,
+    "lower_target": 1136.6,
+    "entry_price": 1174.5,
+    "rr": 0.1188118811881188
+  },
+  "5332.T": {
+    "upper_target": 7011.0,
+    "lower_target": 6480.0,
+    "entry_price": 6740.0,
+    "rr": 1.0421645378382074
+  },
+  "5406.T": {
+    "upper_target": 2001.0,
+    "lower_target": 1935.1,
+    "entry_price": 1980.5,
+    "rr": 0.4525190100810069
+  },
+  "5631.T": {
+    "upper_target": 10020.0,
+    "lower_target": 8968.0,
+    "entry_price": 9317.0,
+    "rr": 2.01432664756447
+  },
+  "5714.T": {
+    "upper_target": 10259.5,
+    "lower_target": 9588.3,
+    "entry_price": 9848.0,
+    "rr": 1.5842430309564262
+  },
+  "5802.T": {
+    "upper_target": 11345.0,
+    "lower_target": 10645.8,
+    "entry_price": 11345.0,
+    "rr": 0.0
+  },
+  "5803.T": {
+    "upper_target": 6500.0,
+    "lower_target": 6052.2,
+    "entry_price": 6498.0,
+    "rr": 0.004486101097492591
+  },
+  "6098.T": {
+    "upper_target": 7729.3,
+    "lower_target": 7223.6,
+    "entry_price": 7475.0,
+    "rr": 1.0113444709626125
+  },
+  "6113.T": {
+    "upper_target": 2942.5,
+    "lower_target": 2765.6,
+    "entry_price": 2872.5,
+    "rr": 0.6546426185704735
+  },
+  "6146.T": {
+    "upper_target": 78150.0,
+    "lower_target": 72291.4,
+    "entry_price": 76590.0,
+    "rr": 0.3629112662013953
+  },
+  "6273.T": {
+    "upper_target": 79532.0,
+    "lower_target": 75268.9,
+    "entry_price": 78840.0,
+    "rr": 0.19377885446611323
+  },
+  "6301.T": {
+    "upper_target": 7169.4,
+    "lower_target": 6372.0,
+    "entry_price": 6575.0,
+    "rr": 2.928005911330048
+  },
+  "6305.T": {
+    "upper_target": 5773.0,
+    "lower_target": 5497.3,
+    "entry_price": 5521.0,
+    "rr": 10.641891891891762
+  },
+  "6326.T": {
+    "upper_target": 2765.4,
+    "lower_target": 2601.4,
+    "entry_price": 2700.0,
+    "rr": 0.6633120914768503
+  },
+  "6361.T": {
+    "upper_target": 5942.0,
+    "lower_target": 5461.1,
+    "entry_price": 5763.0,
+    "rr": 0.5928554530399808
+  },
+  "6367.T": {
+    "upper_target": 24830.0,
+    "lower_target": 23960.0,
+    "entry_price": 25978.0,
+    "rr": -0.5688800792864221
+  },
+  "6370.T": {
+    "upper_target": 8479.7,
+    "lower_target": 8010.9,
+    "entry_price": 8358.0,
+    "rr": 0.3505904376790997
+  },
+  "6501.T": {
+    "upper_target": 5281.8,
+    "lower_target": 4712.0,
+    "entry_price": 4716.6,
+    "rr": 122.86452173912056
+  },
+  "6503.T": {
+    "upper_target": 6636.0,
+    "lower_target": 6150.6,
+    "entry_price": 6584.1,
+    "rr": 0.11971529310969685
+  },
+  "6504.T": {
+    "upper_target": 14165.0,
+    "lower_target": 13271.1,
+    "entry_price": 14035.0,
+    "rr": 0.17017297802711565
+  },
+  "6506.T": {
+    "upper_target": 5981.4,
+    "lower_target": 5681.0,
+    "entry_price": 5973.0,
+    "rr": 0.028917391785789077
+  },
+  "6508.T": {
+    "upper_target": 9350.0,
+    "lower_target": 8786.4,
+    "entry_price": 9170.0,
+    "rr": 0.46927374301675884
+  },
+  "6586.T": {
+    "upper_target": 5847.8,
+    "lower_target": 5581.1,
+    "entry_price": 5804.0,
+    "rr": 0.1963769230769234
+  },
+  "6594.T": {
+    "upper_target": 2632.0,
+    "lower_target": 2448.0,
+    "entry_price": 2593.0,
+    "rr": 0.2690317812269031
+  },
+  "6674.T": {
+    "upper_target": 6646.8,
+    "lower_target": 6212.0,
+    "entry_price": 6495.0,
+    "rr": 0.5365371024734987
+  },
+  "6701.T": {
+    "upper_target": 4456.3,
+    "lower_target": 3820.0,
+    "entry_price": 4028.0,
+    "rr": 2.0596613429503696
+  },
+  "6702.T": {
+    "upper_target": 3715.4,
+    "lower_target": 3091.3,
+    "entry_price": 3327.2,
+    "rr": 1.6454382947801898
+  },
+  "6753.T": {
+    "upper_target": 637.2,
+    "lower_target": 534.4,
+    "entry_price": 559.4,
+    "rr": 3.1100294443359418
+  },
+  "6758.T": {
+    "upper_target": 3452.0,
+    "lower_target": 3066.0,
+    "entry_price": 3035.8,
+    "rr": 0.0
+  },
+  "6762.T": {
+    "upper_target": 2985.0,
+    "lower_target": 2698.5,
+    "entry_price": 2896.0,
+    "rr": 0.45059217068981167
+  },
+  "6770.T": {
+    "upper_target": 2375.4,
+    "lower_target": 1920.3,
+    "entry_price": 2034.5,
+    "rr": 2.9859536367902413
+  },
+  "6857.T": {
+    "upper_target": 31857.8,
+    "lower_target": 27728.0,
+    "entry_price": 29715.0,
+    "rr": 1.0784263876306628
+  },
+  "6861.T": {
+    "upper_target": 81720.0,
+    "lower_target": 76555.7,
+    "entry_price": 80135.6,
+    "rr": 0.4425839611799241
+  },
+  "6902.T": {
+    "upper_target": 1972.4,
+    "lower_target": 1837.4,
+    "entry_price": 1914.5,
+    "rr": 0.7500124433889956
+  },
+  "6920.T": {
+    "upper_target": 46720.0,
+    "lower_target": 41615.7,
+    "entry_price": 44920.0,
+    "rr": 0.544747081712063
+  },
+  "6952.T": {
+    "upper_target": 1737.9,
+    "lower_target": 1624.2,
+    "entry_price": 1646.5,
+    "rr": 4.103025134649919
+  },
+  "6954.T": {
+    "upper_target": 7287.8,
+    "lower_target": 6742.1,
+    "entry_price": 7004.2,
+    "rr": 1.0818097590592695
+  },
+  "7003.T": {
+    "upper_target": 6207.8,
+    "lower_target": 5408.0,
+    "entry_price": 5647.0,
+    "rr": 2.3464334728033505
+  },
+  "7012.T": {
+    "upper_target": 3406.0,
+    "lower_target": 3183.2,
+    "entry_price": 3251.0,
+    "rr": 2.2864896755162163
+  },
+  "7013.T": {
+    "upper_target": 3396.0,
+    "lower_target": 2858.0,
+    "entry_price": 3045.0,
+    "rr": 1.8772965042979959
+  },
+  "7202.T": {
+    "upper_target": 2451.4,
+    "lower_target": 2089.5,
+    "entry_price": 2168.0,
+    "rr": 3.6106267515923585
+  },
+  "7203.T": {
+    "upper_target": 3455.6,
+    "lower_target": 2971.0,
+    "entry_price": 2915.5,
+    "rr": 0.0
+  },
+  "7205.T": {
+    "upper_target": 419.6,
+    "lower_target": 296.0,
+    "entry_price": 303.0,
+    "rr": 16.658742857142865
+  },
+  "7269.T": {
+    "upper_target": 1923.6,
+    "lower_target": 1720.6,
+    "entry_price": 1785.0,
+    "rr": 2.1519539706410886
+  },
+  "7733.T": {
+    "upper_target": 1611.4,
+    "lower_target": 1517.0,
+    "entry_price": 1534.5,
+    "rr": 4.39316381239496
+  },
+  "7741.T": {
+    "upper_target": 30236.5,
+    "lower_target": 26805.0,
+    "entry_price": 27510.0,
+    "rr": 3.8674070201781356
+  },
+  "7751.T": {
+    "upper_target": 4602.0,
+    "lower_target": 3987.0,
+    "entry_price": 4043.0,
+    "rr": 9.982142857142858
+  },
+  "7752.T": {
+    "upper_target": 1417.3,
+    "lower_target": 1292.5,
+    "entry_price": 1325.5,
+    "rr": 2.780648579077265
+  },
+  "7832.T": {
+    "upper_target": 4105.9,
+    "lower_target": 3551.0,
+    "entry_price": 3615.0,
+    "rr": 7.670177256083562
+  },
+  "7912.T": {
+    "upper_target": 3247.0,
+    "lower_target": 3093.9,
+    "entry_price": 3200.0,
+    "rr": 0.44309764309764366
+  },
+  "7974.T": {
+    "upper_target": 8947.6,
+    "lower_target": 7361.0,
+    "entry_price": 7138.2,
+    "rr": 0.0
+  },
+  "8001.T": {
+    "upper_target": 2082.7,
+    "lower_target": 1996.6,
+    "entry_price": 2009.0,
+    "rr": 5.933932803041708
+  },
+  "8002.T": {
+    "upper_target": 6203.1,
+    "lower_target": 5375.0,
+    "entry_price": 5101.0,
+    "rr": 0.0
+  },
+  "8015.T": {
+    "upper_target": 7070.0,
+    "lower_target": 6482.1,
+    "entry_price": 6840.0,
+    "rr": 0.642714570858283
+  },
+  "8031.T": {
+    "upper_target": 6439.7,
+    "lower_target": 5478.0,
+    "entry_price": 5411.8,
+    "rr": 0.0
+  },
+  "8035.T": {
+    "upper_target": 51960.0,
+    "lower_target": 49702.5,
+    "entry_price": 51720.0,
+    "rr": 0.11895910780669144
+  },
+  "8053.T": {
+    "upper_target": 7556.0,
+    "lower_target": 7047.7,
+    "entry_price": 7400.0,
+    "rr": 0.44282238442822336
+  },
+  "8058.T": {
+    "upper_target": 5538.4,
+    "lower_target": 5176.0,
+    "entry_price": 5528.6,
+    "rr": 0.027691173133649605
+  },
+  "8252.T": {
+    "upper_target": 3114.6,
+    "lower_target": 2950.0,
+    "entry_price": 2989.0,
+    "rr": 3.219736709899711
+  },
+  "8306.T": {
+    "upper_target": 2935.8,
+    "lower_target": 2812.3,
+    "entry_price": 2842.7,
+    "rr": 3.0577951223598765
+  },
+  "8308.T": {
+    "upper_target": 2012.0,
+    "lower_target": 1917.6,
+    "entry_price": 2010.0,
+    "rr": 0.022189945862336784
+  },
+  "8309.T": {
+    "upper_target": 5604.5,
+    "lower_target": 5404.4,
+    "entry_price": 5854.6,
+    "rr": -0.555546938710752
+  },
+  "8331.T": {
+    "upper_target": 2288.5,
+    "lower_target": 2148.8,
+    "entry_price": 2221.5,
+    "rr": 0.9221029452243343
+  },
+  "8354.T": {
+    "upper_target": 6743.0,
+    "lower_target": 6374.7,
+    "entry_price": 6553.0,
+    "rr": 1.065739286515595
+  },
+  "8411.T": {
+    "upper_target": 7037.7,
+    "lower_target": 6646.6,
+    "entry_price": 6859.5,
+    "rr": 0.8369440075762039
+  },
+  "8591.T": {
+    "upper_target": 5257.6,
+    "lower_target": 5098.4,
+    "entry_price": 5252.0,
+    "rr": 0.0364143189214369
+  },
+  "8601.T": {
+    "upper_target": 1581.7,
+    "lower_target": 1515.4,
+    "entry_price": 1518.5,
+    "rr": 20.52975844440004
+  },
+  "8604.T": {
+    "upper_target": 1381.8,
+    "lower_target": 1214.0,
+    "entry_price": 1250.5,
+    "rr": 3.59779178082192
+  },
+  "8630.T": {
+    "upper_target": 6126.1,
+    "lower_target": 5691.2,
+    "entry_price": 5857.0,
+    "rr": 1.6234058338908115
+  },
+  "8725.T": {
+    "upper_target": 4160.3,
+    "lower_target": 3907.8,
+    "entry_price": 4003.0,
+    "rr": 1.6513992330886824
+  },
+  "8750.T": {
+    "upper_target": 1524.3,
+    "lower_target": 1457.7,
+    "entry_price": 1464.0,
+    "rr": 9.548589677125259
+  },
+  "8766.T": {
+    "upper_target": 7409.4,
+    "lower_target": 7169.4,
+    "entry_price": 7210.0,
+    "rr": 4.90601716968397
+  },
+  "8802.T": {
+    "upper_target": 4744.9,
+    "lower_target": 4337.0,
+    "entry_price": 4386.0,
+    "rr": 7.324622639469676
+  },
+  "8804.T": {
+    "upper_target": 3838.2,
+    "lower_target": 3491.0,
+    "entry_price": 3515.0,
+    "rr": 13.466305349270877
+  },
+  "8830.T": {
+    "upper_target": 4938.1,
+    "lower_target": 4693.1,
+    "entry_price": 4790.0,
+    "rr": 1.5289396358452798
+  },
+  "9020.T": {
+    "upper_target": 3678.7,
+    "lower_target": 3558.5,
+    "entry_price": 3610.0,
+    "rr": 1.3326552271193497
+  },
+  "9021.T": {
+    "upper_target": 3227.0,
+    "lower_target": 2800.6,
+    "entry_price": 2838.0,
+    "rr": 10.39312977099233
+  },
+  "9022.T": {
+    "upper_target": 4387.8,
+    "lower_target": 3552.0,
+    "entry_price": 3742.1,
+    "rr": 3.3967027880063174
+  },
+  "9101.T": {
+    "upper_target": 6363.5,
+    "lower_target": 5474.0,
+    "entry_price": 5636.8,
+    "rr": 4.463783783783777
+  },
+  "9104.T": {
+    "upper_target": 6773.2,
+    "lower_target": 5723.0,
+    "entry_price": 5870.0,
+    "rr": 6.1441197278911615
+  },
+  "9107.T": {
+    "upper_target": 2756.4,
+    "lower_target": 2454.2,
+    "entry_price": 2560.0,
+    "rr": 1.856121475675536
+  },
+  "9202.T": {
+    "upper_target": 3008.0,
+    "lower_target": 2829.1,
+    "entry_price": 2848.5,
+    "rr": 8.204732510288043
+  },
+  "9432.T": {
+    "upper_target": 156.2,
+    "lower_target": 150.6,
+    "entry_price": 152.2,
+    "rr": 2.5244317093712825
+  },
+  "9433.T": {
+    "upper_target": 2741.3,
+    "lower_target": 2517.0,
+    "entry_price": 2525.0,
+    "rr": 27.034991697980615
+  },
+  "9434.T": {
+    "upper_target": 225.4,
+    "lower_target": 218.2,
+    "entry_price": 221.3,
+    "rr": 1.313951468874177
+  },
+  "9502.T": {
+    "upper_target": 2910.1,
+    "lower_target": 2719.7,
+    "entry_price": 2747.5,
+    "rr": 5.843191948238646
+  },
+  "9503.T": {
+    "upper_target": 2650.6,
+    "lower_target": 2368.5,
+    "entry_price": 2441.0,
+    "rr": 2.8912974555477033
+  },
+  "9531.T": {
+    "upper_target": 7490.9,
+    "lower_target": 6499.4,
+    "entry_price": 6812.0,
+    "rr": 2.1713465844185555
+  },
+  "9532.T": {
+    "upper_target": 6591.0,
+    "lower_target": 5590.0,
+    "entry_price": 5762.0,
+    "rr": 4.8199348837209355
+  },
+  "9602.T": {
+    "upper_target": 1670.8,
+    "lower_target": 1399.5,
+    "entry_price": 1446.5,
+    "rr": 4.772902127659577
+  },
+  "9735.T": {
+    "upper_target": 6283.3,
+    "lower_target": 5596.0,
+    "entry_price": 5628.0,
+    "rr": 20.479319481505286
+  },
+  "9766.T": {
+    "upper_target": 21187.3,
+    "lower_target": 18590.0,
+    "entry_price": 18975.0,
+    "rr": 5.746192207792216
+  },
+  "9983.T": {
+    "upper_target": 75800.0,
+    "lower_target": 73309.6,
+    "entry_price": 75760.0,
+    "rr": 0.016324150998396722
+  },
+  "9984.T": {
+    "upper_target": 6536.6,
+    "lower_target": 5884.5,
+    "entry_price": 6401.5,
+    "rr": 0.2613971570732714
+  },
+  "4507.T": {
+    "upper_target": 3546.7,
+    "lower_target": 3071.2,
+    "entry_price": 3179.0,
+    "rr": 3.4110717031146476
+  },
+  "7182.T": {
+    "upper_target": 2823.5,
+    "lower_target": 2672.3,
+    "entry_price": 2731.5,
+    "rr": 1.55300472653613
+  },
+  "7936.T": {
+    "upper_target": 4747.9,
+    "lower_target": 4464.3,
+    "entry_price": 4597.0,
+    "rr": 1.1371346077760485
+  },
+  "8113.T": {
+    "upper_target": 986.9,
+    "lower_target": 905.2,
+    "entry_price": 934.1,
+    "rr": 1.8258629535103155
+  },
+  "8697.T": {
+    "upper_target": 1963.5,
+    "lower_target": 1803.0,
+    "entry_price": 1859.0,
+    "rr": 1.8652885290831105
+  },
+  "8729.T": {
+    "upper_target": 150.3,
+    "lower_target": 136.6,
+    "entry_price": 141.6,
+    "rr": 1.7537778108805786
+  },
+  "8801.T": {
+    "upper_target": 1790.7,
+    "lower_target": 1652.0,
+    "entry_price": 1663.5,
+    "rr": 11.05999195462055
+  },
+  "6479.T": {
+    "upper_target": 3357.0,
+    "lower_target": 3216.6,
+    "entry_price": 3356.0,
+    "rr": 0.007173968741993328
+  },
+  "4043.T": {
+    "upper_target": 4299.0,
+    "lower_target": 3999.0,
+    "entry_price": 4212.0,
+    "rr": 0.4084507042253521
+  },
+  "4045.T": {
+    "upper_target": 1814.0,
+    "lower_target": 1663.5,
+    "entry_price": 1716.0,
+    "rr": 1.8666666666666667
+  },
+  "2670.T": {
+    "upper_target": 2928.5,
+    "lower_target": 2615.1,
+    "entry_price": 2704.5,
+    "rr": 2.5073227817745907
+  },
+  "3048.T": {
+    "upper_target": 1833.3,
+    "lower_target": 1584.1,
+    "entry_price": 1627.5,
+    "rr": 4.743591769547333
+  },
+  "3064.T": {
+    "upper_target": 1904.5,
+    "lower_target": 1819.8,
+    "entry_price": 1885.0,
+    "rr": 0.2986756881443014
+  },
+  "3088.T": {
+    "upper_target": 2563.9,
+    "lower_target": 2278.9,
+    "entry_price": 2357.5,
+    "rr": 2.624403650817354
+  },
+  "2327.T": {
+    "upper_target": 3957.0,
+    "lower_target": 3505.0,
+    "entry_price": 3607.0,
+    "rr": 3.4313725490196076
+  },
+  "2432.T": {
+    "upper_target": 2758.8,
+    "lower_target": 2519.6,
+    "entry_price": 2611.0,
+    "rr": 1.6158660961342328
+  },
+  "3626.T": {
+    "upper_target": 3723.0,
+    "lower_target": 3516.5,
+    "entry_price": 3558.0,
+    "rr": 3.97398843930636
+  },
+  "3635.T": {
+    "upper_target": 1739.3,
+    "lower_target": 1503.5,
+    "entry_price": 1529.5,
+    "rr": 8.068653846153849
+  },
+  "3697.T": {
+    "upper_target": 715.3,
+    "lower_target": 605.0,
+    "entry_price": 664.6,
+    "rr": 0.8495667146074526
+  },
+  "6005.T": {
+    "upper_target": 3485.0,
+    "lower_target": 3314.1,
+    "entry_price": 3324.0,
+    "rr": 16.2994144625048
+  },
+  "6134.T": {
+    "upper_target": 6528.0,
+    "lower_target": 6259.0,
+    "entry_price": 6524.0,
+    "rr": 0.01509637417441706
+  },
+  "6136.T": {
+    "upper_target": 3412.0,
+    "lower_target": 3266.7,
+    "entry_price": 3409.0,
+    "rr": 0.0210843373493976
+  },
+  "2201.T": {
+    "upper_target": 2868.5,
+    "lower_target": 2615.5,
+    "entry_price": 2642.5,
+    "rr": 8.37037037037037
+  },
+  "2212.T": {
+    "upper_target": 3463.4,
+    "lower_target": 3112.5,
+    "entry_price": 3214.0,
+    "rr": 2.4577579044116384
+  },
+  "2222.T": {
+    "upper_target": 2107.3,
+    "lower_target": 1969.4,
+    "entry_price": 1991.0,
+    "rr": 5.388294717330896
+  },
+  "9001.T": {
+    "upper_target": 3017.1,
+    "lower_target": 2738.6,
+    "entry_price": 2817.5,
+    "rr": 2.529170685375278
+  },
+  "9003.T": {
+    "upper_target": 3103.4,
+    "lower_target": 2602.5,
+    "entry_price": 2675.0,
+    "rr": 5.908466206896559
+  },
+  "9005.T": {
+    "upper_target": 1930.8,
+    "lower_target": 1639.0,
+    "entry_price": 1645.0,
+    "rr": 47.6322666666667
+  },
+  "9006.T": {
+    "upper_target": 1620.2,
+    "lower_target": 1501.0,
+    "entry_price": 1511.5,
+    "rr": 10.35472187615774
+  },
+  "9007.T": {
+    "upper_target": 1747.6,
+    "lower_target": 1564.0,
+    "entry_price": 1588.5,
+    "rr": 6.493795329769344
+  },
+  "1414.T": {
+    "upper_target": 1459.8,
+    "lower_target": 1309.5,
+    "entry_price": 1320.5,
+    "rr": 12.667423329506267
+  },
+  "1417.T": {
+    "upper_target": 4088.5,
+    "lower_target": 3944.8,
+    "entry_price": 4078.0,
+    "rr": 0.07861625100563337
+  },
+  "1719.T": {
+    "upper_target": 2047.9,
+    "lower_target": 1891.1,
+    "entry_price": 1941.0,
+    "rr": 2.1425877640991065
+  },
+  "5830.T": {
+    "upper_target": 3288.0,
+    "lower_target": 2848.6,
+    "entry_price": 2992.0,
+    "rr": 2.0649434977578522
+  },
+  "5831.T": {
+    "upper_target": 2907.2,
+    "lower_target": 2646.6,
+    "entry_price": 2746.5,
+    "rr": 1.6092048349021533
+  },
+  "5832.T": {
+    "upper_target": 3156.0,
+    "lower_target": 2728.0,
+    "entry_price": 2836.5,
+    "rr": 2.944700460829493
+  },
+  "5838.T": {
+    "upper_target": 6795.0,
+    "lower_target": 6044.9,
+    "entry_price": 6304.0,
+    "rr": 1.8951175075820248
+  },
+  "2127.T": {
+    "upper_target": 702.5,
+    "lower_target": 630.7,
+    "entry_price": 655.2,
+    "rr": 1.932865610968794
+  },
+  "2181.T": {
+    "upper_target": 243.9,
+    "lower_target": 231.9,
+    "entry_price": 237.1,
+    "rr": 1.3075024458932085
+  },
+  "2331.T": {
+    "upper_target": 1299.8,
+    "lower_target": 1165.0,
+    "entry_price": 1175.5,
+    "rr": 11.834893447457034
+  },
+  "2371.T": {
+    "upper_target": 2949.0,
+    "lower_target": 2740.6,
+    "entry_price": 2935.5,
+    "rr": 0.06926882902693797
+  },
+  "2784.T": {
+    "upper_target": 2569.7,
+    "lower_target": 2323.0,
+    "entry_price": 2344.5,
+    "rr": 10.474700320718068
+  },
+  "3038.T": {
+    "upper_target": 3279.7,
+    "lower_target": 2667.5,
+    "entry_price": 2780.0,
+    "rr": 4.44158577777778
+  },
+  "3107.T": {
+    "upper_target": 3411.0,
+    "lower_target": 3311.9,
+    "entry_price": 3409.0,
+    "rr": 0.020603384841795466
+  },
+  "3116.T": {
+    "upper_target": 2510.0,
+    "lower_target": 2193.9,
+    "entry_price": 2275.5,
+    "rr": 2.8741518931932566
+  },
+  "4151.T": {
+    "upper_target": 2663.9,
+    "lower_target": 2208.6,
+    "entry_price": 2308.0,
+    "rr": 3.5799233550534386
+  },
+  "4506.T": {
+    "upper_target": 2131.5,
+    "lower_target": 1535.5,
+    "entry_price": 1553.5,
+    "rr": 32.11372222222222
+  },
+  "1878.T": {
+    "upper_target": 3754.7,
+    "lower_target": 3483.0,
+    "entry_price": 3557.0,
+    "rr": 2.669965297034961
+  },
+  "3003.T": {
+    "upper_target": 1948.0,
+    "lower_target": 1743.1,
+    "entry_price": 1796.5,
+    "rr": 2.839357429718874
+  },
+  "7846.T": {
+    "upper_target": 4966.9,
+    "lower_target": 4720.0,
+    "entry_price": 4752.0,
+    "rr": 6.715240576340818
+  },
+  "7164.T": {
+    "upper_target": 3296.9,
+    "lower_target": 3068.0,
+    "entry_price": 3107.0,
+    "rr": 4.870076402807522
+  },
+  "7701.T": {
+    "upper_target": 3924.0,
+    "lower_target": 3758.2,
+    "entry_price": 3847.0,
+    "rr": 0.8675078864353291
+  },
+  "8473.T": {
+    "upper_target": 3239.6,
+    "lower_target": 2911.9,
+    "entry_price": 3021.0,
+    "rr": 2.0035493378140203
+  },
+  "9301.T": {
+    "upper_target": 1440.7,
+    "lower_target": 1396.9,
+    "entry_price": 1419.5,
+    "rr": 0.9389192385511517
+  },
+  "1436.T": {
+    "upper_target": 1488.0,
+    "lower_target": 1390.2,
+    "entry_price": 1488.0,
+    "rr": 0.0
+  },
+  "2334.T": {
+    "upper_target": 559.0,
+    "lower_target": 485.5,
+    "entry_price": 535.0,
+    "rr": 0.48484848484848486
+  },
+  "299A.T": {
+    "upper_target": 1064.0,
+    "lower_target": 985.9,
+    "entry_price": 1041.0,
+    "rr": 0.4176394293125812
+  },
+  "350A.T": {
+    "upper_target": 842.0,
+    "lower_target": 799.2,
+    "entry_price": 835.0,
+    "rr": 0.1964191478744802
+  },
+  "3652.T": {
+    "upper_target": 3625.0,
+    "lower_target": 3124.6,
+    "entry_price": 3475.0,
+    "rr": 0.4281345565749232
+  },
+  "3900.T": {
+    "upper_target": 685.9,
+    "lower_target": 641.0,
+    "entry_price": 664.0,
+    "rr": 0.9543902439024352
+  },
+  "4055.T": {
+    "upper_target": 2268.0,
+    "lower_target": 2068.1,
+    "entry_price": 2239.0,
+    "rr": 0.1696969696969695
+  },
+  "4169.T": {
+    "upper_target": 390.0,
+    "lower_target": 348.5,
+    "entry_price": 382.0,
+    "rr": 0.23855165069222584
+  },
+  "4475.T": {
+    "upper_target": 1012.5,
+    "lower_target": 962.0,
+    "entry_price": 993.0,
+    "rr": 0.6294452013946401
+  },
+  "478A.T": {
+    "upper_target": 914.5,
+    "lower_target": 834.3,
+    "entry_price": 900.0,
+    "rr": 0.22022246028027784
+  },
+  "6613.T": {
+    "upper_target": 1788.1,
+    "lower_target": 1490.9,
+    "entry_price": 1777.0,
+    "rr": 0.0389714410574908
+  },
+  "135A.T": {
+    "upper_target": 3870.0,
+    "lower_target": 3560.2,
+    "entry_price": 3850.0,
+    "rr": 0.06900800985828716
+  },
+  "190A.T": {
+    "upper_target": 164.0,
+    "lower_target": 147.8,
+    "entry_price": 160.0,
+    "rr": 0.3274853801169588
+  },
+  "278A.T": {
+    "upper_target": 14530.0,
+    "lower_target": 11843.2,
+    "entry_price": 13400.0,
+    "rr": 0.7258545537967426
+  },
+  "290A.T": {
+    "upper_target": 1474.8,
+    "lower_target": 1321.8,
+    "entry_price": 1434.0,
+    "rr": 0.3633931036190978
+  },
+  "319A.T": {
+    "upper_target": 14768.7,
+    "lower_target": 13373.2,
+    "entry_price": 14330.0,
+    "rr": 0.4585325302357218
+  },
+  "3691.T": {
+    "upper_target": 2469.0,
+    "lower_target": 2221.9,
+    "entry_price": 2420.0,
+    "rr": 0.24734090499368996
+  },
+  "402A.T": {
+    "upper_target": 760.0,
+    "lower_target": 626.8,
+    "entry_price": 703.0,
+    "rr": 0.7482419127988746
+  },
+  "4419.T": {
+    "upper_target": 1299.0,
+    "lower_target": 1204.7,
+    "entry_price": 1281.0,
+    "rr": 0.23595505617977547
+  },
+  "4493.T": {
+    "upper_target": 1737.7,
+    "lower_target": 1650.8,
+    "entry_price": 1680.0,
+    "rr": 1.9787774997259613
+  },
+  "4592.T": {
+    "upper_target": 2267.0,
+    "lower_target": 2105.0,
+    "entry_price": 2258.0,
+    "rr": 0.058823529411764705
+  },
+  "5597.T": {
+    "upper_target": 2286.0,
+    "lower_target": 1874.1,
+    "entry_price": 2118.0,
+    "rr": 0.6889279437609841
+  },
+  "6521.T": {
+    "upper_target": 6210.0,
+    "lower_target": 5509.8,
+    "entry_price": 6210.0,
+    "rr": 0.0
+  },
+  "7047.T": {
+    "upper_target": 2552.0,
+    "lower_target": 2467.9,
+    "entry_price": 2552.0,
+    "rr": 0.0
+  }
+}

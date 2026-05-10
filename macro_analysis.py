@@ -234,7 +234,7 @@ def _get_sector_flow_ai(config: Dict, inflow_sectors: List[Dict], outflow_sector
 
 
 # ===== メイン =====
-def run_macro_analysis(config: Dict) -> Dict:
+def run_macro_analysis(config: Dict, universe_path: str = None) -> Dict:
     asof_date = config.get("analysis_asof_date")
 
     # 主要11セクター + SOXX
@@ -295,6 +295,29 @@ def run_macro_analysis(config: Dict) -> Dict:
     if not nikkei_df.empty:
         nikkei_range = _calc_nikkei_range(nikkei_df)
 
+    # ===== CME日経先物 =====
+    cme_futures = {}
+    try:
+        cme_df = download_ohlcv("NKD=F", period="5d", interval="1d", asof_date=None)
+        if len(cme_df) >= 2:
+            cme_last = float(cme_df["Close"].iloc[-1])
+            cme_prev = float(cme_df["Close"].iloc[-2])
+            cme_chg  = cme_last - cme_prev
+            cme_chg_pct = (cme_chg / cme_prev * 100) if cme_prev > 0 else 0
+            nikkei_last = nikkei_range.get("prev_close", 0)
+            gap_up = cme_last > nikkei_last if nikkei_last > 0 else None
+            cme_futures = {
+                "last":      round(cme_last, 0),
+                "change":    round(cme_chg, 0),
+                "change_pct": round(cme_chg_pct, 2),
+                "gap_up":    gap_up,
+                "vs_nikkei": round(cme_last - nikkei_last, 0) if nikkei_last > 0 else 0,
+                "vs_nikkei_pct": round((cme_last - nikkei_last) / nikkei_last * 100, 2) if nikkei_last > 0 else 0,
+            }
+            logger.info("CME日経先物: ¥%.0f (%+.2f%%)", cme_last, cme_chg_pct)
+    except Exception as e:
+        logger.warning("CME先物取得失敗: %s", e)
+
     # ===== マクロ警告判定 =====
     nikkei_stats = index_stats.get("nikkei", {})
     sp500_stats  = index_stats.get("sp500", {})
@@ -331,6 +354,7 @@ def run_macro_analysis(config: Dict) -> Dict:
         "vix":              round(vix_last, 2),
         "indices":          index_stats,
         "nikkei_range":     nikkei_range,
+        "cme_futures":      cme_futures,
         "commodities":      commodity_data,    # 原油・金・米10年債・為替
         "top_sector_etf":   top_sector_etf,
         "top_sector_perf":  round(top_perf, 2) if top_sector_etf else 0.0,
@@ -359,4 +383,131 @@ def run_macro_analysis(config: Dict) -> Dict:
     else:
         macro_data["sector_flow_ai"] = {}
 
+    # ===== 東証セクター別強弱 =====
+    jp_sector_strength = {}
+    if universe_path:
+        logger.info("東証セクター強弱を計算中...")
+        jp_sector_strength = _get_jp_sector_strength(
+            universe_path, asof_date=asof_date
+        )
+        macro_data["jp_sector_strength"] = jp_sector_strength
+    else:
+        macro_data["jp_sector_strength"] = {}
+
+    # ===== テーマ株Gemini判定 =====
+    if not us_market_closed:
+        logger.info("テーマ株を判定中...")
+        theme_ai = _get_theme_stocks_ai(config, macro_data, jp_sector_strength)
+        macro_data["theme_ai"] = theme_ai
+        # テーマに合う東証業種をsector_focusに追加
+        theme_sectors = theme_ai.get("target_sectors_jp", [])
+        macro_data["sector_focus"] = list(set(
+            macro_data.get("sector_focus", []) + theme_sectors
+        ))
+    else:
+        macro_data["theme_ai"] = {}
+
     return macro_data
+
+
+# ===== 東証セクター別強弱 =====
+def _get_jp_sector_strength(universe_path: str, asof_date: str = None) -> Dict:
+    """
+    universe_jp.csvの銘柄を使って東証33業種別の騰落率を計算する。
+    各業種の代表銘柄（最大3銘柄）の平均リターンでセクター強弱を判定。
+    """
+    try:
+        import pandas as pd
+        from pathlib import Path
+
+        df = pd.read_csv(universe_path, dtype={"ticker": str})
+        if "sector" not in df.columns:
+            return {}
+
+        sector_returns = {}
+        sectors = df["sector"].dropna().unique()
+
+        for sector in sectors:
+            tickers = df[df["sector"] == sector]["ticker"].head(3).tolist()
+            rets = []
+            for ticker in tickers:
+                try:
+                    hist = download_ohlcv(ticker, period="1mo", interval="1d",
+                                          asof_date=asof_date)
+                    if len(hist) >= 2:
+                        ret = (float(hist["Close"].iloc[-1]) /
+                               float(hist["Close"].iloc[-2]) - 1.0) * 100
+                        rets.append(ret)
+                except Exception:
+                    continue
+            if rets:
+                sector_returns[sector] = round(sum(rets) / len(rets), 2)
+
+        sorted_sectors = sorted(sector_returns.items(), key=lambda x: x[1], reverse=True)
+        return {
+            "sector_returns": dict(sorted_sectors),
+            "top3":    [{"sector": s, "return": r} for s, r in sorted_sectors[:3]],
+            "bottom3": [{"sector": s, "return": r} for s, r in sorted_sectors[-3:] if r < 0],
+        }
+    except Exception as e:
+        logger.warning("東証セクター強弱取得失敗: %s", e)
+        return {}
+
+
+# ===== テーマ株Gemini判定 =====
+def _get_theme_stocks_ai(config: Dict, macro_data: Dict,
+                          jp_sector_strength: Dict) -> Dict:
+    """
+    マクロ指標・米国セクターETF・東証セクター強弱から
+    今日のテーマ株と注目セクターをGeminiが自動判定する。
+    """
+    etf_perf   = macro_data.get("etf_performances", {})
+    inflow     = macro_data.get("inflow_sectors", [])
+    vix        = macro_data.get("vix", 0)
+    usdjpy     = macro_data.get("commodities", {}).get("usdjpy", {})
+    crude      = macro_data.get("commodities", {}).get("crude_oil", {})
+    gold       = macro_data.get("commodities", {}).get("gold", {})
+    bond       = macro_data.get("commodities", {}).get("bond_10y", {})
+    jp_top3    = jp_sector_strength.get("top3", [])
+    jp_bottom3 = jp_sector_strength.get("bottom3", [])
+
+    inflow_text = "\n".join([
+        f"  {s['etf']}（{', '.join(s['sectors'])}）: {s['perf']:+.2f}%"
+        for s in inflow
+    ])
+    jp_top_text = "\n".join([
+        f"  {s['sector']}: {s['return']:+.2f}%"
+        for s in jp_top3
+    ])
+    jp_bot_text = "\n".join([
+        f"  {s['sector']}: {s['return']:+.2f}%"
+        for s in jp_bottom3
+    ]) if jp_bottom3 else "なし"
+
+    prompt = f"""あなたはプロの株式アナリストです。以下のデータから今日の日本株市場のテーマ株と注目セクターを判定してください。
+
+【マクロ指標】
+VIX: {vix} / ドル円: {usdjpy.get('last', 0):.1f}円 ({usdjpy.get('change_pct', 0):+.2f}%)
+WTI原油: ${crude.get('last', 0):.1f} ({crude.get('change_pct', 0):+.2f}%)
+金: ${gold.get('last', 0):.1f} ({gold.get('change_pct', 0):+.2f}%)
+米10年債: {bond.get('last', 0):.2f}% ({bond.get('change_pct', 0):+.2f}%)
+
+【米国資金流入セクター】
+{inflow_text}
+
+【東証強いセクター（前日比）】
+{jp_top_text}
+
+【東証弱いセクター（前日比）】
+{jp_bot_text}
+
+以下のJSON形式のみで回答（前置き不要）：
+{{
+  "theme": "今日のメインテーマ（例：AI・半導体、防衛、インバウンドなど）",
+  "sub_theme": "サブテーマ（なければ空文字）",
+  "target_sectors_jp": ["注目すべき東証業種1", "注目すべき東証業種2", "注目すべき東証業種3"],
+  "reason": "なぜそのテーマが今日注目されるか2文で",
+  "caution": "注意点を1文で（なければ空文字）"
+}}"""
+
+    return _call_gemini(config, prompt)

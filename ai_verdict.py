@@ -51,11 +51,11 @@ def get_ai_verdict(config: Dict, item: Dict, macro: Dict) -> Dict:
 現在値: {current:,.1f}{currency}
 
 【テクニカル分析】
-総合スコア: {score}点（120点満点）
+総合スコア: {score}点（100点満点）
 - トレンド: {parts.get("trend", 0)}点 / 50点
 - モメンタム: {parts.get("momentum", 0)}点 / 20点
 - 過熱感: {parts.get("heat", 0)}点 / 20点
-- ファンダメンタル: {parts.get("fundamental", 0)}点 / 20点
+- ファンダメンタル: {parts.get("fundamental", 0)}点 / 85点
 RSI: {rsi:.1f}
 MACD: {macd:.3f}（シグナル: {macd_sig:.3f}）
 リスクリワード: {rr:.2f}
@@ -74,6 +74,8 @@ VIX: {vix}
 {{
   "verdict": "BUY推奨 / 様子見 / SELL推奨 のいずれか1つ",
   "confidence": "高 / 中 / 低 のいずれか1つ",
+  "fundamental_score": 0から100の整数（EPSの黒字・ROE・PER・財務健全性を総合評価。欠損データは0点扱い）,
+  "fundamental_reason": "ファンダ採点の根拠を1文で",
   "reasons": ["根拠1（具体的に）", "根拠2", "根拠3"],
   "risk": "主なリスクを1文で"
 }}"""
