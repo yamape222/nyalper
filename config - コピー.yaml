@@ -1,0 +1,21 @@
+api_wait_sec: 0.5
+atr_multiplier_jp: 2.0
+atr_multiplier_us: 2.5
+backtest_max_hold_days: 10
+backtest_years: 2
+dry_run_mode: false
+edinet_api_key: ''
+fee_rate: 0.001
+gemini_api_key: 
+gemini_model: gemini-2.5-flash
+gemini_wait_sec: 6.0
+http_timeout_sec: 30.0
+macro_vix_warning: 25
+news_days: 3
+news_enabled: true
+news_max_articles: 5
+portfolio: []
+rr_threshold: 1.2
+score_threshold: 25
+technical_top_n: 5
+watchlist: []

@@ -1357,7 +1357,11 @@ def run_screening(
         logger.info("日次RRキャッシュ保存: %d銘柄", len(merged))
 
     # RR閾値 + スコア閾値で絞り込み（BUY）
-    rr_passed = [x for x in technical_results if x["rr"] >= rr_th and x["tech_score"] >= score_th]
+    # score_thは正規化後（100点満点）の閾値なので正規化済みスコアと比較
+    rr_passed = [
+        x for x in technical_results
+        if x["rr"] >= rr_th and normalize_score(x["tech_score"]) >= score_th
+    ]
     rr_passed.sort(key=lambda x: (x["tech_score"], x["rr"]), reverse=True)
     logger.info("RR+スコア通過: %d銘柄 / 全スキャン: %d銘柄", len(rr_passed), len(technical_results))
 

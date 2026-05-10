@@ -688,10 +688,6 @@ header{{display:flex;align-items:center;justify-content:space-between;padding:16
   <div>
     <div class="sec">📈 BUY候補</div>
     <div class="picks" id="pl"></div>
-    <div style="margin-top:16px;">
-      <div class="sec">📋 テクニカル上位銘柄（参考）</div>
-      <div class="picks" id="refs"></div>
-    </div>
   </div>
   <div>
     <div class="sec">🗂️ ポートフォリオ診断</div>

@@ -634,21 +634,6 @@ class NyalperApp:
             for i, item in enumerate(trend_follow[:10], 1):
                 self._render_trend_card(inner, item, i)
 
-        # ===== テクニカル上位（参考）=====
-        screening = data.get("screening", {})
-        refs = []
-        pick_tickers = {p["ticker"] for p in picks} | {p["ticker"] for p in growth_picks}
-        for market in ("jp", "us"):
-            for item in screening.get(market, []):
-                if item["ticker"] not in pick_tickers:
-                    refs.append(item)
-
-        if refs:
-            tk.Label(inner, text="📋 テクニカル上位（参考）",
-                    bg="#161b22", fg="#e3b341",
-                    font=("Yu Gothic UI", 13, "bold")).pack(anchor="w", pady=(10,6))
-            for i, item in enumerate(refs[:5], 1):
-                self._render_pick_card(inner, item, i, is_ref=True)
 
     def _render_pick_card(self, parent, item, i, is_ref=False, is_growth=False):
         """銘柄カードを描画（充実版）"""
