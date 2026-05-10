@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>にゃるぱー秘書 2026-05-10</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0c10;--bg2:#0f1117;--bg3:#161b22;--border:#21262d;--green:#3fb950;--green-dim:#1a4a23;--red:#f85149;--red-dim:#4a1a1a;--yellow:#e3b341;--yellow-dim:#4a3a1a;--blue:#58a6ff;--blue-dim:#1a2f4a;--cyan:#79c0ff;--text:#e6edf3;--text-dim:#8b949e;--accent:#f0c040;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Zen Kaku Gothic New',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(63,185,80,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(63,185,80,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+.wrap{max-width:1280px;margin:0 auto;padding:16px;position:relative;z-index:1;}
+header{display:flex;align-items:center;justify-content:space-between;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:24px;flex-wrap:wrap;gap:12px;}
+.logo{display:flex;align-items:center;gap:12px;}
+.logo-icon{font-size:1.8rem;animation:float 3s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.logo-text{font-size:1.3rem;font-weight:900;color:var(--accent);}
+.logo-sub{font-size:.65rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;}
+.badge{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--text-dim);background:var(--bg3);border:1px solid var(--border);padding:5px 12px;border-radius:6px;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+.grid2{display:grid;grid-template-columns:2fr 1fr;gap:12px;}
+@media(max-width:900px){.grid2{grid-template-columns:1fr;}}
+@media(max-width:600px){.grid3{grid-template-columns:1fr 1fr;}}
+@media(max-width:400px){.grid3{grid-template-columns:1fr;}}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(63,185,80,.3),transparent);}
+.card-title{font-size:.62rem;font-family:'JetBrains Mono',monospace;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;}
+.mv{font-size:1.9rem;font-weight:900;font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:4px;}
+.tag{display:inline-flex;align-items:center;gap:3px;font-size:.62rem;padding:2px 8px;border-radius:20px;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.tg{background:var(--green-dim);color:var(--green);border:1px solid rgba(63,185,80,.3);}
+.tr{background:var(--red-dim);color:var(--red);border:1px solid rgba(248,81,73,.3);}
+.ty{background:var(--yellow-dim);color:var(--yellow);border:1px solid rgba(227,179,65,.3);}
+.tb{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(88,166,255,.3);}
+.sec{font-size:.62rem;font-family:'JetBrains Mono',monospace;color:var(--text-dim);text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.sec::after{content:'';flex:1;height:1px;background:var(--border);}
+.picks{display:flex;flex-direction:column;gap:10px;}
+.pc{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px;border-left:3px solid var(--border);transition:border-color .2s;}
+.pc.buy{border-left-color:var(--green);} .pc.sell{border-left-color:var(--red);} .pc.watch{border-left-color:var(--yellow);}
+.ph{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
+.pname{font-weight:700;font-size:.88rem;} .pticker{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--cyan);}
+.pprice{font-family:'JetBrains Mono',monospace;font-size:.95rem;font-weight:700;text-align:right;}
+.pm{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:10px 0;}
+.met{background:var(--bg);border-radius:6px;padding:6px 8px;}
+.ml{font-size:.54rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;margin-bottom:2px;}
+.mv2{font-size:.78rem;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.aiv{background:var(--bg);border-radius:8px;padding:10px;margin-top:8px;border:1px solid var(--border);}
+.aih{display:flex;align-items:center;gap:6px;font-size:.62rem;color:var(--text-dim);margin-bottom:6px;font-family:'JetBrains Mono',monospace;}
+.air{list-style:none;} .air li{font-size:.7rem;color:var(--text-dim);padding:2px 0;display:flex;gap:6px;}
+.air li::before{content:'·';color:var(--green);font-weight:900;}
+.rsk{font-size:.66rem;color:var(--yellow);margin-top:6px;}
+.sb{height:3px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:8px;}
+.sbf{height:100%;border-radius:2px;}
+.sd{display:flex;gap:8px;margin-top:4px;flex-wrap:wrap;}
+.sd span{font-size:.56rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;}
+.pi{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);}
+.pi:last-child{border-bottom:none;}
+.pn{font-weight:700;font-size:.83rem;} .pt{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--cyan);}
+.ptsl{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--text-dim);text-align:right;margin-top:2px;}
+.btg{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.bti{background:var(--bg3);border-radius:8px;padding:10px;}
+.btl{font-size:.58rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;margin-bottom:4px;}
+.btv{font-size:.95rem;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.green{color:var(--green);} .red{color:var(--red);} .yellow{color:var(--yellow);} .cyan{color:var(--cyan);}
+.fi{animation:fi .4s ease forwards;opacity:0;}
+@keyframes fi{to{opacity:1;transform:translateY(0)}from{opacity:0;transform:translateY(8px)}}
+.empty{text-align:center;padding:32px;color:var(--text-dim);font-size:.8rem;}
+::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-track{background:var(--bg);} ::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo">
+    <div class="logo-icon">🐱</div>
+    <div><div class="logo-text">にゃるぱー秘書</div><div class="logo-sub">NYARUPAR HISHO TRADING ASSISTANT v3.0</div></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div class="badge">2026-05-10</div>
+    <div class="dot"></div>
+  </div>
+</header>
+
+<div class="sec">📊 マクロ環境</div>
+<div class="grid3" id="mg"></div>
+<div id="macro-detail"></div>
+
+<div class="grid2">
+  <div>
+    <div class="sec">📈 BUY候補</div>
+    <div class="picks" id="pl"></div>
+  </div>
+  <div>
+    <div class="sec">🗂️ ポートフォリオ診断</div>
+    <div class="card"><div id="port"></div></div>
+    
+  </div>
+</div>
+</div>
+
+<script>
+const macro={"macro_warning": false, "vix": 17.19, "indices": {"nikkei": {"last_close": 62713.6484375, "prev_close": 62833.83984375, "change": -120.19, "change_pct": -0.19, "macd": 1737.6655700283009, "macd_signal": 1436.0882882546707, "rsi14": 69.93154289817551, "bb_high": 63026.63944663416, "bb_low": 54421.633600240835, "tenkan": 60856.310546875, "kijun": 56825.025390625, "senkou_a": 58840.66796875, "senkou_b": 56825.025390625, "sma75": 55711.31755208333}, "dow": {"last_close": 49609.16015625, "prev_close": 49596.96875, "change": 12.19, "change_pct": 0.02, "macd": 493.31315829222876, "macd_signal": 495.9723640403851, "rsi14": 59.72521645224411, "bb_high": 50056.141412265904, "bb_low": 48298.54960335909, "tenkan": 49419.384765625, "kijun": 48013.71875, "senkou_a": 48716.5517578125, "senkou_b": 47593.740234375, "sma75": 48392.031614583335}, "nasdaq": {"last_close": 26247.080078125, "prev_close": 25806.19921875, "change": 440.88, "change_pct": 1.71, "macd": 783.7418348081992, "macd_signal": 685.1684960453107, "rsi14": 80.02162974066178, "bb_high": 26164.69857024475, "bb_low": 23287.70963288025, "tenkan": 25370.224609375, "kijun": 23809.9697265625, "senkou_a": 24590.09716796875, "senkou_b": 23469.4345703125, "sma75": 23170.735755208334}, "sp500": {"last_close": 7398.93017578125, "prev_close": 7337.10986328125, "change": 61.82, "change_pct": 0.84, "macd": 143.3551298978864, "macd_signal": 128.36594298702192, "rsi14": 74.57973700311189, "bb_high": 7403.217862335372, "bb_low": 6904.518172820877, "tenkan": 7254.679931640625, "kijun": 6938.219970703125, "senkou_a": 7096.449951171875, "senkou_b": 6859.205078125, "sma75": 6878.824134114583}}, "nikkei_range": {"prev_close": 62714.0, "atr": 1268.0, "range_upper": 63601.0, "range_lower": 61826.0, "resistance": 63091.0, "support": 58928.0}, "cme_futures": {"last": 63695.0, "change": 1440.0, "change_pct": 2.31, "gap_up": true, "vs_nikkei": 981.0, "vs_nikkei_pct": 1.56}, "commodities": {"crude_oil": {"last": 95.42, "change_pct": 0.64}, "gold": {"last": 4730.7, "change_pct": 0.66}, "bond_10y": {"last": 4.36, "change_pct": -0.64}, "usdjpy": {"last": 156.62, "change_pct": 0.07}}, "top_sector_etf": null, "top_sector_perf": 0.0, "sector_focus": [], "etf_performances": {}, "inflow_sectors": [], "outflow_sectors": [], "us_market_closed": true, "nikkei": {"last_close": 62713.6484375, "prev_close": 62833.83984375, "change": -120.19, "change_pct": -0.19, "macd": 1737.6655700283009, "macd_signal": 1436.0882882546707, "rsi14": 69.93154289817551, "bb_high": 63026.63944663416, "bb_low": 54421.633600240835, "tenkan": 60856.310546875, "kijun": 56825.025390625, "senkou_a": 58840.66796875, "senkou_b": 56825.025390625, "sma75": 55711.31755208333}, "sp500": {"last_close": 7398.93017578125, "prev_close": 7337.10986328125, "change": 61.82, "change_pct": 0.84, "macd": 143.3551298978864, "macd_signal": 128.36594298702192, "rsi14": 74.57973700311189, "bb_high": 7403.217862335372, "bb_low": 6904.518172820877, "tenkan": 7254.679931640625, "kijun": 6938.219970703125, "senkou_a": 7096.449951171875, "senkou_b": 6859.205078125, "sma75": 6878.824134114583}, "sector_ai": {}, "sector_flow_ai": {}, "jp_sector_strength": {"sector_returns": {"金属製品": 17.97, "電気機器": 2.09, "サービス業": 1.8, "その他製品": 1.47, "非鉄金属": 1.2, "精密機器": 1.02, "機械": 0.96, "情報・通信業": 0.69, "倉庫・運輸関連業": 0.67, "ゴム製品": 0.08, "その他金融業": 0.02, "建設業": -0.32, "医薬品": -0.36, "空運業": -0.37, "食料品": -0.49, "パルプ・紙": -0.53, "電気・ガス業": -0.57, "小売業": -0.58, "輸送用機器": -0.65, "水産・農林業": -0.74, "保険業": -0.89, "卸売業": -0.92, "不動産業": -1.13, "証券、商品先物取引業": -1.53, "化学": -1.59, "海運業": -1.6, "陸運業": -1.8, "繊維製品": -1.82, "石油・石炭製品": -1.9, "鉄鋼": -2.11, "ガラス・土石製品": -2.82, "銀行業": -2.91}, "top3": [{"sector": "金属製品", "return": 17.97}, {"sector": "電気機器", "return": 2.09}, {"sector": "サービス業", "return": 1.8}], "bottom3": [{"sector": "鉄鋼", "return": -2.11}, {"sector": "ガラス・土石製品", "return": -2.82}, {"sector": "銀行業", "return": -2.91}]}, "theme_ai": {}},picks=[{"ticker": "7012.T", "name": "川崎重工業", "market": "jp", "sector": "輸送用機器", "tech_score": 120, "tech_diag": {"rsi14": 53.43988480676424, "macd": 7.111845015011113, "macd_signal": 1.3361773986152166, "sma5": 3225.6, "sma25": 3197.16, "sma75": 3150.6266666666666, "pattern": "押し目", "drop_pct": 2.9, "vol_ratio": 0.97, "weekly_trend": "強い上昇", "weekly_score": 15, "weekly_signals": ["週足5>25線", "週足MACD正"], "sma5w": 3208.6, "sma13w": 3297.8, "sma25w": 2845.0}, "tech_parts": {"trend": 50, "momentum": 20, "heat": 10, "volume": 0, "pullback": 25, "breakout": 0, "weekly": 15}, "fundamentals": {"eps": 115.33, "per": 28.3, "pbr": 3.26, "roe": 0.0, "revenue_growth": 0.0, "earnings_growth": 0.0, "operating_margin": 7.3, "profit_margin": 0.0, "dividend_yield": 105.0, "target_price": 3675.0, "target_upside": 16.6, "recommendation": "strong_buy", "week52_pct": 71.6}, "near_earnings": true, "earnings_days": 2, "earnings_label": "⚠️ 決算2営業日以内", "is_focus_sector": false, "current_price": 3266.0, "high20": 3479.0, "low20": 2976.0, "atr14": 144.14285714285714, "bb2_upper": 3424.936787775815, "bb2_lower": 3024.563212224185, "adr": {}, "upper_target": 3406.0, "lower_target": 3183.2, "rr": 2.2864896755162163, "ai_verdict": {"verdict": "BUY推奨", "confidence": "中", "reasons": ["トレンドとモメンタムが共に満点であり、強い上昇基調にある。", "MACDがシグナルを上回るゴールデンクロス状態であり、買いサインが出ている。", "野村證券による目標株価2万円への引き上げ報道が、株価に極めて強いポジティブな影響を与えている。", "リスクリワード比が2.29と良好で、短期的な取引において有利な設定である。"], "risk": "極端に低いファンダメンタル評価が、突発的な悪材料や市場の変動によって顕在化し、株価の急落を招く可能性があるため、損切ラインの厳守が不可欠です。"}, "score": 44, "raw_score": 124, "technical_score": 120, "fundamental_score": 4, "sentiment_score": 0, "sentiment_reason": "野村證券が川崎重工業の目標株価を2万円に引き上げたと報じられており、株価にポジティブな影響を与えている。", "score_parts": {"trend": 50, "momentum": 20, "heat": 10, "volume": 0, "pullback": 25, "breakout": 0, "weekly": 15, "fundamental": 4}, "tech_rsi14": 53.43988480676424, "tech_macd": 7.111845015011113, "tech_macd_signal": 1.3361773986152166, "tech_sma5": 3225.6, "tech_sma25": 3197.16, "tech_sma75": 3150.6266666666666, "_market": "jp"}, {"ticker": "5830.T", "name": "いよぎんホールディングス", "market": "jp", "sector": "銀行業", "tech_score": 105, "tech_diag": {"rsi14": 51.680935084367334, "macd": -4.6308803373271985, "macd_signal": -6.052075948170108, "sma5": 3070.0, "sma25": 3076.64, "sma75": 3065.2066666666665, "pattern": "押し目", "drop_pct": 2.5, "vol_ratio": 3.01, "weekly_trend": "強い上昇", "weekly_score": 15, "weekly_signals": ["週足5>25線", "週足MACD正"], "sma5w": 3071.3, "sma13w": 3135.6, "sma25w": 2919.4}, "tech_parts": {"trend": 20, "momentum": 10, "heat": 10, "volume": 15, "pullback": 35, "breakout": 0, "weekly": 15}, "fundamentals": {"eps": 225.89, "per": 13.7, "pbr": 1.0, "roe": 8.4, "revenue_growth": -23.9, "earnings_growth": 34.4, "operating_margin": 57.0, "profit_margin": 34.4, "dividend_yield": 192.0, "target_price": 3116.7, "target_upside": 4.2, "recommendation": "buy", "week52_pct": 69.7}, "near_earnings": false, "earnings_days": 64, "earnings_label": "", "is_focus_sector": false, "current_price": 3085.0, "high20": 3335.0, "low20": 2827.5, "atr14": 96.60714285714286, "bb2_upper": 3293.21191228663, "bb2_lower": 2888.83808771337, "adr": {}, "upper_target": 3288.0, "lower_target": 2848.6, "rr": 2.0649434977578522, "ai_verdict": {"verdict": "様子見", "confidence": "低", "reasons": ["総合スコアが42点と低く、特にトレンド（20/50点）とモメンタム（10/20点）が非常に弱く、短期的な上昇期待が薄い。", "ファンダメンタルスコアが85点中14点と極めて低く、株価の下支えとなる企業価値の裏付けが不足している。", "MACDはシグナル（-6.052）を上回る（-4.631）ものの、両値がマイナス圏にあり、力強い上昇トレンドへの転換を示すには不十分である。", "ニュース・センチメントは中立（+0点）であり、株価を動かす明確なポジティブ材料が見当たらない。"], "risk": "トレンドとモメンタムが弱いため、短期間での株価上昇が見込みにくく、現状維持または下落する可能性が高い。また、ファンダメンタルが低いため、予期せぬ悪材料が出た際のリスクが大きい。"}, "score": 42, "raw_score": 119, "technical_score": 105, "fundamental_score": 14, "sentiment_score": 0, "sentiment_reason": "(株)いよぎんホールディングスの株価の背景と値動きについてAIが解説している。", "score_parts": {"trend": 20, "momentum": 10, "heat": 10, "volume": 15, "pullback": 35, "breakout": 0, "weekly": 15, "fundamental": 14}, "tech_rsi14": 51.680935084367334, "tech_macd": -4.6308803373271985, "tech_macd_signal": -6.052075948170108, "tech_sma5": 3070.0, "tech_sma25": 3076.64, "tech_sma75": 3065.2066666666665, "_market": "jp"}, {"ticker": "5831.T", "name": "しずおかフィナンシャルグループ", "market": "jp", "sector": "銀行業", "tech_score": 102, "tech_diag": {"rsi14": 50.53708951665768, "macd": 5.788822972707294, "macd_signal": 4.271710988726403, "sma5": 2782.4, "sma25": 2767.34, "sma75": 2743.266666666667, "pattern": "押し目", "drop_pct": 3.4, "vol_ratio": 1.19, "weekly_trend": "強い上昇", "weekly_score": 15, "weekly_signals": ["週足5>25線", "週足MACD正"], "sma5w": 2773.1, "sma13w": 2823.1, "sma25w": 2652.8}, "tech_parts": {"trend": 20, "momentum": 20, "heat": 10, "volume": 0, "pullback": 37, "breakout": 0, "weekly": 15}, "fundamentals": {"eps": 158.7, "per": 17.4, "pbr": 1.18, "roe": 7.5, "revenue_growth": 0.0, "earnings_growth": 0.0, "operating_margin": 35.8, "profit_margin": 0.0, "dividend_yield": 282.0, "target_price": 3172.9, "target_upside": 15.5, "recommendation": "buy", "week52_pct": 75.1}, "near_earnings": true, "earnings_days": 2, "earnings_label": "⚠️ 決算2営業日以内", "is_focus_sector": false, "current_price": 2762.0, "high20": 2911.5, "low20": 2603.5, "atr14": 66.57142857142857, "bb2_upper": 2907.3365241071815, "bb2_lower": 2653.563475892818, "adr": {}, "upper_target": 2907.2, "lower_target": 2646.6, "rr": 1.6092048349021533, "ai_verdict": {"verdict": "様子見", "confidence": "中", "reasons": ["しずおかFGと名古屋銀行の経営統合協議の速報は、将来的な収益改善やコスト削減への期待からポジティブな材料であり、センチメントとモメンタムを強く押し上げているが、株価への織り込み度合いは不明瞭です。", "テクニカルの総合スコアが42点、トレンドスコアが20/50と低く、ファンダメンタルも10/85と極めて弱いため、ニュースによる一時的な急騰に過ぎず、持続的な上昇トレンドを形成する根拠に乏しい状況です。", "モメンタム満点、MACDゴールデンクロスと短期的な上昇圧力がある一方で、過熱感スコアが10/20と存在するため、急騰後の調整や利益確定売りによる下落リスクが伴います。"], "risk": "経営統合協議の進捗や具体的な内容が不透明なため、市場の期待値との乖離や、ニュースによる短期的な急騰後の利益確定売りによる調整リスクがあります。"}, "score": 42, "raw_score": 118, "technical_score": 102, "fundamental_score": 10, "sentiment_score": 6, "sentiment_reason": "しずおかFGが名古屋銀行と経営統合に向けた協議・検討を進めていると速報された。", "score_parts": {"trend": 20, "momentum": 20, "heat": 10, "volume": 0, "pullback": 37, "breakout": 0, "weekly": 15, "fundamental": 10}, "tech_rsi14": 50.53708951665768, "tech_macd": 5.788822972707294, "tech_macd_signal": 4.271710988726403, "tech_sma5": 2782.4, "tech_sma25": 2767.34, "tech_sma75": 2743.266666666667, "_market": "jp"}, {"ticker": "2222.T", "name": "寿スピリッツ", "market": "jp", "sector": "食料品", "tech_score": 95, "tech_diag": {"rsi14": 48.57838142768875, "macd": 19.389666728500288, "macd_signal": 26.6764454067062, "sma5": 2004.9, "sma25": 1968.64, "sma75": 1933.5866666666666, "pattern": "押し目", "drop_pct": 8.3, "vol_ratio": 0.97, "weekly_trend": "強い上昇", "weekly_score": 20, "weekly_signals": ["週足5>25線", "週足MACD正", "週足>13週線"], "sma5w": 1957.1, "sma13w": 1954.3, "sma25w": 1897.2}, "tech_parts": {"trend": 20, "momentum": 10, "heat": 10, "volume": 0, "pullback": 35, "breakout": 0, "weekly": 20}, "fundamentals": {"eps": 78.37, "per": 25.2, "pbr": 6.89, "roe": 29.4, "revenue_growth": 8.6, "earnings_growth": 7.8, "operating_margin": 28.9, "profit_margin": 16.1, "dividend_yield": 176.0, "target_price": 2433.3, "target_upside": 22.2, "recommendation": "none", "week52_pct": 36.3}, "near_earnings": false, "earnings_days": 4, "earnings_label": "", "is_focus_sector": false, "current_price": 1971.5, "high20": 2149.5, "low20": 1833.0, "atr14": 55.892857142857146, "bb2_upper": 2139.881927929368, "bb2_lower": 1842.6180720706318, "adr": {}, "upper_target": 2107.3, "lower_target": 1969.4, "rr": 5.388294717330896, "ai_verdict": {"verdict": "BUY推奨", "confidence": "中", "reasons": ["中国渡航自粛影響下でも1-3月売上高が9.5%増と堅調で、株価が3日ぶり急反騰しており、直近のニュース・センチメントは極めてポジティブ。", "リスクリワードが5.39と非常に有利であり、損切ラインが現在値から-0.1%と極めて限定的なため、リスクを最小限に抑えつつエントリーを検討できる。", "RSIが48.6、過熱感スコアが10/20点と、買われすぎの兆候がなく、株価上昇の余地があると考えられる。"], "risk": "テクニカル指標の弱さ（トレンド・モメンタムの低スコア、MACDのデッドクロス気味）と低いファンダメンタルスコアが示すように、直近の株価反騰が持続しない可能性がある。"}, "score": 40, "raw_score": 113, "technical_score": 95, "fundamental_score": 13, "sentiment_score": 5, "sentiment_reason": "中国渡航自粛影響下でも1-3月売上高9.5%増と堅調な内容を好感し、株価が3日ぶり急反騰した。", "score_parts": {"trend": 20, "momentum": 10, "heat": 10, "volume": 0, "pullback": 35, "breakout": 0, "weekly": 20, "fundamental": 13}, "tech_rsi14": 48.57838142768875, "tech_macd": 19.389666728500288, "tech_macd_signal": 26.6764454067062, "tech_sma5": 2004.9, "tech_sma25": 1968.64, "tech_sma75": 1933.5866666666666, "_market": "jp"}, {"ticker": "4042.T", "name": "東ソー", "market": "jp", "sector": "化学", "tech_score": 110, "tech_diag": {"rsi14": 66.21001709858633, "macd": 37.475908733440974, "macd_signal": 6.567966784561728, "sma5": 2523.9, "sma25": 2410.52, "sma75": 2488.9133333333334, "pattern": "ベース", "drop_pct": 7.3, "vol_ratio": 2.74, "weekly_trend": "上昇", "weekly_score": 10, "weekly_signals": ["週足MACD正", "週足>13週線"], "sma5w": 2444.3, "sma13w": 2476.8, "sma25w": 2445.2}, "tech_parts": {"trend": 50, "momentum": 20, "heat": 0, "volume": 15, "pullback": 15, "breakout": 0, "weekly": 10}, "fundamentals": {"eps": 127.06, "per": 20.7, "pbr": 0.94, "roe": 0.0, "revenue_growth": -4.2, "earnings_growth": -25.4, "operating_margin": 9.8, "profit_margin": 0.0, "dividend_yield": 409.0, "target_price": 2508.8, "target_upside": 2.7, "recommendation": "hold", "week52_pct": 56.1}, "near_earnings": true, "earnings_days": 3, "earnings_label": "⚠️ 決算3営業日以内", "is_focus_sector": false, "current_price": 2635.0, "high20": 2843.5, "low20": 2347.0, "atr14": 54.0, "bb2_upper": 2600.4912101519835, "bb2_lower": 2253.5087898480165, "adr": {}, "upper_target": 2843.5, "lower_target": 2641.3, "rr": 1.8206278026905796, "ai_verdict": {"verdict": "BUY推奨", "confidence": "中", "reasons": ["テクニカル分析のトレンドおよびモメンタムスコアがともに満点であり、強い上昇トレンドと勢いが確認できる。", "MACDがシグナルラインを大きく上回っており、非常に強力な買いシグナルを発している。", "過熱感が0点であり、RSIも66.2とまだ買われすぎの領域ではないため、短期的な上昇余地が期待できる。", "VIX指数が17.19と安定しており、マクロ環境がリスクオフではないため、銘柄固有の動きに集中しやすい。"], "risk": "ファンダメンタルスコアが極めて低く、企業業績による株価の裏付けが弱いため、地合い悪化や突発的な悪材料により急落するリスクが高い。また、提示された損切ライン（2,641.3円）が現在値（2,635.0円）より高いため、リスク管理に関する情報に重大な矛盾があり、適切な損切設定が不明瞭である。"}, "score": 40, "raw_score": 113, "technical_score": 110, "fundamental_score": 3, "sentiment_score": 0, "sentiment_reason": "", "score_parts": {"trend": 50, "momentum": 20, "heat": 0, "volume": 15, "pullback": 15, "breakout": 0, "weekly": 10, "fundamental": 3}, "tech_rsi14": 66.21001709858633, "tech_macd": 37.475908733440974, "tech_macd_signal": 6.567966784561728, "tech_sma5": 2523.9, "tech_sma25": 2410.52, "tech_sma75": 2488.9133333333334, "_market": "jp"}, {"ticker": "7182.T", "name": "ゆうちょ銀行", "market": "jp", "sector": "銀行業", "tech_score": 95, "tech_diag": {"rsi14": 53.03415264046752, "macd": 2.5302352627645632, "macd_signal": -11.332623041804233, "sma5": 2716.6, "sma25": 2671.98, "sma75": 2728.9133333333334, "pattern": "ベース", "drop_pct": 3.5, "vol_ratio": 1.15, "weekly_trend": "強い上昇", "weekly_score": 15, "weekly_signals": ["週足5>25線", "週足MACD正"], "sma5w": 2666.5, "sma13w": 2758.5, "sma25w": 2523.5}, "tech_parts": {"trend": 50, "momentum": 20, "heat": 10, "volume": 0, "pullback": 0, "breakout": 0, "weekly": 15}, "fundamentals": {"eps": 120.29, "per": 22.6, "pbr": 1.04, "roe": 5.3, "revenue_growth": 7.0, "earnings_growth": 62.4, "operating_margin": 43.3, "profit_margin": 27.1, "dividend_yield": 248.0, "target_price": 3049.0, "target_upside": 11.6, "recommendation": "buy", "week52_pct": 74.4}, "near_earnings": false, "earnings_days": 5, "earnings_label": "", "is_focus_sector": false, "current_price": 2724.5, "high20": 2823.5, "low20": 2460.5, "atr14": 76.71428571428571, "bb2_upper": 2863.3364134387734, "bb2_lower": 2505.4135865612266, "adr": {}, "upper_target": 2823.5, "lower_target": 2672.3, "rr": 1.55300472653613, "score": 34, "raw_score": 95, "score_parts": {"trend": 50, "momentum": 20, "heat": 10, "volume": 0, "pullback": 0, "breakout": 0, "weekly": 15, "fundamental": 0}, "sentiment_score": 0, "sentiment_reason": "", "ai_verdict": {"verdict": "様子見", "confidence": "低", "reasons": ["総合スコアが34点と低く、積極的に投資推奨できる水準ではありません。", "RSIとMACDが0.0という異常値を示しており、テクニカル分析の信頼性に大きな疑問符がつき、判断材料として活用できません。", "ファンダメンタルズが0点と極めて低く、中長期的な安定性や成長性に対する懸念が大きいです。", "トレンドとモメンタムは良好なスコアですが、他の要素の不確実性が高く、買い判断に至りません。"], "risk": "テクニカル指標（RSI, MACD）の異常値により市場の勢いを正確に把握できず、ファンダメンタルズの低評価が株価の不確実性を高めています。"}, "_market": "jp"}, {"ticker": "2432.T", "name": "ディー・エヌ・エー", "market": "jp", "sector": "情報・通信業", "tech_score": 93, "tech_diag": {"rsi14": 55.35931649665614, "macd": 0.36391966113887975, "macd_signal": 7.828625522736176, "sma5": 2586.2, "sma25": 2614.78, "sma75": 2594.5133333333333, "pattern": "ベース", "drop_pct": 2.8, "vol_ratio": 3.58, "weekly_trend": "強い上昇", "weekly_score": 20, "weekly_signals": ["週足5>25線", "週足MACD正", "週足>13週線"], "sma5w": 2639.0, "sma13w": 2615.6, "sma25w": 2568.9}, "tech_parts": {"trend": 30, "momentum": 10, "heat": 0, "volume": 15, "pullback": 18, "breakout": 0, "weekly": 20}, "fundamentals": {"eps": 396.1, "per": 6.8, "pbr": 1.16, "roe": 9.7, "revenue_growth": -32.6, "earnings_growth": 0.0, "operating_margin": 5.9, "profit_margin": 15.6, "dividend_yield": 261.0, "target_price": 2902.5, "target_upside": 11.2, "recommendation": "buy", "week52_pct": 28.5}, "near_earnings": true, "earnings_days": 2, "earnings_label": "⚠️ 決算2営業日以内", "is_focus_sector": false, "current_price": 2675.5, "high20": 2789.5, "low20": 2503.0, "atr14": 67.10714285714286, "bb2_upper": 2762.8038438030394, "bb2_lower": 2511.0961561969602, "adr": {}, "upper_target": 2758.8, "lower_target": 2519.6, "rr": 1.6158660961342328, "score": 33, "raw_score": 93, "score_parts": {"trend": 30, "momentum": 10, "heat": 0, "volume": 15, "pullback": 18, "breakout": 0, "weekly": 20, "fundamental": 0}, "sentiment_score": 0, "sentiment_reason": "", "ai_verdict": {"verdict": "様子見", "confidence": "低", "reasons": ["テクニカル総合スコアが33点と非常に低く、買いの強度が弱い。", "モメンタムスコアが10点/20点と弱く、株価に上昇トレンドの勢いが見られない。", "RSI、MACDといった主要なテクニカル指標が0.000と表示されており、現状のトレンドや勢いを正確に把握できないため、分析の信頼性が低い。", "ファンダメンタルスコアおよびニュース・センチメントに関する情報が不足しており、多角的な投資判断が困難である。"], "risk": "主要なテクニカル指標が機能しておらず、ファンダメンタル情報も不足しているため、予期せぬ価格変動や投資判断の根拠の弱さが主なリスクとなります。"}, "_market": "jp"}, {"ticker": "8830.T", "name": "住友不動産", "market": "jp", "sector": "不動産業", "tech_score": 92, "tech_diag": {"rsi14": 51.56459838680186, "macd": 14.212520040345225, "macd_signal": 5.902138561910153, "sma5": 4779.4, "sma25": 4707.76, "sma75": 4695.2266666666665, "pattern": "ベース", "drop_pct": 2.6, "vol_ratio": 0.96, "weekly_trend": "強い上昇", "weekly_score": 15, "weekly_signals": ["週足5>25線", "週足MACD正"], "sma5w": 4726.4, "sma13w": 4809.7, "sma25w": 4434.7}, "tech_parts": {"trend": 30, "momentum": 20, "heat": 10, "volume": 0, "pullback": 17, "breakout": 0, "weekly": 15}, "fundamentals": {"eps": 214.02, "per": 22.2, "pbr": 1.82, "roe": 9.6, "revenue_growth": 0.0, "earnings_growth": 0.0, "operating_margin": 28.7, "profit_margin": 0.0, "dividend_yield": 91.0, "target_price": 5412.7, "target_upside": 14.3, "recommendation": "none", "week52_pct": 77.3}, "near_earnings": true, "earnings_days": 3, "earnings_label": "⚠️ 決算3営業日以内", "is_focus_sector": false, "current_price": 4756.0, "high20": 5059.0, "low20": 4600.0, "atr14": 104.14285714285714, "bb2_upper": 4927.368099516107, "bb2_lower": 4580.931900483893, "adr": {}, "upper_target": 4938.1, "lower_target": 4693.1, "rr": 1.5289396358452798, "score": 33, "raw_score": 92, "score_parts": {"trend": 30, "momentum": 20, "heat": 10, "volume": 0, "pullback": 17, "breakout": 0, "weekly": 15, "fundamental": 0}, "sentiment_score": 0, "sentiment_reason": "", "ai_verdict": {"verdict": "様子見", "confidence": "低", "reasons": ["テクニカル総合スコアが33点と非常に低く、投資判断の信頼性に欠ける。", "RSIが0.0（極端な売られすぎ）であるにも関わらず、モメンタムが20/20点（非常に強い上昇）と矛盾しており、テクニカル指標の解釈が困難である。", "MACDも0.000で明確なトレンドが確認できず、方向性に欠ける。", "ファンダメンタル情報が完全に欠損（0点）しており、銘柄の本質的な価値やリスク要因を評価できない。"], "risk": "テクニカル指標間の矛盾とファンダメンタル情報の欠如により、判断の信頼性が極めて低く、予期せぬ損失を被る可能性が高い。"}, "_market": "jp"}, {"ticker": "9502.T", "name": "中部電力", "market": "jp", "sector": "電気・ガス業", "tech_score": 90, "tech_diag": {"rsi14": 51.399880983140164, "macd": 5.456113634262692, "macd_signal": 16.110547933631633, "sma5": 2679.5, "sma25": 2722.18, "sma75": 2544.86, "pattern": "押し目", "drop_pct": 3.3, "vol_ratio": 1.16, "weekly_trend": "強い上昇", "weekly_score": 20, "weekly_signals": ["週足5>25線", "週足MACD正", "週足>13週線"], "sma5w": 2725.4, "sma13w": 2645.9, "sma25w": 2492.0}, "tech_parts": {"trend": 20, "momentum": 10, "heat": 10, "volume": 0, "pullback": 30, "breakout": 0, "weekly": 20}, "fundamentals": {"eps": 301.53, "per": 8.9, "pbr": 0.64, "roe": 7.7, "revenue_growth": -3.7, "earnings_growth": -27.8, "operating_margin": 6.3, "profit_margin": 6.4, "dividend_yield": 264.0, "target_price": 2750.0, "target_upside": 3.7, "recommendation": "buy", "week52_pct": 76.7}, "near_earnings": false, "earnings_days": 57, "earnings_label": "", "is_focus_sector": false, "current_price": 2698.0, "high20": 2952.5, "low20": 2555.5, "atr14": 85.28571428571429, "bb2_upper": 2932.6905641565913, "bb2_lower": 2528.0594358434087, "adr": {}, "upper_target": 2910.1, "lower_target": 2719.7, "rr": 5.843191948238646, "score": 32, "raw_score": 90, "score_parts": {"trend": 20, "momentum": 10, "heat": 10, "volume": 0, "pullback": 30, "breakout": 0, "weekly": 20, "fundamental": 0}, "sentiment_score": 0, "sentiment_reason": "", "ai_verdict": {"verdict": "様子見", "confidence": "低", "reasons": ["テクニカル総合スコアが32点と非常に低く、トレンド（20/50点）とモメンタム（10/20点）が著しく弱い状況を示しています。", "RSIおよびMACDが0.000と異常値を示しており、テクニカル分析の信頼性に疑問があるため、正確な判断が困難です。", "提示された損切ライン（2,719.7円）が現在値（2,698.0円）よりも高く、一般的な買いポジションにおける損切りとして矛盾しており、リスク管理が困難です。", "ファンダメンタル評価が0点であり、投資判断の根拠となる企業価値情報が著しく不足しています。"], "risk": "テクニカル指標の異常値や損切ラインの矛盾により、投資判断の根拠となる情報が不足しており、意図しない損失につながるリスクがあります。"}, "_market": "jp"}, {"ticker": "2670.T", "name": "エービーシー・マート", "market": "jp", "sector": "小売業", "tech_score": 90, "tech_diag": {"rsi14": 48.46463242558492, "macd": 8.135688288915844, "macd_signal": 35.54813706376263, "sma5": 2669.1, "sma25": 2736.5, "sma75": 2605.5933333333332, "pattern": "押し目", "drop_pct": 8.1, "vol_ratio": 1.43, "weekly_trend": "強い上昇", "weekly_score": 15, "weekly_signals": ["週足5>25線", "週足>13週線"], "sma5w": 2754.9, "sma13w": 2643.3, "sma25w": 2632.1}, "tech_parts": {"trend": 20, "momentum": 10, "heat": 10, "volume": 0, "pullback": 35, "breakout": 0, "weekly": 15}, "fundamentals": {"eps": 187.13, "per": 14.4, "pbr": 1.68, "roe": 12.1, "revenue_growth": 4.4, "earnings_growth": 12.9, "operating_margin": 16.6, "profit_margin": 12.2, "dividend_yield": 306.0, "target_price": 3087.8, "target_upside": 14.2, "recommendation": "none", "week52_pct": 36.8}, "near_earnings": false, "earnings_days": 43, "earnings_label": "", "is_focus_sector": false, "current_price": 2693.0, "high20": 2955.0, "low20": 2613.5, "atr14": 59.57142857142857, "bb2_upper": 2947.6628809069894, "bb2_lower": 2596.937119093011, "adr": {}, "upper_target": 2928.5, "lower_target": 2615.1, "rr": 2.5073227817745907, "score": 32, "raw_score": 90, "score_parts": {"trend": 20, "momentum": 10, "heat": 10, "volume": 0, "pullback": 35, "breakout": 0, "weekly": 15, "fundamental": 0}, "sentiment_score": 0, "sentiment_reason": "", "ai_verdict": {"verdict": "様子見", "confidence": "低", "reasons": ["総合スコアが32点と極めて低く、買いの根拠に乏しい。", "RSIが0.0、MACDが0.000と異常値を示しており、データが不完全か、市場の関心が極めて低い状態であると推測される。", "ファンダメンタルスコアが0点であり、企業の基礎的な価値を評価できないため、長期・短期に関わらず投資判断が困難。", "トレンドおよびモメンタムスコアが低く、株価上昇の勢いが見られない。"], "risk": "ファンダメンタル情報が不明瞭な中での投資は、企業価値に対する適切な評価ができず、予期せぬ株価変動に見舞われるリスクがある。"}, "_market": "jp"}],portfolio=[],refs=[{"ticker": "6326.T", "name": "クボタ", "market": "jp", "sector": "機械", "tech_score": 178, "tech_diag": {"rsi14": 61.283458346991985, "macd": 6.89865789177702, "macd_signal": -13.180437498996064, "sma5": 2650.6, "sma25": 2607.58, "sma75": 2661.786666666667, "pattern": "押し目+BO", "drop_pct": 3.0, "vol_ratio": 3.57, "weekly_trend": "強い上昇", "weekly_score": 20, "weekly_signals": ["週足5>25線", "週足MACD正", "週足>13週線"], "sma5w": 2646.1, "sma13w": 2752.1, "sma25w": 2547.7}, "tech_parts": {"trend": 60, "momentum": 20, "heat": 0, "volume": 15, "pullback": 23, "breakout": 40, "weekly": 20}, "fundamentals": {"eps": 163.33, "per": 17.2, "pbr": 1.12, "roe": 7.7, "revenue_growth": 10.3, "earnings_growth": 41.0, "operating_margin": 6.6, "profit_margin": 6.2, "dividend_yield": 201.0, "target_price": 3004.5, "target_upside": 16.1, "recommendation": "buy", "week52_pct": 61.0}, "near_earnings": false, "earnings_days": 61, "earnings_label": "", "is_focus_sector": false, "current_price": 2814.0, "high20": 2900.0, "low20": 2476.5, "atr14": 79.14285714285714, "bb2_upper": 2796.213069196263, "bb2_lower": 2460.486930803737, "adr": {}, "upper_target": 2765.4, "lower_target": 2601.4, "rr": 0.6633120914768503, "score": 64, "raw_score": 178, "score_parts": {"trend": 60, "momentum": 20, "heat": 0, "volume": 15, "pullback": 23, "breakout": 40, "weekly": 20, "fundamental": 0}, "sentiment_score": 0, "sentiment_reason": "", "ai_verdict": {}, "_market": "jp"}, {"ticker": "6954.T", "name": "ファナック", "market": "jp", "sector": "電気機器", "tech_score": 148, "tech_diag": {"rsi14": 69.01604380323786, "macd": 304.7527621472009, "macd_signal": 197.95007952727542, "sma5": 7053.2, "sma25": 6272.32, "sma75": 6327.453333333333, "pattern": "ブレイクアウト", "drop_pct": 1.8, "vol_ratio": 1.94, "weekly_trend": "強い上昇", "weekly_score": 20, "weekly_signals": ["週足5>25線", "週足MACD正", "週足>13週線"], "sma5w": 6613.6, "sma13w": 6355.0, "sma25w": 6199.3}, "tech_parts": {"trend": 50, "momentum": 20, "heat": 0, "volume": 10, "pullback": 8, "breakout": 40, "weekly": 20}, "fundamentals": {"eps": 178.68, "per": 42.1, "pbr": 3.41, "roe": 9.4, "revenue_growth": 10.6, "earnings_growth": 11.0, "operating_margin": 23.9, "profit_margin": 19.4, "dividend_yield": 157.0, "target_price": 7030.5, "target_upside": 3.1, "recommendation": "buy", "week52_pct": 87.8}, "near_earnings": false, "earnings_days": 53, "earnings_label": "", "is_focus_sector": false, "current_price": 7515.0, "high20": 7654.0, "low20": 5439.0, "atr14": 268.2142857142857, "bb2_upper": 7426.682503744874, "bb2_lower": 5505.717496255125, "adr": {"ticker": "FANUY", "last": 24.35, "change_pct": 9.88, "gap_up": true, "gap_down": false}, "upper_target": 7287.8, "lower_target": 6742.1, "rr": 1.0818097590592695, "score": 53, "raw_score": 148, "score_parts": {"trend": 50, "momentum": 20, "heat": 0, "volume": 10, "pullback": 8, "breakout": 40, "weekly": 20, "fundamental": 0}, "sentiment_score": 0, "sentiment_reason": "", "ai_verdict": {}, "_market": "jp"}, {"ticker": "6504.T", "name": "富士電機", "market": "jp", "sector": "電気機器", "tech_score": 148, "tech_diag": {"rsi14": 74.11668394410958, "macd": 656.3968684265619, "macd_signal": 373.62628679269835, "sma5": 13550.0, "sma25": 11905.8, "sma75": 11729.933333333332, "pattern": "ブレイクアウト", "drop_pct": 1.7, "vol_ratio": 1.99, "weekly_trend": "強い上昇", "weekly_score": 20, "weekly_signals": ["週足5>25線", "週足MACD正", "週足>13週線"], "sma5w": 12709.0, "sma13w": 12111.2, "sma25w": 11761.4}, "tech_parts": {"trend": 50, "momentum": 20, "heat": 0, "volume": 10, "pullback": 8, "breakout": 40, "weekly": 20}, "fundamentals": {"eps": 665.59, "per": 22.2, "pbr": 2.43, "roe": 12.9, "revenue_growth": 0.0, "earnings_growth": 0.0, "operating_margin": 16.5, "profit_margin": 8.0, "dividend_yield": 162.0, "target_price": 13660.0, "target_upside": 3.6, "recommendation": "buy", "week52_pct": 90.2}, "near_earnings": false, "earnings_days": 4, "earnings_label": "", "is_focus_sector": false, "current_price": 14800.0, "high20": 15050.0, "low20": 10455.0, "atr14": 558.9285714285714, "bb2_upper": 14213.289659974718, "bb2_lower": 10142.710340025282, "adr": {}, "upper_target": 14165.0, "lower_target": 13271.1, "rr": 0.17017297802711565, "score": 53, "raw_score": 148, "score_parts": {"trend": 50, "momentum": 20, "heat": 0, "volume": 10, "pullback": 8, "breakout": 40, "weekly": 20, "fundamental": 0}, "sentiment_score": 0, "sentiment_reason": "", "ai_verdict": {}, "_market": "jp"}, {"ticker": "3107.T", "name": "ダイワボウホールディングス", "market": "jp", "sector": "卸売業", "tech_score": 148, "tech_diag": {"rsi14": 73.11276778168562, "macd": 51.05672181058617, "macd_signal": 31.281200293820362, "sma5": 3264.4, "sma25": 3171.6, "sma75": 3095.08, "pattern": "ブレイクアウト", "drop_pct": 0.7, "vol_ratio": 1.83, "weekly_trend": "強い上昇", "weekly_score": 20, "weekly_signals": ["週足5>25線", "週足MACD正", "週足>13週線"], "sma5w": 3200.6, "sma13w": 3113.4, "sma25w": 3089.0}, "tech_parts": {"trend": 50, "momentum": 20, "heat": 0, "volume": 10, "pullback": 8, "breakout": 40, "weekly": 20}, "fundamentals": {"eps": 344.87, "per": 9.9, "pbr": 1.85, "roe": 21.1, "revenue_growth": 18.2, "earnings_growth": 16.6, "operating_margin": 3.0, "profit_margin": 2.4, "dividend_yield": 318.0, "target_price": 3500.0, "target_upside": 2.7, "recommendation": "none", "week52_pct": 99.8}, "near_earnings": true, "earnings_days": 3, "earnings_label": "⚠️ 決算3営業日以内", "is_focus_sector": false, "current_price": 3403.0, "high20": 3427.0, "low20": 3060.0, "atr14": 65.85714285714286, "bb2_upper": 3321.2456716802985, "bb2_lower": 3032.4543283197013, "adr": {}, "upper_target": 3411.0, "lower_target": 3311.9, "rr": 0.020603384841795466, "score": 53, "raw_score": 148, "score_parts": {"trend": 50, "momentum": 20, "heat": 0, "volume": 10, "pullback": 8, "breakout": 40, "weekly": 20, "fundamental": 0}, "sentiment_score": 0, "sentiment_reason": "", "ai_verdict": {}, "_market": "jp"}, {"ticker": "9301.T", "name": "三菱倉庫", "market": "jp", "sector": "倉庫・運輸関連業", "tech_score": 148, "tech_diag": {"rsi14": 57.59165111334058, "macd": 6.4261320789387355, "macd_signal": 4.33959698699352, "sma5": 1407.1, "sma25": 1397.26, "sma75": 1371.4933333333333, "pattern": "押し目+BO", "drop_pct": 0.6, "vol_ratio": 1.2, "weekly_trend": "強い上昇", "weekly_score": 20, "weekly_signals": ["週足5>25線", "週足MACD正", "週足>13週線"], "sma5w": 1406.8, "sma13w": 1391.3, "sma25w": 1315.5}, "tech_parts": {"trend": 60, "momentum": 20, "heat": 0, "volume": 0, "pullback": 23, "breakout": 25, "weekly": 20}, "fundamentals": {"eps": 155.84, "per": 9.2, "pbr": 1.33, "roe": 14.4, "revenue_growth": -2.1, "earnings_growth": 37.6, "operating_margin": 5.6, "profit_margin": 20.0, "dividend_yield": 310.0, "target_price": 1360.0, "target_upside": -4.2, "recommendation": "buy", "week52_pct": 89.6}, "near_earnings": false, "earnings_days": 58, "earnings_label": "", "is_focus_sector": false, "current_price": 1427.5, "high20": 1445.5, "low20": 1336.0, "atr14": 32.714285714285715, "bb2_upper": 1441.9811356300686, "bb2_lower": 1359.6688643699315, "adr": {}, "upper_target": 1440.7, "lower_target": 1396.9, "rr": 0.9389192385511517, "score": 53, "raw_score": 148, "score_parts": {"trend": 60, "momentum": 20, "heat": 0, "volume": 0, "pullback": 23, "breakout": 25, "weekly": 20, "fundamental": 0}, "sentiment_score": 0, "sentiment_reason": "", "ai_verdict": {}, "_market": "jp"}],bt={};
+const mw=false,NUMS="①②③④⑤⑥⑦⑧⑨⑩";
+const prev_biz_date="2026-05-08";
+
+// マクロ
+const vix=macro.vix||0,vok=vix<25;
+document.getElementById('mg').innerHTML=`
+<div class="card fi"><div class="card-title">💹 VIX 恐怖指数</div>
+<div class="mv ${vok?'green':'red'}">${vix}</div>
+<div style="font-size:.7rem;color:var(--text-dim);margin-bottom:8px;">${vok?'安定域':'警戒域'}</div>
+<span class="tag ${vok?'tg':'tr'}">${vok?'✅ 安定':'⚠️ 警戒'}</span></div>
+<div class="card fi" style="animation-delay:.1s"><div class="card-title">🔥 注目セクター</div>
+${prev_biz_date?`<div style="font-size:.6rem;color:var(--text-dim);margin-bottom:6px;">📅 直前営業日（${prev_biz_date}）のデータ</div>`:''}
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">${(macro.sector_focus||[]).map(s=>`<span class="tag tb">${s}</span>`).join('')||'<span style="color:var(--text-dim);font-size:.8rem;">なし</span>'}</div>
+<div style="margin-top:6px;font-size:.68rem;color:var(--text-dim);">${macro.top_sector_etf||'-'}　${macro.top_sector_perf>=0?'+':''}${macro.top_sector_perf||0}%</div>
+${macro.sector_ai&&macro.sector_ai.key_reason?`
+<div style="margin-top:8px;background:var(--bg);border-radius:6px;padding:8px;border:1px solid var(--border);">
+  <div style="font-size:.6rem;color:var(--text-dim);margin-bottom:4px;font-family:'JetBrains Mono',monospace;">🤖 AI解説</div>
+  <div style="font-size:.7rem;color:var(--cyan);line-height:1.6;">${macro.sector_ai.key_reason}</div>
+  ${macro.sector_ai.summary?`<div style="font-size:.65rem;color:var(--text-dim);margin-top:4px;line-height:1.5;">${macro.sector_ai.summary}</div>`:''}
+  ${macro.sector_ai.caution?`<div style="font-size:.63rem;color:var(--yellow);margin-top:4px;">⚠️ ${macro.sector_ai.caution}</div>`:''}
+</div>`:''}
+</div>
+<div class="card fi" style="animation-delay:.2s"><div class="card-title">✅ 地合い判定</div>
+<div style="font-size:1rem;font-weight:900;color:var(--${mw?'red':'green'});">${mw?'⚠️ エントリー非推奨':'✅ エントリー可'}</div>
+<div style="font-size:.7rem;color:var(--text-dim);margin-top:6px;">決算跨ぎ銘柄は自動除外済み</div></div>`;
+
+// コモディティ・日経レンジ・資金流入流出
+const macroDetail=document.getElementById('macro-detail');
+if(macroDetail){
+  const comm=macro.commodities||{};
+  const nr=macro.nikkei_range||{};
+  const inflow=macro.inflow_sectors||[];
+  const outflow=macro.outflow_sectors||[];
+  const flowAi=macro.sector_flow_ai||{};
+  let html='';
+
+  // コモディティ
+  const commMap=[['crude_oil','🛢️ WTI原油','$',''],['gold','🥇 金','$',''],['bond_10y','📊 米10年債','','%'],['usdjpy','💱 USD/JPY','','円']];
+  const commItems=commMap.filter(([k])=>comm[k]).map(([k,name,pre,suf])=>{
+    const d=comm[k],chg=d.change_pct||0,up=chg>=0;
+    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);"><span style="font-size:.72rem;">${name}</span><span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;">${pre}${d.last}${suf} <span style="color:var(--${up?'green':'red'})">${up?'▲':'▼'}${Math.abs(chg).toFixed(2)}%</span></span></div>`;
+  });
+  if(commItems.length){
+    html+=`<div class="card" style="margin-bottom:12px;"><div class="card-title">💹 コモディティ・債券・為替</div>${commItems.join('')}</div>`;
+  }
+
+  // 日経レンジ + CME先物
+  const cme=macro.cme_futures||{};
+  if(nr.range_upper){
+    const cmeHtml=cme.last?`<div style="background:${cme.gap_up?'var(--green-dim)':'var(--red-dim)'};border-radius:8px;padding:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;">
+      <div><div style="font-size:.58rem;color:var(--text-dim);">🌙 CME日経先物</div><div style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1rem;">¥${Number(cme.last).toLocaleString()}</div></div>
+      <div style="text-align:right;"><div style="font-size:.78rem;font-weight:700;color:var(--${cme.change_pct>=0?'green':'red'});">${cme.change_pct>=0?'▲':'▼'}${Math.abs(cme.change_pct).toFixed(2)}%</div>
+      <div style="font-size:.63rem;color:var(--${cme.vs_nikkei_pct>=0?'green':'red'});">日経比: ${cme.vs_nikkei_pct>=0?'+':''}${cme.vs_nikkei_pct.toFixed(2)}%</div>
+      <div style="font-size:.68rem;font-weight:700;">${cme.gap_up?'⬆️ ギャップアップ予想':'⬇️ ギャップダウン予想'}</div></div></div>`:'';
+    html+=`<div class="card" style="margin-bottom:12px;"><div class="card-title">📐 日経平均 本日予想レンジ</div>
+    ${cmeHtml}
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;">
+      <div style="background:var(--green-dim);border-radius:6px;padding:8px;text-align:center;"><div style="font-size:.58rem;color:var(--text-dim);">上値メド</div><div style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--green);">¥${Number(nr.range_upper).toLocaleString()}</div></div>
+      <div style="background:var(--red-dim);border-radius:6px;padding:8px;text-align:center;"><div style="font-size:.58rem;color:var(--text-dim);">下値メド</div><div style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--red);">¥${Number(nr.range_lower).toLocaleString()}</div></div>
+      <div style="background:var(--bg3);border-radius:6px;padding:8px;text-align:center;"><div style="font-size:.58rem;color:var(--text-dim);">レジスタンス</div><div style="font-family:'JetBrains Mono',monospace;font-size:.78rem;">¥${Number(nr.resistance).toLocaleString()}</div></div>
+      <div style="background:var(--bg3);border-radius:6px;padding:8px;text-align:center;"><div style="font-size:.58rem;color:var(--text-dim);">サポート</div><div style="font-family:'JetBrains Mono',monospace;font-size:.78rem;">¥${Number(nr.support).toLocaleString()}</div></div>
+    </div>
+    <div style="font-size:.6rem;color:var(--text-dim);margin-top:6px;">ATR(14): ¥${Number(nr.atr).toLocaleString()}</div></div>`;
+  }
+
+  // 資金流入・流出
+  if(inflow.length||outflow.length){
+    let flowHtml=`<div class="card" style="margin-bottom:12px;"><div class="card-title">💰 資金フロー</div>`;
+    if(inflow.length){
+      flowHtml+=`<div style="font-size:.63rem;color:var(--green);font-weight:700;margin-bottom:4px;">▲ 流入TOP3</div>`;
+      inflow.forEach((s,i)=>{
+        flowHtml+=`<div style="display:flex;justify-content:space-between;padding:3px 0;"><span style="font-size:.68rem;">${i+1}. ${s.etf} (${(s.sectors||[]).join('/')})</span><span style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--green);">+${s.perf.toFixed(2)}%</span></div>`;
+      });
+    }
+    if(outflow.length){
+      flowHtml+=`<div style="font-size:.63rem;color:var(--red);font-weight:700;margin-top:6px;margin-bottom:4px;">▼ 流出TOP3</div>`;
+      outflow.forEach((s,i)=>{
+        flowHtml+=`<div style="display:flex;justify-content:space-between;padding:3px 0;"><span style="font-size:.68rem;">${i+1}. ${s.etf} (${(s.sectors||[]).join('/')})</span><span style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--red);">${s.perf.toFixed(2)}%</span></div>`;
+      });
+    }
+    if(flowAi.inflow_reason){
+      flowHtml+=`<div style="margin-top:8px;background:var(--bg);border-radius:6px;padding:8px;border:1px solid var(--border);font-size:.65rem;color:var(--text-dim);line-height:1.6;">
+        ${flowAi.inflow_reason?`<div style="color:var(--cyan);margin-bottom:4px;">🤖 流入理由: ${flowAi.inflow_reason}</div>`:''}
+        ${flowAi.outflow_reason?`<div style="color:var(--text-dim);margin-bottom:4px;">🤖 流出理由: ${flowAi.outflow_reason}</div>`:''}
+        ${flowAi.overall?`<div style="color:var(--yellow);">💡 日本株への影響: ${flowAi.overall}</div>`:''}
+      </div>`;
+    }
+    flowHtml+='</div>';
+    html+=flowHtml;
+  }
+
+  macroDetail.innerHTML=html;
+}
+
+// 共通カード描画関数
+function buildCard(p, i, isRef) {
+  const jp=p.market==='jp',fmt=v=>jp?`¥${Number(v).toLocaleString()}`:`$${Number(v).toFixed(2)}`;
+  const cur=fmt(p.current_price);
+  const upper=p.upper_target||0, lower=p.lower_target||0;
+  const entry=p.entry_price||p.current_price;
+  const up=fmt(upper),lo=fmt(lower),ent=fmt(entry);
+  const tpp=entry>0&&upper>0?(((upper)-entry)/entry*100).toFixed(1):0;
+  const slp=entry>0&&lower>0?((entry-(lower))/entry*100).toFixed(1):0;
+  const entDiff=p.current_price>0?((entry-p.current_price)/p.current_price*100).toFixed(1):0;
+  const entNote=Math.abs(entDiff)>0.1?`ADR予想 ${entDiff>=0?'+':''}${entDiff}%`:'現在値';
+  const flag=jp?'🇯🇵':'🇺🇸',pt=p.score_parts||{},ss=p.sentiment_score||0;
+  const vd=p.ai_verdict||{},v=vd.verdict||'';
+  const vc=v.includes('BUY')?'buy':v.includes('SELL')?'sell':'watch';
+  const vcol=v.includes('BUY')?'green':v.includes('SELL')?'red':'yellow';
+  const vi=v.includes('BUY')?'🟢':v.includes('SELL')?'🔴':'🟡';
+  const sw=Math.round((p.score/120)*100),sc=p.score>=80?'var(--green)':'var(--yellow)';
+  const cc=vd.confidence==='高'?'tg':vd.confidence==='中'?'ty':'tr';
+  // ファンダメンタル
+  const fd=p.fundamentals||{};
+  const faItems=[];
+  if(fd.per&&fd.per!==0) faItems.push(`PER: <b>${fd.per}倍</b>`);
+  if(fd.pbr&&fd.pbr!==0) faItems.push(`PBR: <b>${fd.pbr}倍</b>`);
+  if(fd.roe&&fd.roe!==0) faItems.push(`ROE: <b class="${fd.roe>=8?'green':'red'}">${fd.roe}%</b>`);
+  if(fd.eps&&fd.eps!==0) faItems.push(`EPS: <b>${fd.eps}</b>`);
+  if(fd.revenue_growth&&fd.revenue_growth!==0) faItems.push(`売上YoY: <b class="${fd.revenue_growth>=0?'green':'red'}">${fd.revenue_growth>=0?'+':''}${fd.revenue_growth}%</b>`);
+  if(fd.earnings_growth&&fd.earnings_growth!==0) faItems.push(`利益YoY: <b class="${fd.earnings_growth>=0?'green':'red'}">${fd.earnings_growth>=0?'+':''}${fd.earnings_growth}%</b>`);
+  if(fd.operating_margin&&fd.operating_margin!==0) faItems.push(`営業利益率: <b>${fd.operating_margin}%</b>`);
+  if(fd.dividend_yield&&fd.dividend_yield!==0) faItems.push(`配当: <b>${fd.dividend_yield}%</b>`);
+  if(fd.target_upside&&fd.target_upside!==0) faItems.push(`目標株価: <b class="${fd.target_upside>=0?'green':'red'}">${fd.target_upside>=0?'+':''}${fd.target_upside}%</b>`);
+  const valStr=vd.valuation||'';
+  if(valStr) faItems.push(`評価: <b class="${valStr==='割安'?'green':valStr==='割高'?'red':'yellow'}">${valStr}</b>`);
+  const fundHtml=`<div style="background:var(--bg);border-radius:8px;padding:8px 10px;margin-top:8px;border:1px solid var(--border);"><div style="font-size:.58rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;margin-bottom:6px;">📋 ファンダメンタル</div>${faItems.length?`<div style="display:flex;flex-wrap:wrap;gap:6px 14px;">${faItems.map(f=>`<span style="font-size:.68rem;color:var(--text-dim);">${f}</span>`).join('')}</div>`:'<span style="font-size:.63rem;color:var(--text-dim);">取得データなし</span>'}</div>`;
+  // ファンダ根拠
+  const freason=vd.fundamental_reason?`<div style="font-size:.63rem;color:var(--cyan);margin-top:4px;">📊 ファンダ根拠: ${vd.fundamental_reason}</div>`:'';
+  // ADR
+  const adr=p.adr||{};
+  const adrHtml=adr.last?`<div style="background:${adr.gap_up?'var(--green-dim)':adr.gap_down?'var(--red-dim)':'var(--bg3)'};border-radius:8px;padding:8px 10px;margin-top:8px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-size:.63rem;color:var(--text-dim);">🌐 ADR(${adr.ticker})</div>
+    <div style="text-align:right;">
+      <span style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.78rem;">$${adr.last}</span>
+      <span style="font-size:.68rem;color:var(--${adr.change_pct>=0?'green':'red'});margin-left:6px;">${adr.change_pct>=0?'▲':'▼'}${Math.abs(adr.change_pct).toFixed(2)}%</span>
+      <span style="font-size:.72rem;margin-left:6px;">${adr.gap_up?'⬆️ ギャップアップ示唆':adr.gap_down?'⬇️ ギャップダウン示唆':'➡️ 中立'}</span>
+    </div>
+  </div>`:'';
+  // スコアバー
+  const t=pt.trend||0,m=pt.momentum||0,h=pt.heat||0,f=pt.fundamental||0;
+  const pb=pt.pullback||0,bo=pt.breakout||0,vs=pt.volume||0,wk=pt.weekly||0;
+  const patternMap={'押し目+BO':'🔥 押し目+BO','押し目':'📉 押し目','ブレイクアウト':'🚀 BO','ベース':'📊 ベース'};
+  const diag=p.tech_diag||{};
+  const pattern=diag.pattern||'ベース';
+  const dropPct=diag.drop_pct||0;
+  const volRatio=diag.vol_ratio||0;
+  const weeklyTrend=diag.weekly_trend||'';
+  const weeklyScore=diag.weekly_score||0;
+  const weeklySigs=(diag.weekly_signals||[]).join(' / ');
+  const patLabel=patternMap[pattern]||pattern;
+  const patColor={'押し目+BO':'var(--yellow)','押し目':'var(--cyan)','ブレイクアウト':'var(--green)','ベース':'var(--text-dim)'}[pattern]||'var(--text-dim)';
+  const wkColor=weeklyScore>0?'var(--green)':weeklyScore<0?'var(--red)':'var(--text-dim)';
+  const scoreBar=`<div style="margin-top:8px;background:var(--bg);border-radius:6px;padding:8px;border:1px solid var(--border);">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+      <span style="font-size:.58rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;">📊 スコア内訳 ${p.score}/100点　RR:${(p.rr||0)>0?(p.rr||0).toFixed(2):'-'}</span>
+      <span style="font-size:.6rem;font-weight:700;color:${patColor};">${patLabel}</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:3px;">
+      <div style="display:flex;align-items:center;gap:6px;"><span style="font-size:.55rem;color:var(--text-dim);width:52px;">トレンド</span><div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:${Math.min(t/50*100,100)}%;height:100%;background:var(--green);border-radius:3px;"></div></div><span style="font-size:.55rem;color:var(--green);width:36px;">${t}/50</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><span style="font-size:.55rem;color:var(--text-dim);width:52px;">モメンタム</span><div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:${Math.min(Math.max(m,0)/20*100,100)}%;height:100%;background:var(--cyan);border-radius:3px;"></div></div><span style="font-size:.55rem;color:var(--cyan);width:36px;">${m}/20</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><span style="font-size:.55rem;color:var(--text-dim);width:52px;">過熱感</span><div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:${Math.min(Math.max(h,0)/20*100,100)}%;height:100%;background:var(--yellow);border-radius:3px;"></div></div><span style="font-size:.55rem;color:var(--yellow);width:36px;">${h}/20</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><span style="font-size:.55rem;color:var(--text-dim);width:52px;">ファンダ</span><div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:${Math.min(Math.max(f,0)/20*100,100)}%;height:100%;background:var(--blue);border-radius:3px;"></div></div><span style="font-size:.55rem;color:var(--blue);width:36px;">F=${f}</span></div>
+      ${vs>0?`<div style="display:flex;align-items:center;gap:6px;"><span style="font-size:.55rem;color:var(--text-dim);width:52px;">出来高</span><div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:${Math.min(vs/15*100,100)}%;height:100%;background:var(--yellow);border-radius:3px;"></div></div><span style="font-size:.55rem;color:var(--yellow);width:54px;">+${vs} (${volRatio.toFixed(1)}x)</span></div>`:''}<br>
+      ${pb>0?`<div style="display:flex;align-items:center;gap:6px;"><span style="font-size:.55rem;color:var(--text-dim);width:52px;">押し目</span><div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:${Math.min(pb/50*100,100)}%;height:100%;background:var(--yellow);border-radius:3px;"></div></div><span style="font-size:.55rem;color:var(--yellow);width:36px;">+${pb}</span></div>`:''}<br>
+      ${bo>0?`<div style="display:flex;align-items:center;gap:6px;"><span style="font-size:.55rem;color:var(--text-dim);width:52px;">BO</span><div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:${Math.min(bo/40*100,100)}%;height:100%;background:var(--green);border-radius:3px;"></div></div><span style="font-size:.55rem;color:var(--green);width:36px;">+${bo}</span></div>`:''}<br>
+      ${weeklyTrend?`<div style="display:flex;align-items:center;gap:6px;"><span style="font-size:.55rem;color:var(--text-dim);width:52px;">週足</span><div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:${Math.min(Math.abs(wk)/20*100,100)}%;height:100%;background:${wkColor};border-radius:3px;"></div></div><span style="font-size:.55rem;color:${wkColor};width:90px;">${weeklyScore>=0?'+':''}${weeklyScore} ${weeklyTrend}</span></div>`:''}<br>
+    </div>
+    <div style="font-size:.55rem;color:var(--text-dim);margin-top:4px;">N(ニュース): <span style="color:var(--${ss>=0?'green':'red'})">${ss>=0?'+':''}${ss}点</span>${dropPct>0?`　押し幅: <span style="color:var(--yellow);">${dropPct.toFixed(1)}%</span>`:''}</div>
+    ${weeklySigs?`<div style="font-size:.52rem;color:var(--text-dim);margin-top:2px;">週足シグナル: ${weeklySigs}</div>`:''}
+  </div>`;
+  const refLabel=isRef?`<span class="tag ty" style="font-size:.54rem;">※RR未達</span>`:'';
+  const earningsLabel=p.earnings_label?`<div style="font-size:.63rem;color:var(--yellow);margin-top:4px;">${p.earnings_label}（決算跨ぎに注意）</div>`:'';
+  const d=document.createElement('div');
+  d.className=`pc ${isRef?'watch':vc} fi`;d.style.animationDelay=`${i*.1}s`;
+  d.innerHTML=`<div class="ph"><div><div style="font-size:.58rem;color:var(--text-dim);">${NUMS[i]} ${flag} ${refLabel}</div><div class="pname">${p.name}</div><div class="pticker">${p.ticker}</div></div><div><div class="pprice">${cur}</div><div style="text-align:right;margin-top:4px;"><span class="tag t${isRef?'y':vcol[0]}">${isRef?'参考':(vi+' '+(v||'様子見'))}</span></div></div></div>
+${earningsLabel}
+${upper>0&&lower>0?`<div class="pm"><div class="met"><div class="ml">💰 エントリー</div><div class="mv2 cyan">${ent} <span style="font-size:.52rem;color:var(--text-dim);">${entNote}</span></div></div></div>
+<div class="pm"><div class="met"><div class="ml">🎯 利確</div><div class="mv2 green">${up} <span style="font-size:.58rem;">+${tpp}%</span></div></div><div class="met"><div class="ml">🛡️ 損切</div><div class="mv2 red">${lo} <span style="font-size:.58rem;">-${slp}%</span></div></div><div class="met"><div class="ml">⚖️ RR</div><div class="mv2 cyan">${(p.rr||0).toFixed(2)}</div></div></div>`:'<div style="padding:4px 0;font-size:.63rem;color:var(--text-dim);">📍 現在値: ${cur}</div>'}
+${adrHtml}
+${v&&!isRef?`<div class="aiv"><div class="aih">🤖 AI分析　<span class="tag ${cc}" style="font-size:.54rem;">確信度:${vd.confidence||'-'}</span></div><ul class="air">${(vd.reasons||[]).map(r=>`<li>${r}</li>`).join('')}</ul>${freason}${vd.risk?`<div class="rsk">⚠️ ${vd.risk}</div>`:''}</div>`:''}
+${fundHtml}
+${scoreBar}`;
+  return d;
+}
+
+// BUY候補
+const pl=document.getElementById('pl');
+if(!picks.length){
+  pl.innerHTML='<div class="empty">条件一致なし（スコア/RR未達）</div>';
+}else{
+  picks.forEach((p,i)=>{ pl.appendChild(buildCard(p,i,false)); });
+}
+
+// テクニカル上位（参考）
+const refsEl=document.getElementById('refs');
+if(refsEl){
+  if(!refs.length){
+    refsEl.innerHTML='<div class="empty">データなし</div>';
+  }else{
+    refs.forEach((p,i)=>{ refsEl.appendChild(buildCard(p,i,true)); });
+  }
+}
+
+// ポートフォリオ
+const port=document.getElementById('port');
+if(!portfolio.length){port.innerHTML='<div class="empty">登録なし</div>';}
+else{portfolio.forEach(p=>{
+  const jp=p.ticker.endsWith('.T'),fmt=v=>jp?`¥${Number(v).toLocaleString()}`:`$${Number(v).toFixed(2)}`;
+  const al=(p.alerts||['-']).join(' '),hd=al.includes('🔴'),hw=al.includes('🟡');
+  const col=hd?'red':hw?'yellow':'green';
+  let pnl='';if(p.buy_price>0){const pv=((p.current_price-p.buy_price)/p.buy_price*100).toFixed(1);pnl=`<span class="${pv>=0?'green':'red'}">${pv>=0?'+':''}${pv}%</span>`;}
+  const d=document.createElement('div');d.className='pi';
+  d.innerHTML=`<div><div class="pn ${col}">${p.name||p.ticker}</div><div class="pt">${p.ticker}</div></div><div><div style="text-align:right;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;">${fmt(p.current_price)} ${pnl}</div><div style="text-align:right;font-size:.72rem;margin-top:2px;">${al}</div><div class="ptsl">TP +${(p.tp_dist_pct||0).toFixed(1)}% / SL -${(p.sl_dist_pct||0).toFixed(1)}%</div></div>`;
+  port.appendChild(d);
+});}
+
+// バックテスト
+const btel=document.getElementById('bt');
+if(btel&&bt.trades>0){
+  const wc=bt.win_rate>=50?'green':'red',pc=bt.profit_factor>=1.5?'green':'yellow',fc=bt.final_performance>=0?'green':'red';
+  btel.innerHTML=`<div class="btg"><div class="bti"><div class="btl">総トレード数</div><div class="btv">${bt.trades}回</div></div><div class="bti"><div class="btl">勝率</div><div class="btv ${wc}">${bt.win_rate}%</div></div><div class="bti"><div class="btl">PF</div><div class="btv ${pc}">${bt.profit_factor}</div></div><div class="bti"><div class="btl">最終成績</div><div class="btv ${fc}">${bt.final_performance>=0?'+':''}${(bt.final_performance*100).toFixed(2)}%</div></div></div>`;
+}
+</script>
+</body>
+</html>
