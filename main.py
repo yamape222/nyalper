@@ -104,8 +104,9 @@ def main() -> None:
         growth_path = base_dir / "universe_growth.csv"
         if growth_path.exists():
             config_growth = dict(config_jp)
-            config_growth["fund_filter_mode"] = "growth"   # ファンダフィルター緩和
+            config_growth["fund_filter_mode"] = "growth"
             config_growth["atr_multiplier_jp"] = float(config.get("atr_multiplier_growth", 2.5))
+            config_growth["rr_threshold"] = float(config.get("rr_threshold_growth", 0.8))  # グロースはRR緩和
             screener_result["growth"] = run_screening(
                 config=config_growth,
                 universe_path=growth_path,

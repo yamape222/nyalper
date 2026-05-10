@@ -331,7 +331,7 @@ def _render_item(item: Dict, i: int, label: str = "") -> List[str]:
         lines.append(f"  {_dim('  BO      ')} {_green('▲')} +{bo_score}/40点")
     # 週足トレンド
     if weekly_trend:
-        if weekly_diag.get("weekly_warning") if isinstance(diag, dict) else "⚠️" in weekly_trend:
+        if isinstance(diag, dict) and diag.get("weekly_warning"):
             wk_color = _red
             wk_label = f"週足: {weekly_trend} ⚠️ 逆張り注意"
         else:
@@ -940,29 +940,63 @@ def render_report(config: Dict, report_payload: Dict) -> None:
         print(_yellow(msg))
         lines_plain.append(msg)
 
-    for line in _render_macro(report_payload["macro"], report_payload.get("macro_warning", False), report_payload.get("prev_biz_date", "")):
+    def _safe_render(fn, *args, section_name="セクション"):
+        """エラーが出ても他のセクションに影響しないラッパー"""
+        try:
+            return fn(*args)
+        except Exception as e:
+            err_msg = f"  ⚠️ [{section_name}] 表示エラー: {e}"
+            logger.warning(err_msg)
+            return [err_msg]
+
+    for line in _safe_render(
+        _render_macro,
+        report_payload["macro"],
+        report_payload.get("macro_warning", False),
+        report_payload.get("prev_biz_date", ""),
+        section_name="マクロ分析"
+    ):
         print(line); lines_plain.append(line)
 
     # テーマ株・東証セクター強弱
-    theme_ai          = report_payload.get("theme_ai", {})
+    theme_ai           = report_payload.get("theme_ai", {})
     jp_sector_strength = report_payload.get("jp_sector_strength", {})
     if theme_ai or jp_sector_strength:
-        for line in _render_theme_stocks(theme_ai, jp_sector_strength):
+        for line in _safe_render(
+            _render_theme_stocks, theme_ai, jp_sector_strength,
+            section_name="テーマ株"
+        ):
             print(line); lines_plain.append(line)
 
-    for line in _render_screening(report_payload.get("risk_reward", {}), report_payload.get("screening", {}), config):
+    for line in _safe_render(
+        _render_screening,
+        report_payload.get("risk_reward", {}),
+        report_payload.get("screening", {}),
+        config,
+        section_name="BUY候補"
+    ):
         print(line); lines_plain.append(line)
 
     # トレンドフォロー
     trend_follow = report_payload.get("trend_follow", [])
     if trend_follow:
-        for line in _render_trend_follow(trend_follow):
+        for line in _safe_render(
+            _render_trend_follow, trend_follow,
+            section_name="トレンドフォロー"
+        ):
             print(line); lines_plain.append(line)
 
-    for line in _render_portfolio(report_payload.get("portfolio", [])):
+    for line in _safe_render(
+        _render_portfolio, report_payload.get("portfolio", []),
+        section_name="ポートフォリオ"
+    ):
         print(line); lines_plain.append(line)
+
     if report_payload.get("backtest"):
-        for line in _render_backtest(report_payload["backtest"]):
+        for line in _safe_render(
+            _render_backtest, report_payload["backtest"],
+            section_name="バックテスト"
+        ):
             print(line); lines_plain.append(line)
 
     footer = f"\n{'='*50}"

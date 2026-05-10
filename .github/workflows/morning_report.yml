@@ -43,6 +43,7 @@ jobs:
           atr_multiplier_jp: 2.0
           atr_multiplier_us: 2.5
           atr_multiplier_growth: 2.5
+          rr_threshold_growth: 0.8
 
           macro_vix_warning: 25
 
