@@ -1302,9 +1302,6 @@ def run_screening(
             # テクニカルスコアリング（BUY）・週足ボーナス含む
             tech_score, tech_diag, tech_parts = _calc_technical_score(hist, market, ticker)
 
-            # SELLスコアリング（空売りシグナル）・週足はBUYと共通なので渡さない
-            sell_score, sell_diag, sell_parts = _calc_sell_score(hist, market)
-
             # ADR取得（対応銘柄のみ）
             adr_data = _get_adr(ticker) if market == "jp" else {}
 
@@ -1317,9 +1314,6 @@ def run_screening(
                 "tech_score":      tech_score,
                 "tech_diag":       tech_diag,
                 "tech_parts":      tech_parts,
-                "sell_score":      sell_score,
-                "sell_diag":       sell_diag,
-                "sell_parts":      sell_parts,
                 "fundamentals":    fund,
                 "near_earnings":   near_earnings,
                 "earnings_days":   earnings_days,
@@ -1345,16 +1339,9 @@ def run_screening(
             item["lower_target"] = rr_data["lower_target"]
             item["rr"]           = rr_data["rr"]
 
-            # SELL用RR計算（空売り・上下逆）
-            sell_rr_data = _calc_rr_sell(item, atr_mult)
-            item["sell_upper_target"] = sell_rr_data["upper_target"]  # 損切りライン
-            item["sell_lower_target"] = sell_rr_data["lower_target"]  # 利確ライン
-            item["sell_rr"]           = sell_rr_data["rr"]
-
-            logger.info(
-                "RR計算 %s: BUY score=%d rr=%.2f / SELL score=%d rr=%.2f",
-                ticker, tech_score, rr_data["rr"], sell_score, sell_rr_data["rr"]
-            )
+            logger.info("RR計算 %s: score=%d rr=%.2f (上値=%.1f 現在=%.1f 下値=%.1f)",
+                ticker, tech_score, rr_data["rr"],
+                rr_data["upper_target"], current_price, rr_data["lower_target"])
 
             technical_results.append(item)
 
