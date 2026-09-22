@@ -1,10 +1,10 @@
 {
-  "date": "2026-09-21",
+  "date": "2026-09-22",
   "is_jp_holiday": true,
   "prev_biz_date": "2026-09-18",
   "macro": {
     "macro_warning": false,
-    "vix": 14.81,
+    "vix": 14.87,
     "indices": {
       "nikkei": {
         "last_close": 65018.94921875,
@@ -23,52 +23,52 @@
         "sma75": 66640.32885416667
       },
       "dow": {
-        "last_close": 51682.640625,
-        "prev_close": 51778.0390625,
-        "change": -95.4,
-        "change_pct": -0.18,
-        "macd": -358.76028257519647,
-        "macd_signal": -183.29325304967824,
-        "rsi14": 38.43679577534393,
-        "bb_high": 54203.70054135139,
-        "bb_low": 51418.3967242736,
-        "tenkan": 52148.560546875,
-        "kijun": 52617.90625,
-        "senkou_a": 52383.2333984375,
+        "last_close": 52048.828125,
+        "prev_close": 51682.640625,
+        "change": 366.19,
+        "change_pct": 0.71,
+        "macd": -352.0084737379948,
+        "macd_signal": -217.05347114496237,
+        "rsi14": 43.32308948185947,
+        "bb_high": 54162.85093410446,
+        "bb_low": 51336.42797214553,
+        "tenkan": 51968.775390625,
+        "kijun": 52538.755859375,
+        "senkou_a": 52253.765625,
         "senkou_b": 52965.5,
-        "sma75": 52494.683333333334
+        "sma75": 52512.840104166666
       },
       "nasdaq": {
-        "last_close": 26522.5390625,
-        "prev_close": 26418.30078125,
-        "change": 104.24,
-        "change_pct": 0.39,
-        "macd": 34.804355773168936,
-        "macd_signal": 41.89136595781352,
-        "rsi14": 55.717067359927846,
-        "bb_high": 26651.013163353353,
-        "bb_low": 25883.208906959146,
-        "tenkan": 26173.9453125,
-        "kijun": 26339.240234375,
-        "senkou_a": 26256.5927734375,
-        "senkou_b": 25650.4296875,
-        "sma75": 26038.132369791667
+        "last_close": 27122.09375,
+        "prev_close": 26522.5390625,
+        "change": 599.55,
+        "change_pct": 2.26,
+        "macd": 99.61976983116983,
+        "macd_signal": 53.44572336398899,
+        "rsi14": 64.33023100255734,
+        "bb_high": 26846.36892586201,
+        "bb_low": 25782.01642570049,
+        "tenkan": 26493.4443359375,
+        "kijun": 26493.4443359375,
+        "senkou_a": 26493.4443359375,
+        "senkou_b": 25804.6337890625,
+        "sma75": 26041.707213541667
       },
       "sp500": {
-        "last_close": 7650.5,
-        "prev_close": 7637.759765625,
-        "change": 12.74,
-        "change_pct": 0.17,
-        "macd": -6.723909966194697,
-        "macd_signal": 3.6317496330864154,
-        "rsi14": 50.71510020193057,
-        "bb_high": 7754.794815474481,
-        "bb_low": 7562.98721577552,
-        "tenkan": 7612.7900390625,
-        "kijun": 7662.235107421875,
-        "senkou_a": 7637.5125732421875,
+        "last_close": 7764.7001953125,
+        "prev_close": 7650.5,
+        "change": 114.2,
+        "change_pct": 1.49,
+        "macd": 3.9830831535446123,
+        "macd_signal": 3.703428392879664,
+        "rsi14": 59.2790696019087,
+        "bb_high": 7769.74255411355,
+        "bb_low": 7557.07248494895,
+        "tenkan": 7643.4951171875,
+        "kijun": 7658.889892578125,
+        "senkou_a": 7651.1925048828125,
         "senkou_b": 7565.31005859375,
-        "sma75": 7561.825618489584
+        "sma75": 7564.63921875
       }
     },
     "nikkei_range": {
@@ -80,50 +80,50 @@
       "support": 62726.0
     },
     "cme_futures": {
-      "last": 65135.0,
-      "change": 110.0,
-      "change_pct": 0.17,
+      "last": 66815.0,
+      "change": 1790.0,
+      "change_pct": 2.75,
       "gap_up": true,
-      "vs_nikkei": 116.0,
-      "vs_nikkei_pct": 0.18
+      "vs_nikkei": 1796.0,
+      "vs_nikkei_pct": 2.76
     },
     "commodities": {
       "crude_oil": {
-        "last": 93.91,
-        "change_pct": -6.37
+        "last": 92.78,
+        "change_pct": -7.5
       },
       "gold": {
-        "last": 4420.7,
-        "change_pct": -0.09
+        "last": 4392.8,
+        "change_pct": -0.73
       },
       "bond_10y": {
-        "last": 5.0,
-        "change_pct": 1.03
+        "last": 4.96,
+        "change_pct": -0.7
       },
       "usdjpy": {
-        "last": 156.63,
-        "change_pct": 0.32
+        "last": 157.46,
+        "change_pct": 0.26
       }
     },
     "top_sector_etf": "SOXX",
-    "top_sector_perf": 2.69,
+    "top_sector_perf": 4.93,
     "sector_focus": [
-      "半導体",
-      "テクノロジー"
+      "テクノロジー",
+      "半導体"
     ],
     "etf_performances": {
-      "SOXX": 2.69,
-      "XLK": 0.82,
-      "XLF": -0.04,
-      "XLE": -0.26,
-      "XLV": -0.25,
-      "XLI": 0.44,
-      "XLY": -0.32,
-      "XLB": -1.42,
-      "XLRE": -0.95,
-      "XLP": -0.83,
-      "XLU": -1.42,
-      "XLC": -1.37
+      "SOXX": 4.93,
+      "XLK": 2.77,
+      "XLF": 0.07,
+      "XLE": -2.88,
+      "XLV": 0.37,
+      "XLI": 0.14,
+      "XLY": 1.08,
+      "XLB": -0.56,
+      "XLRE": 0.14,
+      "XLP": -1.06,
+      "XLU": -1.07,
+      "XLC": 3.56
     },
     "inflow_sectors": [
       {
@@ -132,45 +132,44 @@
           "半導体",
           "テクノロジー"
         ],
-        "perf": 2.69
+        "perf": 4.93
+      },
+      {
+        "etf": "XLC",
+        "sectors": [
+          "通信サービス"
+        ],
+        "perf": 3.56
       },
       {
         "etf": "XLK",
         "sectors": [
           "テクノロジー"
         ],
-        "perf": 0.82
-      },
-      {
-        "etf": "XLI",
-        "sectors": [
-          "機械",
-          "運輸"
-        ],
-        "perf": 0.44
+        "perf": 2.77
       }
     ],
     "outflow_sectors": [
       {
-        "etf": "XLC",
+        "etf": "XLP",
         "sectors": [
-          "通信サービス"
+          "生活必需品"
         ],
-        "perf": -1.37
-      },
-      {
-        "etf": "XLB",
-        "sectors": [
-          "素材"
-        ],
-        "perf": -1.42
+        "perf": -1.06
       },
       {
         "etf": "XLU",
         "sectors": [
           "公益事業"
         ],
-        "perf": -1.42
+        "perf": -1.07
+      },
+      {
+        "etf": "XLE",
+        "sectors": [
+          "エネルギー"
+        ],
+        "perf": -2.88
       }
     ],
     "us_market_closed": false,
@@ -191,20 +190,20 @@
       "sma75": 66640.32885416667
     },
     "sp500": {
-      "last_close": 7650.5,
-      "prev_close": 7637.759765625,
-      "change": 12.74,
-      "change_pct": 0.17,
-      "macd": -6.723909966194697,
-      "macd_signal": 3.6317496330864154,
-      "rsi14": 50.71510020193057,
-      "bb_high": 7754.794815474481,
-      "bb_low": 7562.98721577552,
-      "tenkan": 7612.7900390625,
-      "kijun": 7662.235107421875,
-      "senkou_a": 7637.5125732421875,
+      "last_close": 7764.7001953125,
+      "prev_close": 7650.5,
+      "change": 114.2,
+      "change_pct": 1.49,
+      "macd": 3.9830831535446123,
+      "macd_signal": 3.703428392879664,
+      "rsi14": 59.2790696019087,
+      "bb_high": 7769.74255411355,
+      "bb_low": 7557.07248494895,
+      "tenkan": 7643.4951171875,
+      "kijun": 7658.889892578125,
+      "senkou_a": 7651.1925048828125,
       "senkou_b": 7565.31005859375,
-      "sma75": 7561.825618489584
+      "sma75": 7564.63921875
     },
     "sector_ai": {},
     "sector_flow_ai": {},
@@ -684,7 +683,7 @@
           "dividend_yield": 281.0,
           "target_price": 662.5,
           "target_upside": 3.3,
-          "recommendation": "none",
+          "recommendation": "hold",
           "week52_pct": 62.6
         },
         "near_earnings": false,
@@ -870,14 +869,14 @@
         "bb2_lower": 5110.908031859674,
         "adr": {
           "ticker": "HTHIY",
-          "last": 35.51,
-          "change_pct": -0.11,
-          "gap_up": false,
+          "last": 35.92,
+          "change_pct": 1.15,
+          "gap_up": true,
           "gap_down": false
         },
         "upper_target": 5580.6,
         "lower_target": 5347.4,
-        "rr": 0.3676085853191394,
+        "rr": -0.028766685515425706,
         "score": 56,
         "raw_score": 158,
         "score_parts": {
@@ -1441,14 +1440,14 @@
         "bb2_lower": 2696.395320132143,
         "adr": {
           "ticker": "DSNKY",
-          "last": 18.9,
-          "change_pct": 0.32,
+          "last": 18.86,
+          "change_pct": -0.21,
           "gap_up": false,
           "gap_down": false
         },
         "upper_target": 2958.0,
         "lower_target": 2854.3,
-        "rr": -0.04601479046836486,
+        "rr": 0.11510238580045123,
         "score": 42,
         "raw_score": 118,
         "score_parts": {
@@ -3160,14 +3159,14 @@
         "bb2_lower": 3514.607648118679,
         "adr": {
           "ticker": "MUFG",
-          "last": 23.13,
-          "change_pct": -1.57,
-          "gap_up": false,
-          "gap_down": true
+          "last": 23.42,
+          "change_pct": 1.25,
+          "gap_up": true,
+          "gap_down": false
         },
         "upper_target": 3791.8,
         "lower_target": 3487.5,
-        "rr": 3.0182900371012913,
+        "rr": 0.7122505028889166,
         "score": 36,
         "raw_score": 100,
         "score_parts": {
@@ -3182,8 +3181,7 @@
         },
         "sentiment_score": 0,
         "sentiment_reason": "",
-        "ai_verdict": {},
-        "_market": "jp"
+        "ai_verdict": {}
       },
       {
         "ticker": "6702.T",
@@ -3248,14 +3246,14 @@
         "bb2_lower": 3642.409277097825,
         "adr": {
           "ticker": "FJTSY",
-          "last": 25.07,
-          "change_pct": -2.79,
-          "gap_up": false,
-          "gap_down": true
+          "last": 25.32,
+          "change_pct": 1.0,
+          "gap_up": true,
+          "gap_down": false
         },
         "upper_target": 4046.9,
         "lower_target": 3834.7,
-        "rr": 5.368639058157475,
+        "rr": 0.15256628802050273,
         "score": 35,
         "raw_score": 98,
         "score_parts": {
@@ -3270,8 +3268,7 @@
         },
         "sentiment_score": 0,
         "sentiment_reason": "",
-        "ai_verdict": {},
-        "_market": "jp"
+        "ai_verdict": {}
       },
       {
         "ticker": "8001.T",
@@ -3660,14 +3657,14 @@
         "bb2_lower": 1718.3270189403756,
         "adr": {
           "ticker": "SMTOY",
-          "last": 6.61,
-          "change_pct": -0.6,
-          "gap_up": false,
-          "gap_down": true
+          "last": 6.76,
+          "change_pct": 2.27,
+          "gap_up": true,
+          "gap_down": false
         },
         "upper_target": 1820.2,
         "lower_target": 1757.7,
-        "rr": 283.05900481643886,
+        "rr": 0.2272777113044872,
         "score": 34,
         "raw_score": 95,
         "score_parts": {
@@ -3682,8 +3679,7 @@
         },
         "sentiment_score": 0,
         "sentiment_reason": "",
-        "ai_verdict": {},
-        "_market": "jp"
+        "ai_verdict": {}
       },
       {
         "ticker": "8729.T",
@@ -4562,14 +4558,14 @@
         "bb2_lower": 6625.871570181145,
         "adr": {
           "ticker": "SMFG",
-          "last": 26.24,
-          "change_pct": -1.8,
-          "gap_up": false,
-          "gap_down": true
+          "last": 26.67,
+          "change_pct": 1.64,
+          "gap_up": true,
+          "gap_down": false
         },
         "upper_target": 7146.1,
         "lower_target": 6575.3,
-        "rr": 3.3315616117209275,
+        "rr": 0.5566958249661957,
         "score": 33,
         "raw_score": 92,
         "score_parts": {
@@ -4584,8 +4580,7 @@
         },
         "sentiment_score": 0,
         "sentiment_reason": "",
-        "ai_verdict": {},
-        "_market": "jp"
+        "ai_verdict": {}
       },
       {
         "ticker": "8411.T",
@@ -4650,14 +4645,14 @@
         "bb2_lower": 8188.854060444147,
         "adr": {
           "ticker": "MFG",
-          "last": 10.94,
-          "change_pct": -1.17,
-          "gap_up": false,
-          "gap_down": true
+          "last": 11.09,
+          "change_pct": 1.37,
+          "gap_up": true,
+          "gap_down": false
         },
         "upper_target": 8894.0,
         "lower_target": 8494.3,
-        "rr": 0.0,
+        "rr": 2.412909836065598,
         "score": 33,
         "raw_score": 92,
         "score_parts": {
@@ -4672,7 +4667,8 @@
         },
         "sentiment_score": 0,
         "sentiment_reason": "",
-        "ai_verdict": {}
+        "ai_verdict": {},
+        "_market": "jp"
       },
       {
         "ticker": "5831.T",
@@ -5064,14 +5060,14 @@
         "bb2_lower": 2949.9556164707287,
         "adr": {
           "ticker": "EJPRY",
-          "last": 10.98,
-          "change_pct": -3.0,
+          "last": 10.95,
+          "change_pct": -0.27,
           "gap_up": false,
-          "gap_down": true
+          "gap_down": false
         },
         "upper_target": 3078.1,
         "lower_target": 2991.0,
-        "rr": 0.0,
+        "rr": 1.3687978121063398,
         "score": 31,
         "raw_score": 88,
         "score_parts": {
@@ -5151,14 +5147,14 @@
         "bb2_lower": 6898.6237016676005,
         "adr": {
           "ticker": "NPNYY",
-          "last": 9.58,
-          "change_pct": -1.54,
+          "last": 9.6,
+          "change_pct": 0.21,
           "gap_up": false,
-          "gap_down": true
+          "gap_down": false
         },
         "upper_target": 7541.3,
         "lower_target": 7205.3,
-        "rr": 0.9834555630471014,
+        "rr": 0.11843820337516728,
         "score": 31,
         "raw_score": 88,
         "score_parts": {
@@ -5375,7 +5371,7 @@
         "fundamentals": {
           "eps": 153.06,
           "per": 19.8,
-          "pbr": 3.75,
+          "pbr": 3.91,
           "roe": 16.6,
           "revenue_growth": 5.4,
           "earnings_growth": -42.3,
@@ -5561,10 +5557,10 @@
         "bb2_lower": 6579.195050101024,
         "adr": {
           "ticker": "JAPAY",
-          "last": 21.91,
-          "change_pct": -0.99,
+          "last": 21.82,
+          "change_pct": -0.41,
           "gap_up": false,
-          "gap_down": true
+          "gap_down": false
         },
         "upper_target": 7109.0,
         "lower_target": 6871.0,
@@ -5793,8 +5789,8 @@
           "operating_margin": 65.6,
           "profit_margin": 56.1,
           "dividend_yield": 390.0,
-          "target_price": 3640.0,
-          "target_upside": 15.3,
+          "target_price": 3680.0,
+          "target_upside": 16.6,
           "recommendation": "buy",
           "week52_pct": 55.7
         },
@@ -5891,14 +5887,14 @@
         "bb2_lower": 4876.937971996755,
         "adr": {
           "ticker": "ITOCY",
-          "last": 14.68,
-          "change_pct": -4.3,
-          "gap_up": false,
-          "gap_down": true
+          "last": 14.78,
+          "change_pct": 0.68,
+          "gap_up": true,
+          "gap_down": false
         },
         "upper_target": 5282.5,
         "lower_target": 5028.6,
-        "rr": 0.0,
+        "rr": 0.5155941970342963,
         "score": 30,
         "raw_score": 83,
         "score_parts": {
@@ -6057,13 +6053,13 @@
         "adr": {
           "ticker": "FUJIY",
           "last": 10.58,
-          "change_pct": -1.4,
+          "change_pct": 0.0,
           "gap_up": false,
-          "gap_down": true
+          "gap_down": false
         },
         "upper_target": 3418.6,
         "lower_target": 3272.9,
-        "rr": 30.544018893169415,
+        "rr": 1.8508092192183014,
         "score": 29,
         "raw_score": 80,
         "score_parts": {
@@ -6301,14 +6297,14 @@
         "bb2_lower": 2936.6513333085795,
         "adr": {
           "ticker": "TM",
-          "last": 191.53,
-          "change_pct": -1.23,
-          "gap_up": false,
-          "gap_down": true
+          "last": 192.5,
+          "change_pct": 0.51,
+          "gap_up": true,
+          "gap_down": false
         },
         "upper_target": 3201.5,
         "lower_target": 2939.5,
-        "rr": 4.424403037089423,
+        "rr": 1.5966171128981157,
         "score": 29,
         "raw_score": 80,
         "score_parts": {
@@ -6388,14 +6384,14 @@
         "bb2_lower": 4455.107972183987,
         "adr": {
           "ticker": "SFTBY",
-          "last": 20.37,
-          "change_pct": -3.69,
-          "gap_up": false,
-          "gap_down": true
+          "last": 21.68,
+          "change_pct": 6.43,
+          "gap_up": true,
+          "gap_down": false
         },
         "upper_target": 6959.0,
         "lower_target": 5816.0,
-        "rr": 3.29743520880891,
+        "rr": 0.26285425660371337,
         "score": 29,
         "raw_score": 80,
         "score_parts": {
@@ -6410,8 +6406,7 @@
         },
         "sentiment_score": 0,
         "sentiment_reason": "",
-        "ai_verdict": {},
-        "_market": "jp"
+        "ai_verdict": {}
       },
       {
         "ticker": "2002.T",
@@ -6962,14 +6957,14 @@
         "bb2_lower": 7926.762472761206,
         "adr": {
           "ticker": "NTDOY",
-          "last": 13.25,
-          "change_pct": -1.12,
+          "last": 13.27,
+          "change_pct": 0.15,
           "gap_up": false,
-          "gap_down": true
+          "gap_down": false
         },
         "upper_target": 9180.0,
         "lower_target": 7994.2,
-        "rr": 3.7169972154344366,
+        "rr": 2.3188724510195895,
         "score": 27,
         "raw_score": 75,
         "score_parts": {
@@ -7535,14 +7530,14 @@
         "bb2_lower": 3562.144811954458,
         "adr": {
           "ticker": "SONY",
-          "last": 23.46,
-          "change_pct": -1.55,
-          "gap_up": false,
-          "gap_down": true
+          "last": 23.59,
+          "change_pct": 0.55,
+          "gap_up": true,
+          "gap_down": false
         },
         "upper_target": 4051.3,
         "lower_target": 3582.0,
-        "rr": 7.132672236491215,
+        "rr": 2.4682571178532227,
         "score": 25,
         "raw_score": 70,
         "score_parts": {
@@ -7622,14 +7617,14 @@
         "bb2_lower": 3756.6514154705606,
         "adr": {
           "ticker": "CJPRY",
-          "last": 12.14,
-          "change_pct": -1.54,
+          "last": 12.11,
+          "change_pct": -0.25,
           "gap_up": false,
-          "gap_down": true
+          "gap_down": false
         },
         "upper_target": 4012.7,
         "lower_target": 3753.0,
-        "rr": 80.17143266545433,
+        "rr": 3.94759208627503,
         "score": 25,
         "raw_score": 70,
         "score_parts": {
@@ -7955,14 +7950,14 @@
         "bb2_lower": 165.6691297909221,
         "adr": {
           "ticker": "NTTYY",
-          "last": 28.15,
-          "change_pct": -1.98,
+          "last": 27.95,
+          "change_pct": -0.71,
           "gap_up": false,
           "gap_down": true
         },
         "upper_target": 180.1,
         "lower_target": 172.3,
-        "rr": 4.220101938984205,
+        "rr": 1.1102533328434003,
         "score": 24,
         "raw_score": 68,
         "score_parts": {
@@ -8192,7 +8187,7 @@
           "week52_pct": 71.5
         },
         "near_earnings": false,
-        "earnings_days": 23,
+        "earnings_days": 25,
         "earnings_label": "",
         "is_focus_sector": false,
         "current_price": 2913.0,
@@ -8602,14 +8597,14 @@
         "bb2_lower": 3589.631667144411,
         "adr": {
           "ticker": "BRDCY",
-          "last": 11.84,
-          "change_pct": -2.47,
+          "last": 11.89,
+          "change_pct": 0.42,
           "gap_up": false,
-          "gap_down": true
+          "gap_down": false
         },
         "upper_target": 4189.0,
         "lower_target": 3698.0,
-        "rr": 0.0,
+        "rr": 9.293501048218069,
         "score": 18,
         "raw_score": 50,
         "score_parts": {
@@ -8848,14 +8843,14 @@
         "bb2_lower": 4701.747938725667,
         "adr": {
           "ticker": "MSBHF",
-          "last": 31.24,
-          "change_pct": -7.0,
-          "gap_up": false,
-          "gap_down": true
+          "last": 31.75,
+          "change_pct": 1.63,
+          "gap_up": true,
+          "gap_down": false
         },
         "upper_target": 5108.1,
         "lower_target": 4868.9,
-        "rr": 0.0,
+        "rr": 0.507008200619685,
         "score": 18,
         "raw_score": 50,
         "score_parts": {
@@ -9249,14 +9244,14 @@
         "bb2_lower": 4854.170985092098,
         "adr": {
           "ticker": "MARUY",
-          "last": 31.56,
-          "change_pct": -2.62,
-          "gap_up": false,
-          "gap_down": true
+          "last": 31.95,
+          "change_pct": 1.24,
+          "gap_up": true,
+          "gap_down": false
         },
         "upper_target": 5200.2,
         "lower_target": 4812.0,
-        "rr": 10.55443496749695,
+        "rr": 0.7201108325560569,
         "score": 16,
         "raw_score": 45,
         "score_parts": {
@@ -10446,14 +10441,14 @@
         "bb2_lower": 20400.001728911466,
         "adr": {
           "ticker": "DKILY",
-          "last": 13.14,
-          "change_pct": -1.28,
-          "gap_up": false,
-          "gap_down": true
+          "last": 13.22,
+          "change_pct": 0.61,
+          "gap_up": true,
+          "gap_down": false
         },
         "upper_target": 21123.0,
         "lower_target": 20230.5,
-        "rr": 2.658168875783768,
+        "rr": 0.4033218167281941,
         "score": 12,
         "raw_score": 35,
         "score_parts": {
@@ -11088,14 +11083,14 @@
         "bb2_lower": 5623.036424377556,
         "adr": {
           "ticker": "SHECY",
-          "last": 18.47,
-          "change_pct": -0.75,
-          "gap_up": false,
-          "gap_down": true
+          "last": 18.75,
+          "change_pct": 1.52,
+          "gap_up": true,
+          "gap_down": false
         },
         "upper_target": 6087.0,
         "lower_target": 5706.1,
-        "rr": 3.04805283534504,
+        "rr": 0.6802155213158138,
         "score": 11,
         "raw_score": 30,
         "score_parts": {
@@ -11173,14 +11168,14 @@
         "bb2_lower": 6272.8914828689685,
         "adr": {
           "ticker": "CHGCY",
-          "last": 21.5,
-          "change_pct": 0.47,
+          "last": 21.56,
+          "change_pct": 0.28,
           "gap_up": false,
           "gap_down": false
         },
         "upper_target": 7130.0,
         "lower_target": 6588.9,
-        "rr": 1.8662781897987024,
+        "rr": 2.074768631271318,
         "score": 11,
         "raw_score": 30,
         "score_parts": {
@@ -11243,7 +11238,7 @@
           "dividend_yield": 107.0,
           "target_price": 1390.0,
           "target_upside": 5.8,
-          "recommendation": "none",
+          "recommendation": "underperform",
           "week52_pct": 2.4
         },
         "near_earnings": false,
@@ -12049,14 +12044,14 @@
         "bb2_lower": 73183.05482860841,
         "adr": {
           "ticker": "KYCCF",
-          "last": 490.75,
-          "change_pct": -0.25,
-          "gap_up": false,
+          "last": 494.5,
+          "change_pct": 0.76,
+          "gap_up": true,
           "gap_down": false
         },
         "upper_target": 84170.0,
         "lower_target": 73840.4,
-        "rr": 3.053633596259601,
+        "rr": 2.109799367782725,
         "score": 9,
         "raw_score": 25,
         "score_parts": {
@@ -12609,14 +12604,14 @@
         "bb2_lower": 5641.951626511357,
         "adr": {
           "ticker": "FANUY",
-          "last": 18.54,
-          "change_pct": -1.07,
-          "gap_up": false,
-          "gap_down": true
+          "last": 19.07,
+          "change_pct": 2.86,
+          "gap_up": true,
+          "gap_down": false
         },
         "upper_target": 6139.9,
         "lower_target": 5641.7,
-        "rr": 2.37303671429864,
+        "rr": 0.3191462394510322,
         "score": 7,
         "raw_score": 20,
         "score_parts": {
@@ -13563,14 +13558,14 @@
         "bb2_lower": 4888.074745016657,
         "adr": {
           "ticker": "MIELY",
-          "last": 65.52,
-          "change_pct": -1.96,
-          "gap_up": false,
-          "gap_down": true
+          "last": 66.51,
+          "change_pct": 1.51,
+          "gap_up": true,
+          "gap_down": false
         },
         "upper_target": 5679.0,
         "lower_target": 4936.0,
-        "rr": 7.301675977653631,
+        "rr": 1.7786088257292483,
         "score": 4,
         "raw_score": 10,
         "score_parts": {
@@ -15134,7 +15129,7 @@
           "dividend_yield": 281.0,
           "target_price": 662.5,
           "target_upside": 3.3,
-          "recommendation": "none",
+          "recommendation": "hold",
           "week52_pct": 62.6
         },
         "near_earnings": false,
@@ -16083,270 +16078,6 @@
         "_market": "jp"
       },
       {
-        "ticker": "8306.T",
-        "name": "三菱ＵＦＪフィナンシャル・グループ",
-        "market": "jp",
-        "sector": "銀行業",
-        "tech_score": 100,
-        "tech_diag": {
-          "rsi14": 48.635076246303285,
-          "macd": 20.332678706733986,
-          "macd_signal": 30.333202314959593,
-          "sma5": 3663.0,
-          "sma25": 3633.36,
-          "sma75": 3497.0133333333333,
-          "pattern": "押し目",
-          "drop_pct": 4.6,
-          "vol_ratio": 1.39,
-          "weekly_trend": "強い上昇",
-          "weekly_score": 20,
-          "weekly_signals": [
-            "週足5>25線",
-            "週足MACD正",
-            "週足>13週線"
-          ],
-          "sma5w": 3646.4,
-          "sma13w": 3562.5,
-          "sma25w": 3272.9
-        },
-        "tech_parts": {
-          "trend": 30,
-          "momentum": 10,
-          "heat": 10,
-          "volume": 0,
-          "pullback": 30,
-          "breakout": 0,
-          "weekly": 20
-        },
-        "fundamentals": {
-          "eps": 236.39,
-          "per": 15.3,
-          "pbr": 1.79,
-          "roe": 9.5,
-          "revenue_growth": 28.8,
-          "earnings_growth": 50.9,
-          "operating_margin": 45.6,
-          "profit_margin": 27.4,
-          "dividend_yield": 265.0,
-          "target_price": 3685.5,
-          "target_upside": 1.8,
-          "recommendation": "buy",
-          "week52_pct": 87.8
-        },
-        "near_earnings": false,
-        "earnings_days": 34,
-        "earnings_label": "",
-        "is_focus_sector": false,
-        "current_price": 3620.0,
-        "high20": 3795.0,
-        "low20": 3472.0,
-        "atr14": 88.35714285714286,
-        "bb2_upper": 3791.7923518813204,
-        "bb2_lower": 3514.607648118679,
-        "adr": {
-          "ticker": "MUFG",
-          "last": 23.13,
-          "change_pct": -1.57,
-          "gap_up": false,
-          "gap_down": true
-        },
-        "upper_target": 3791.8,
-        "lower_target": 3487.5,
-        "rr": 3.0182900371012913,
-        "score": 36,
-        "raw_score": 100,
-        "score_parts": {
-          "trend": 30,
-          "momentum": 10,
-          "heat": 10,
-          "volume": 0,
-          "pullback": 30,
-          "breakout": 0,
-          "weekly": 20,
-          "fundamental": 0
-        },
-        "sentiment_score": 0,
-        "sentiment_reason": "",
-        "ai_verdict": {},
-        "_market": "jp"
-      },
-      {
-        "ticker": "6702.T",
-        "name": "富士通",
-        "market": "jp",
-        "sector": "電気機器",
-        "tech_score": 98,
-        "tech_diag": {
-          "rsi14": 59.14297618377409,
-          "macd": 83.66141695389479,
-          "macd_signal": 75.9127067495205,
-          "sma5": 3978.4,
-          "sma25": 3806.16,
-          "sma75": 3541.0533333333333,
-          "pattern": "ベース",
-          "drop_pct": 2.4,
-          "vol_ratio": 1.17,
-          "weekly_trend": "強い上昇",
-          "weekly_score": 20,
-          "weekly_signals": [
-            "週足5>25線",
-            "週足MACD正",
-            "週足>13週線"
-          ],
-          "sma5w": 3835.6,
-          "sma13w": 3600.2,
-          "sma25w": 3491.0
-        },
-        "tech_parts": {
-          "trend": 50,
-          "momentum": 20,
-          "heat": 0,
-          "volume": 0,
-          "pullback": 8,
-          "breakout": 0,
-          "weekly": 20
-        },
-        "fundamentals": {
-          "eps": 174.68,
-          "per": 22.8,
-          "pbr": 3.39,
-          "roe": 16.2,
-          "revenue_growth": 3.9,
-          "earnings_growth": -76.1,
-          "operating_margin": 6.7,
-          "profit_margin": 9.0,
-          "dividend_yield": 138.0,
-          "target_price": 4801.5,
-          "target_upside": 20.7,
-          "recommendation": "buy",
-          "week52_pct": 58.3
-        },
-        "near_earnings": false,
-        "earnings_days": 25,
-        "earnings_label": "",
-        "is_focus_sector": false,
-        "current_price": 3979.0,
-        "high20": 4075.0,
-        "low20": 3664.0,
-        "atr14": 96.21428571428571,
-        "bb2_upper": 4046.890722902175,
-        "bb2_lower": 3642.409277097825,
-        "adr": {
-          "ticker": "FJTSY",
-          "last": 25.07,
-          "change_pct": -2.79,
-          "gap_up": false,
-          "gap_down": true
-        },
-        "upper_target": 4046.9,
-        "lower_target": 3834.7,
-        "rr": 5.368639058157475,
-        "score": 35,
-        "raw_score": 98,
-        "score_parts": {
-          "trend": 50,
-          "momentum": 20,
-          "heat": 0,
-          "volume": 0,
-          "pullback": 8,
-          "breakout": 0,
-          "weekly": 20,
-          "fundamental": 0
-        },
-        "sentiment_score": 0,
-        "sentiment_reason": "",
-        "ai_verdict": {},
-        "_market": "jp"
-      },
-      {
-        "ticker": "8309.T",
-        "name": "三井住友トラストグループ",
-        "market": "jp",
-        "sector": "銀行業",
-        "tech_score": 95,
-        "tech_diag": {
-          "rsi14": 53.49089958492219,
-          "macd": 19.55283639152094,
-          "macd_signal": 23.50926272886106,
-          "sma5": 1781.1,
-          "sma25": 1757.68,
-          "sma75": 1652.1266666666668,
-          "pattern": "押し目",
-          "drop_pct": 2.2,
-          "vol_ratio": 1.45,
-          "weekly_trend": "強い上昇",
-          "weekly_score": 20,
-          "weekly_signals": [
-            "週足5>25線",
-            "週足MACD正",
-            "週足>13週線"
-          ],
-          "sma5w": 1768.3,
-          "sma13w": 1687.9,
-          "sma25w": 1540.2
-        },
-        "tech_parts": {
-          "trend": 30,
-          "momentum": 10,
-          "heat": 10,
-          "volume": 0,
-          "pullback": 25,
-          "breakout": 0,
-          "weekly": 20
-        },
-        "fundamentals": {
-          "eps": 132.11,
-          "per": 13.4,
-          "pbr": 1.33,
-          "roe": 10.8,
-          "revenue_growth": 27.3,
-          "earnings_growth": 59.8,
-          "operating_margin": 39.5,
-          "profit_margin": 21.3,
-          "dividend_yield": 269.0,
-          "target_price": 1721.3,
-          "target_upside": -2.7,
-          "recommendation": "buy",
-          "week52_pct": 93.4
-        },
-        "near_earnings": false,
-        "earnings_days": 34,
-        "earnings_label": "",
-        "is_focus_sector": false,
-        "current_price": 1768.5,
-        "high20": 1822.5,
-        "low20": 1697.5,
-        "atr14": 40.535714285714285,
-        "bb2_upper": 1820.1729810596244,
-        "bb2_lower": 1718.3270189403756,
-        "adr": {
-          "ticker": "SMTOY",
-          "last": 6.61,
-          "change_pct": -0.6,
-          "gap_up": false,
-          "gap_down": true
-        },
-        "upper_target": 1820.2,
-        "lower_target": 1757.7,
-        "rr": 283.05900481643886,
-        "score": 34,
-        "raw_score": 95,
-        "score_parts": {
-          "trend": 30,
-          "momentum": 10,
-          "heat": 10,
-          "volume": 0,
-          "pullback": 25,
-          "breakout": 0,
-          "weekly": 20,
-          "fundamental": 0
-        },
-        "sentiment_score": 0,
-        "sentiment_reason": "",
-        "ai_verdict": {},
-        "_market": "jp"
-      },
-      {
         "ticker": "8729.T",
         "name": "ソニーフィナンシャルグループ",
         "market": "jp",
@@ -16837,21 +16568,21 @@
         "_market": "jp"
       },
       {
-        "ticker": "8316.T",
-        "name": "三井住友フィナンシャルグループ",
+        "ticker": "8411.T",
+        "name": "みずほフィナンシャルグループ",
         "market": "jp",
         "sector": "銀行業",
         "tech_score": 92,
         "tech_diag": {
-          "rsi14": 48.351840557711164,
-          "macd": 20.69645906218284,
-          "macd_signal": 36.425063596151226,
-          "sma5": 6884.4,
-          "sma25": 6850.32,
-          "sma75": 6724.533333333334,
+          "rsi14": 49.320105456143466,
+          "macd": 60.896387904642324,
+          "macd_signal": 83.20635948315221,
+          "sma5": 8599.6,
+          "sma25": 8494.28,
+          "sma75": 8235.28,
           "pattern": "押し目",
-          "drop_pct": 3.7,
-          "vol_ratio": 1.72,
+          "drop_pct": 4.1,
+          "vol_ratio": 1.37,
           "weekly_trend": "強い上昇",
           "weekly_score": 20,
           "weekly_signals": [
@@ -16859,61 +16590,61 @@
             "週足MACD正",
             "週足>13週線"
           ],
-          "sma5w": 6866.4,
-          "sma13w": 6819.7,
-          "sma25w": 6329.7
+          "sma5w": 8503.8,
+          "sma13w": 8347.2,
+          "sma25w": 7726.6
         },
         "tech_parts": {
-          "trend": 20,
+          "trend": 30,
           "momentum": 10,
           "heat": 10,
-          "volume": 10,
+          "volume": 0,
           "pullback": 22,
           "breakout": 0,
           "weekly": 20
         },
         "fundamentals": {
-          "eps": 446.0,
-          "per": 15.3,
-          "pbr": 1.61,
-          "roe": 8.6,
-          "revenue_growth": 24.8,
-          "earnings_growth": 35.0,
-          "operating_margin": 40.9,
-          "profit_margin": 27.8,
-          "dividend_yield": 132.0,
-          "target_price": 7398.3,
-          "target_upside": 8.3,
+          "eps": 560.67,
+          "per": 15.2,
+          "pbr": 1.8,
+          "roe": 12.5,
+          "revenue_growth": 35.0,
+          "earnings_growth": 49.7,
+          "operating_margin": 46.7,
+          "profit_margin": 29.1,
+          "dividend_yield": 177.0,
+          "target_price": 9011.8,
+          "target_upside": 6.1,
           "recommendation": "buy",
-          "week52_pct": 87.3
+          "week52_pct": 90.8
         },
         "near_earnings": false,
-        "earnings_days": 34,
+        "earnings_days": 35,
         "earnings_label": "",
         "is_focus_sector": false,
-        "current_price": 6830.0,
-        "high20": 7181.0,
-        "low20": 6534.0,
-        "atr14": 169.78571428571428,
-        "bb2_upper": 7146.128429818855,
-        "bb2_lower": 6625.871570181145,
+        "current_price": 8495.0,
+        "high20": 8894.0,
+        "low20": 8056.0,
+        "atr14": 240.0,
+        "bb2_upper": 8910.445939555852,
+        "bb2_lower": 8188.854060444147,
         "adr": {
-          "ticker": "SMFG",
-          "last": 26.24,
-          "change_pct": -1.8,
-          "gap_up": false,
-          "gap_down": true
+          "ticker": "MFG",
+          "last": 11.09,
+          "change_pct": 1.37,
+          "gap_up": true,
+          "gap_down": false
         },
-        "upper_target": 7146.1,
-        "lower_target": 6575.3,
-        "rr": 3.3315616117209275,
+        "upper_target": 8894.0,
+        "lower_target": 8494.3,
+        "rr": 2.412909836065598,
         "score": 33,
         "raw_score": 92,
         "score_parts": {
-          "trend": 20,
+          "trend": 30,
           "momentum": 10,
           "heat": 10,
-          "volume": 10,
+          "volume": 0,
           "pullback": 22,
           "breakout": 0,
           "weekly": 20,
@@ -17459,8 +17190,8 @@
           "operating_margin": 65.6,
           "profit_margin": 56.1,
           "dividend_yield": 390.0,
-          "target_price": 3640.0,
-          "target_upside": 15.3,
+          "target_price": 3680.0,
+          "target_upside": 16.6,
           "recommendation": "buy",
           "week52_pct": 55.7
         },
@@ -17557,13 +17288,13 @@
         "adr": {
           "ticker": "FUJIY",
           "last": 10.58,
-          "change_pct": -1.4,
+          "change_pct": 0.0,
           "gap_up": false,
-          "gap_down": true
+          "gap_down": false
         },
         "upper_target": 3418.6,
         "lower_target": 3272.9,
-        "rr": 30.544018893169415,
+        "rr": 1.8508092192183014,
         "score": 29,
         "raw_score": 80,
         "score_parts": {
@@ -17724,14 +17455,14 @@
         "bb2_lower": 2936.6513333085795,
         "adr": {
           "ticker": "TM",
-          "last": 191.53,
-          "change_pct": -1.23,
-          "gap_up": false,
-          "gap_down": true
+          "last": 192.5,
+          "change_pct": 0.51,
+          "gap_up": true,
+          "gap_down": false
         },
         "upper_target": 3201.5,
         "lower_target": 2939.5,
-        "rr": 4.424403037089423,
+        "rr": 1.5966171128981157,
         "score": 29,
         "raw_score": 80,
         "score_parts": {
@@ -17742,93 +17473,6 @@
           "pullback": 30,
           "breakout": 0,
           "weekly": 15,
-          "fundamental": 0
-        },
-        "sentiment_score": 0,
-        "sentiment_reason": "",
-        "ai_verdict": {},
-        "_market": "jp"
-      },
-      {
-        "ticker": "9984.T",
-        "name": "ソフトバンクグループ",
-        "market": "jp",
-        "sector": "情報・通信業",
-        "tech_score": 80,
-        "tech_diag": {
-          "rsi14": 56.884532000969834,
-          "macd": 221.83906414685043,
-          "macd_signal": 167.81954126338547,
-          "sma5": 6172.6,
-          "sma25": 5717.76,
-          "sma75": 5984.08,
-          "pattern": "ベース",
-          "drop_pct": 9.3,
-          "vol_ratio": 1.61,
-          "weekly_trend": "上昇",
-          "weekly_score": 10,
-          "weekly_signals": [
-            "週足MACD正",
-            "週足>13週線"
-          ],
-          "sma5w": 5772.2,
-          "sma13w": 5777.0,
-          "sma25w": 5821.4
-        },
-        "tech_parts": {
-          "trend": 40,
-          "momentum": 20,
-          "heat": 0,
-          "volume": 10,
-          "pullback": 0,
-          "breakout": 0,
-          "weekly": 10
-        },
-        "fundamentals": {
-          "eps": 872.73,
-          "per": 7.2,
-          "pbr": 1.97,
-          "roe": 32.0,
-          "revenue_growth": 10.9,
-          "earnings_growth": -17.8,
-          "operating_margin": -11.6,
-          "profit_margin": 61.6,
-          "dividend_yield": 17.0,
-          "target_price": 7749.7,
-          "target_upside": 22.7,
-          "recommendation": "buy",
-          "week52_pct": 51.7
-        },
-        "near_earnings": false,
-        "earnings_days": 33,
-        "earnings_label": "",
-        "is_focus_sector": false,
-        "current_price": 6315.0,
-        "high20": 6959.0,
-        "low20": 4882.0,
-        "atr14": 332.64285714285717,
-        "bb2_upper": 7080.792027816013,
-        "bb2_lower": 4455.107972183987,
-        "adr": {
-          "ticker": "SFTBY",
-          "last": 20.37,
-          "change_pct": -3.69,
-          "gap_up": false,
-          "gap_down": true
-        },
-        "upper_target": 6959.0,
-        "lower_target": 5816.0,
-        "rr": 3.29743520880891,
-        "score": 29,
-        "raw_score": 80,
-        "score_parts": {
-          "trend": 40,
-          "momentum": 20,
-          "heat": 0,
-          "volume": 10,
-          "pullback": 0,
-          "breakout": 0,
-          "weekly": 10,
           "fundamental": 0
         },
         "sentiment_score": 0,
@@ -18143,14 +17787,14 @@
         "bb2_lower": 7926.762472761206,
         "adr": {
           "ticker": "NTDOY",
-          "last": 13.25,
-          "change_pct": -1.12,
+          "last": 13.27,
+          "change_pct": 0.15,
           "gap_up": false,
-          "gap_down": true
+          "gap_down": false
         },
         "upper_target": 9180.0,
         "lower_target": 7994.2,
-        "rr": 3.7169972154344366,
+        "rr": 2.3188724510195895,
         "score": 27,
         "raw_score": 75,
         "score_parts": {
@@ -18476,14 +18120,14 @@
         "bb2_lower": 3562.144811954458,
         "adr": {
           "ticker": "SONY",
-          "last": 23.46,
-          "change_pct": -1.55,
-          "gap_up": false,
-          "gap_down": true
+          "last": 23.59,
+          "change_pct": 0.55,
+          "gap_up": true,
+          "gap_down": false
         },
         "upper_target": 4051.3,
         "lower_target": 3582.0,
-        "rr": 7.132672236491215,
+        "rr": 2.4682571178532227,
         "score": 25,
         "raw_score": 70,
         "score_parts": {
@@ -18563,14 +18207,14 @@
         "bb2_lower": 3756.6514154705606,
         "adr": {
           "ticker": "CJPRY",
-          "last": 12.14,
-          "change_pct": -1.54,
+          "last": 12.11,
+          "change_pct": -0.25,
           "gap_up": false,
-          "gap_down": true
+          "gap_down": false
         },
         "upper_target": 4012.7,
         "lower_target": 3753.0,
-        "rr": 80.17143266545433,
+        "rr": 3.94759208627503,
         "score": 25,
         "raw_score": 70,
         "score_parts": {
@@ -19165,7 +18809,7 @@
           "dividend_yield": 281.0,
           "target_price": 662.5,
           "target_upside": 3.3,
-          "recommendation": "none",
+          "recommendation": "hold",
           "week52_pct": 62.6
         },
         "near_earnings": false,
@@ -20114,270 +19758,6 @@
         "_market": "jp"
       },
       {
-        "ticker": "8306.T",
-        "name": "三菱ＵＦＪフィナンシャル・グループ",
-        "market": "jp",
-        "sector": "銀行業",
-        "tech_score": 100,
-        "tech_diag": {
-          "rsi14": 48.635076246303285,
-          "macd": 20.332678706733986,
-          "macd_signal": 30.333202314959593,
-          "sma5": 3663.0,
-          "sma25": 3633.36,
-          "sma75": 3497.0133333333333,
-          "pattern": "押し目",
-          "drop_pct": 4.6,
-          "vol_ratio": 1.39,
-          "weekly_trend": "強い上昇",
-          "weekly_score": 20,
-          "weekly_signals": [
-            "週足5>25線",
-            "週足MACD正",
-            "週足>13週線"
-          ],
-          "sma5w": 3646.4,
-          "sma13w": 3562.5,
-          "sma25w": 3272.9
-        },
-        "tech_parts": {
-          "trend": 30,
-          "momentum": 10,
-          "heat": 10,
-          "volume": 0,
-          "pullback": 30,
-          "breakout": 0,
-          "weekly": 20
-        },
-        "fundamentals": {
-          "eps": 236.39,
-          "per": 15.3,
-          "pbr": 1.79,
-          "roe": 9.5,
-          "revenue_growth": 28.8,
-          "earnings_growth": 50.9,
-          "operating_margin": 45.6,
-          "profit_margin": 27.4,
-          "dividend_yield": 265.0,
-          "target_price": 3685.5,
-          "target_upside": 1.8,
-          "recommendation": "buy",
-          "week52_pct": 87.8
-        },
-        "near_earnings": false,
-        "earnings_days": 34,
-        "earnings_label": "",
-        "is_focus_sector": false,
-        "current_price": 3620.0,
-        "high20": 3795.0,
-        "low20": 3472.0,
-        "atr14": 88.35714285714286,
-        "bb2_upper": 3791.7923518813204,
-        "bb2_lower": 3514.607648118679,
-        "adr": {
-          "ticker": "MUFG",
-          "last": 23.13,
-          "change_pct": -1.57,
-          "gap_up": false,
-          "gap_down": true
-        },
-        "upper_target": 3791.8,
-        "lower_target": 3487.5,
-        "rr": 3.0182900371012913,
-        "score": 36,
-        "raw_score": 100,
-        "score_parts": {
-          "trend": 30,
-          "momentum": 10,
-          "heat": 10,
-          "volume": 0,
-          "pullback": 30,
-          "breakout": 0,
-          "weekly": 20,
-          "fundamental": 0
-        },
-        "sentiment_score": 0,
-        "sentiment_reason": "",
-        "ai_verdict": {},
-        "_market": "jp"
-      },
-      {
-        "ticker": "6702.T",
-        "name": "富士通",
-        "market": "jp",
-        "sector": "電気機器",
-        "tech_score": 98,
-        "tech_diag": {
-          "rsi14": 59.14297618377409,
-          "macd": 83.66141695389479,
-          "macd_signal": 75.9127067495205,
-          "sma5": 3978.4,
-          "sma25": 3806.16,
-          "sma75": 3541.0533333333333,
-          "pattern": "ベース",
-          "drop_pct": 2.4,
-          "vol_ratio": 1.17,
-          "weekly_trend": "強い上昇",
-          "weekly_score": 20,
-          "weekly_signals": [
-            "週足5>25線",
-            "週足MACD正",
-            "週足>13週線"
-          ],
-          "sma5w": 3835.6,
-          "sma13w": 3600.2,
-          "sma25w": 3491.0
-        },
-        "tech_parts": {
-          "trend": 50,
-          "momentum": 20,
-          "heat": 0,
-          "volume": 0,
-          "pullback": 8,
-          "breakout": 0,
-          "weekly": 20
-        },
-        "fundamentals": {
-          "eps": 174.68,
-          "per": 22.8,
-          "pbr": 3.39,
-          "roe": 16.2,
-          "revenue_growth": 3.9,
-          "earnings_growth": -76.1,
-          "operating_margin": 6.7,
-          "profit_margin": 9.0,
-          "dividend_yield": 138.0,
-          "target_price": 4801.5,
-          "target_upside": 20.7,
-          "recommendation": "buy",
-          "week52_pct": 58.3
-        },
-        "near_earnings": false,
-        "earnings_days": 25,
-        "earnings_label": "",
-        "is_focus_sector": false,
-        "current_price": 3979.0,
-        "high20": 4075.0,
-        "low20": 3664.0,
-        "atr14": 96.21428571428571,
-        "bb2_upper": 4046.890722902175,
-        "bb2_lower": 3642.409277097825,
-        "adr": {
-          "ticker": "FJTSY",
-          "last": 25.07,
-          "change_pct": -2.79,
-          "gap_up": false,
-          "gap_down": true
-        },
-        "upper_target": 4046.9,
-        "lower_target": 3834.7,
-        "rr": 5.368639058157475,
-        "score": 35,
-        "raw_score": 98,
-        "score_parts": {
-          "trend": 50,
-          "momentum": 20,
-          "heat": 0,
-          "volume": 0,
-          "pullback": 8,
-          "breakout": 0,
-          "weekly": 20,
-          "fundamental": 0
-        },
-        "sentiment_score": 0,
-        "sentiment_reason": "",
-        "ai_verdict": {},
-        "_market": "jp"
-      },
-      {
-        "ticker": "8309.T",
-        "name": "三井住友トラストグループ",
-        "market": "jp",
-        "sector": "銀行業",
-        "tech_score": 95,
-        "tech_diag": {
-          "rsi14": 53.49089958492219,
-          "macd": 19.55283639152094,
-          "macd_signal": 23.50926272886106,
-          "sma5": 1781.1,
-          "sma25": 1757.68,
-          "sma75": 1652.1266666666668,
-          "pattern": "押し目",
-          "drop_pct": 2.2,
-          "vol_ratio": 1.45,
-          "weekly_trend": "強い上昇",
-          "weekly_score": 20,
-          "weekly_signals": [
-            "週足5>25線",
-            "週足MACD正",
-            "週足>13週線"
-          ],
-          "sma5w": 1768.3,
-          "sma13w": 1687.9,
-          "sma25w": 1540.2
-        },
-        "tech_parts": {
-          "trend": 30,
-          "momentum": 10,
-          "heat": 10,
-          "volume": 0,
-          "pullback": 25,
-          "breakout": 0,
-          "weekly": 20
-        },
-        "fundamentals": {
-          "eps": 132.11,
-          "per": 13.4,
-          "pbr": 1.33,
-          "roe": 10.8,
-          "revenue_growth": 27.3,
-          "earnings_growth": 59.8,
-          "operating_margin": 39.5,
-          "profit_margin": 21.3,
-          "dividend_yield": 269.0,
-          "target_price": 1721.3,
-          "target_upside": -2.7,
-          "recommendation": "buy",
-          "week52_pct": 93.4
-        },
-        "near_earnings": false,
-        "earnings_days": 34,
-        "earnings_label": "",
-        "is_focus_sector": false,
-        "current_price": 1768.5,
-        "high20": 1822.5,
-        "low20": 1697.5,
-        "atr14": 40.535714285714285,
-        "bb2_upper": 1820.1729810596244,
-        "bb2_lower": 1718.3270189403756,
-        "adr": {
-          "ticker": "SMTOY",
-          "last": 6.61,
-          "change_pct": -0.6,
-          "gap_up": false,
-          "gap_down": true
-        },
-        "upper_target": 1820.2,
-        "lower_target": 1757.7,
-        "rr": 283.05900481643886,
-        "score": 34,
-        "raw_score": 95,
-        "score_parts": {
-          "trend": 30,
-          "momentum": 10,
-          "heat": 10,
-          "volume": 0,
-          "pullback": 25,
-          "breakout": 0,
-          "weekly": 20,
-          "fundamental": 0
-        },
-        "sentiment_score": 0,
-        "sentiment_reason": "",
-        "ai_verdict": {},
-        "_market": "jp"
-      },
-      {
         "ticker": "8729.T",
         "name": "ソニーフィナンシャルグループ",
         "market": "jp",
@@ -20868,21 +20248,21 @@
         "_market": "jp"
       },
       {
-        "ticker": "8316.T",
-        "name": "三井住友フィナンシャルグループ",
+        "ticker": "8411.T",
+        "name": "みずほフィナンシャルグループ",
         "market": "jp",
         "sector": "銀行業",
         "tech_score": 92,
         "tech_diag": {
-          "rsi14": 48.351840557711164,
-          "macd": 20.69645906218284,
-          "macd_signal": 36.425063596151226,
-          "sma5": 6884.4,
-          "sma25": 6850.32,
-          "sma75": 6724.533333333334,
+          "rsi14": 49.320105456143466,
+          "macd": 60.896387904642324,
+          "macd_signal": 83.20635948315221,
+          "sma5": 8599.6,
+          "sma25": 8494.28,
+          "sma75": 8235.28,
           "pattern": "押し目",
-          "drop_pct": 3.7,
-          "vol_ratio": 1.72,
+          "drop_pct": 4.1,
+          "vol_ratio": 1.37,
           "weekly_trend": "強い上昇",
           "weekly_score": 20,
           "weekly_signals": [
@@ -20890,61 +20270,61 @@
             "週足MACD正",
             "週足>13週線"
           ],
-          "sma5w": 6866.4,
-          "sma13w": 6819.7,
-          "sma25w": 6329.7
+          "sma5w": 8503.8,
+          "sma13w": 8347.2,
+          "sma25w": 7726.6
         },
         "tech_parts": {
-          "trend": 20,
+          "trend": 30,
           "momentum": 10,
           "heat": 10,
-          "volume": 10,
+          "volume": 0,
           "pullback": 22,
           "breakout": 0,
           "weekly": 20
         },
         "fundamentals": {
-          "eps": 446.0,
-          "per": 15.3,
-          "pbr": 1.61,
-          "roe": 8.6,
-          "revenue_growth": 24.8,
-          "earnings_growth": 35.0,
-          "operating_margin": 40.9,
-          "profit_margin": 27.8,
-          "dividend_yield": 132.0,
-          "target_price": 7398.3,
-          "target_upside": 8.3,
+          "eps": 560.67,
+          "per": 15.2,
+          "pbr": 1.8,
+          "roe": 12.5,
+          "revenue_growth": 35.0,
+          "earnings_growth": 49.7,
+          "operating_margin": 46.7,
+          "profit_margin": 29.1,
+          "dividend_yield": 177.0,
+          "target_price": 9011.8,
+          "target_upside": 6.1,
           "recommendation": "buy",
-          "week52_pct": 87.3
+          "week52_pct": 90.8
         },
         "near_earnings": false,
-        "earnings_days": 34,
+        "earnings_days": 35,
         "earnings_label": "",
         "is_focus_sector": false,
-        "current_price": 6830.0,
-        "high20": 7181.0,
-        "low20": 6534.0,
-        "atr14": 169.78571428571428,
-        "bb2_upper": 7146.128429818855,
-        "bb2_lower": 6625.871570181145,
+        "current_price": 8495.0,
+        "high20": 8894.0,
+        "low20": 8056.0,
+        "atr14": 240.0,
+        "bb2_upper": 8910.445939555852,
+        "bb2_lower": 8188.854060444147,
         "adr": {
-          "ticker": "SMFG",
-          "last": 26.24,
-          "change_pct": -1.8,
-          "gap_up": false,
-          "gap_down": true
+          "ticker": "MFG",
+          "last": 11.09,
+          "change_pct": 1.37,
+          "gap_up": true,
+          "gap_down": false
         },
-        "upper_target": 7146.1,
-        "lower_target": 6575.3,
-        "rr": 3.3315616117209275,
+        "upper_target": 8894.0,
+        "lower_target": 8494.3,
+        "rr": 2.412909836065598,
         "score": 33,
         "raw_score": 92,
         "score_parts": {
-          "trend": 20,
+          "trend": 30,
           "momentum": 10,
           "heat": 10,
-          "volume": 10,
+          "volume": 0,
           "pullback": 22,
           "breakout": 0,
           "weekly": 20,
@@ -21490,8 +20870,8 @@
           "operating_margin": 65.6,
           "profit_margin": 56.1,
           "dividend_yield": 390.0,
-          "target_price": 3640.0,
-          "target_upside": 15.3,
+          "target_price": 3680.0,
+          "target_upside": 16.6,
           "recommendation": "buy",
           "week52_pct": 55.7
         },
@@ -21588,13 +20968,13 @@
         "adr": {
           "ticker": "FUJIY",
           "last": 10.58,
-          "change_pct": -1.4,
+          "change_pct": 0.0,
           "gap_up": false,
-          "gap_down": true
+          "gap_down": false
         },
         "upper_target": 3418.6,
         "lower_target": 3272.9,
-        "rr": 30.544018893169415,
+        "rr": 1.8508092192183014,
         "score": 29,
         "raw_score": 80,
         "score_parts": {
@@ -21755,14 +21135,14 @@
         "bb2_lower": 2936.6513333085795,
         "adr": {
           "ticker": "TM",
-          "last": 191.53,
-          "change_pct": -1.23,
-          "gap_up": false,
-          "gap_down": true
+          "last": 192.5,
+          "change_pct": 0.51,
+          "gap_up": true,
+          "gap_down": false
         },
         "upper_target": 3201.5,
         "lower_target": 2939.5,
-        "rr": 4.424403037089423,
+        "rr": 1.5966171128981157,
         "score": 29,
         "raw_score": 80,
         "score_parts": {
@@ -21773,93 +21153,6 @@
           "pullback": 30,
           "breakout": 0,
           "weekly": 15,
-          "fundamental": 0
-        },
-        "sentiment_score": 0,
-        "sentiment_reason": "",
-        "ai_verdict": {},
-        "_market": "jp"
-      },
-      {
-        "ticker": "9984.T",
-        "name": "ソフトバンクグループ",
-        "market": "jp",
-        "sector": "情報・通信業",
-        "tech_score": 80,
-        "tech_diag": {
-          "rsi14": 56.884532000969834,
-          "macd": 221.83906414685043,
-          "macd_signal": 167.81954126338547,
-          "sma5": 6172.6,
-          "sma25": 5717.76,
-          "sma75": 5984.08,
-          "pattern": "ベース",
-          "drop_pct": 9.3,
-          "vol_ratio": 1.61,
-          "weekly_trend": "上昇",
-          "weekly_score": 10,
-          "weekly_signals": [
-            "週足MACD正",
-            "週足>13週線"
-          ],
-          "sma5w": 5772.2,
-          "sma13w": 5777.0,
-          "sma25w": 5821.4
-        },
-        "tech_parts": {
-          "trend": 40,
-          "momentum": 20,
-          "heat": 0,
-          "volume": 10,
-          "pullback": 0,
-          "breakout": 0,
-          "weekly": 10
-        },
-        "fundamentals": {
-          "eps": 872.73,
-          "per": 7.2,
-          "pbr": 1.97,
-          "roe": 32.0,
-          "revenue_growth": 10.9,
-          "earnings_growth": -17.8,
-          "operating_margin": -11.6,
-          "profit_margin": 61.6,
-          "dividend_yield": 17.0,
-          "target_price": 7749.7,
-          "target_upside": 22.7,
-          "recommendation": "buy",
-          "week52_pct": 51.7
-        },
-        "near_earnings": false,
-        "earnings_days": 33,
-        "earnings_label": "",
-        "is_focus_sector": false,
-        "current_price": 6315.0,
-        "high20": 6959.0,
-        "low20": 4882.0,
-        "atr14": 332.64285714285717,
-        "bb2_upper": 7080.792027816013,
-        "bb2_lower": 4455.107972183987,
-        "adr": {
-          "ticker": "SFTBY",
-          "last": 20.37,
-          "change_pct": -3.69,
-          "gap_up": false,
-          "gap_down": true
-        },
-        "upper_target": 6959.0,
-        "lower_target": 5816.0,
-        "rr": 3.29743520880891,
-        "score": 29,
-        "raw_score": 80,
-        "score_parts": {
-          "trend": 40,
-          "momentum": 20,
-          "heat": 0,
-          "volume": 10,
-          "pullback": 0,
-          "breakout": 0,
-          "weekly": 10,
           "fundamental": 0
         },
         "sentiment_score": 0,
@@ -22174,14 +21467,14 @@
         "bb2_lower": 7926.762472761206,
         "adr": {
           "ticker": "NTDOY",
-          "last": 13.25,
-          "change_pct": -1.12,
+          "last": 13.27,
+          "change_pct": 0.15,
           "gap_up": false,
-          "gap_down": true
+          "gap_down": false
         },
         "upper_target": 9180.0,
         "lower_target": 7994.2,
-        "rr": 3.7169972154344366,
+        "rr": 2.3188724510195895,
         "score": 27,
         "raw_score": 75,
         "score_parts": {
@@ -22507,14 +21800,14 @@
         "bb2_lower": 3562.144811954458,
         "adr": {
           "ticker": "SONY",
-          "last": 23.46,
-          "change_pct": -1.55,
-          "gap_up": false,
-          "gap_down": true
+          "last": 23.59,
+          "change_pct": 0.55,
+          "gap_up": true,
+          "gap_down": false
         },
         "upper_target": 4051.3,
         "lower_target": 3582.0,
-        "rr": 7.132672236491215,
+        "rr": 2.4682571178532227,
         "score": 25,
         "raw_score": 70,
         "score_parts": {
@@ -22594,14 +21887,14 @@
         "bb2_lower": 3756.6514154705606,
         "adr": {
           "ticker": "CJPRY",
-          "last": 12.14,
-          "change_pct": -1.54,
+          "last": 12.11,
+          "change_pct": -0.25,
           "gap_up": false,
-          "gap_down": true
+          "gap_down": false
         },
         "upper_target": 4012.7,
         "lower_target": 3753.0,
-        "rr": 80.17143266545433,
+        "rr": 3.94759208627503,
         "score": 25,
         "raw_score": 70,
         "score_parts": {
